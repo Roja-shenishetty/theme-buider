@@ -25,6 +25,7 @@ useEffect(() => {
   applyTheme(theme);
   localStorage.setItem("theme", JSON.stringify(theme));
 }, [theme]);
+
   const updateColor = (
     key: ColorKey,
     value: string,

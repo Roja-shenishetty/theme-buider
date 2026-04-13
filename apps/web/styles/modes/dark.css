@@ -1,0 +1,39 @@
+/* 🌙 DARK MODE */
+
+.dark {
+  --background: #0b1220;
+  --foreground: #e2e8f0;
+
+  --card: #1e293b;
+  --border: #334155;
+
+  --muted: #94a3b8;
+  --mutedBg: #1e293b;
+
+  --input: #0f172a;
+
+  --primary: #818cf8;
+  --secondary: #22d3ee;
+}
+
+/* 🔥 Components override */
+.dark .card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.dark input {
+  background: var(--input);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}
+
+.dark input::placeholder {
+  color: #64748b;
+}
+
+.dark .btn-primary {
+  background: linear-gradient(135deg, var(--primary), #6366f1);
+  color: white;
+}

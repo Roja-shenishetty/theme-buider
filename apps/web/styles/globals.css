@@ -27,10 +27,18 @@
 
   --radius: var(--radius-md);
 }
-
+html, body {
+  height: 100%;
+}
 /* ========================= */
 /* DEFAULT FALLBACK */
 /* ========================= */
+* {
+  transition: background 0.25s ease,
+              color 0.25s ease,
+              border 0.25s ease;
+}
+
 :root {
   --primary: #6366f1;
   --secondary: #06b6d4;
@@ -69,6 +77,11 @@
     color: var(--foreground);
     line-height: 1.6;
   }
+
+  body {
+  background: var(--background);
+  color: var(--foreground);
+}
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
@@ -126,7 +139,7 @@
 /* Input */
 .input {
   border: 1px solid var(--border);
-  background: var(--surface);
+  background: var(--input);
   padding: 8px 12px;
   border-radius: var(--radius-md);
   transition: all 0.2s ease;
@@ -171,3 +184,4 @@
 .text-surface-hover {
   color: var(--surface-hover);
 }
+

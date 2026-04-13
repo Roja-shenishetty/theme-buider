@@ -113,7 +113,8 @@ export function Button({
   return (
     <button
       type="button"
-      className={cn(buttonVariants({ variant, intent, size }), className)}
+      className={cn(buttonVariants({ variant, intent, size }),   intent === "primary" && "btn-primary",
+  intent === "secondary" && "btn-secondary",className)}
       {...props}
     />
   );

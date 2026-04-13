@@ -1,0 +1,54 @@
+/* 🔘 BUTTON */
+.theme-dashboard .btn-primary {
+  background: var(--primary);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+.theme-dashboard .btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+.theme-dashboard .btn-secondary {
+  background: var(--secondary);
+  color: white;
+}
+.theme-dashboard input {
+  border-radius: 999px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+}
+.theme-dashboard .card {
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+/* SIDEBAR */
+.theme-dashboard .sidebar {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.7);
+}
+
+/* HEADER */
+.theme-dashboard .header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+
+/* dashboard */
+.theme-dashboard .btn-primary {
+  border-radius: 12px;
+}
+.theme-dashboard .nav-item {
+  border-radius: 12px;
+}
+
+.theme-dashboard .nav-item:hover {
+  background: var(--mutedBg);
+  transform: translateX(4px);
+}
+
+.theme-dashboard .nav-active {
+  background: var(--primary);
+  color: white;
+}

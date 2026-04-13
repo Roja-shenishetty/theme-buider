@@ -7,23 +7,17 @@ const inputVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "border border-border bg-white text-foreground placeholder:text-muted",
-
+        default: "border border-border bg-white text-foreground",
         filled:
-          "bg-mutedBg border border-transparent focus:bg-white",
-
-        ghost:
-          "bg-transparent border border-border",
+"bg-mutedBg border border-transparent focus:bg-input",
+        ghost: "bg-transparent border border-border",
       },
-
       size: {
         sm: "px-3 py-1.5",
         md: "px-4 py-2",
         lg: "px-5 py-3",
       },
     },
-
     defaultVariants: {
       variant: "default",
       size: "md",
@@ -32,13 +26,13 @@ const inputVariants = cva(
 );
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
     VariantProps<typeof inputVariants> {}
 
 export function Input({ className, variant, size, ...props }: InputProps) {
   return (
     <input
-      className={cn(inputVariants({ variant, size }), className)}
+      className={cn("input", inputVariants({ variant, size }), className)}
       {...props}
     />
   );
