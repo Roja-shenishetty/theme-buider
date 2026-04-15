@@ -1,15 +1,30 @@
 "use client";
 
+import { applyTheme } from "./applyTheme";
+import { tokens } from "./tokens";
+
 export function toggleDarkMode() {
-  const root = document.documentElement;
+  if (typeof window === "undefined") return;
 
-  root.classList.toggle("dark");
+  const current =
+    localStorage.getItem("mode") === "dark" ? "light" : "dark";
 
-  const isDark = root.classList.contains("dark");
-  localStorage.setItem("dark", isDark ? "true" : "false");
-}
+  // ✅ SAVE MODE
+  localStorage.setItem("mode", current);
 
-export function isDarkMode() {
-  const root = document.documentElement;
-  return root.classList.contains("dark");
+  console.log("🌗 Switching to:", current);
+
+  // ✅ APPLY IMMEDIATELY
+  const saved = localStorage.getItem("themeTokens");
+
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      applyTheme(parsed, current);
+    } catch {
+      applyTheme(tokens, current);
+    }
+  } else {
+    applyTheme(tokens, current);
+  }
 }

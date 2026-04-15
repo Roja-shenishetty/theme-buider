@@ -13,6 +13,7 @@
 /* THEME MAPPING */
 /* ========================= */
 @theme inline {
+  /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -24,37 +25,37 @@
 
   --color-border: var(--border);
   --color-card: var(--card);
+  --color-input: var(--input);
 
-  --radius: var(--radius-md);
+  /* Radius */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+
+  /* Shadows */
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
 }
+
+/* ========================= */
+/* BASE */
+/* ========================= */
+
 html, body {
   height: 100%;
 }
-/* ========================= */
-/* DEFAULT FALLBACK */
-/* ========================= */
+
 * {
   transition: background 0.25s ease,
               color 0.25s ease,
               border 0.25s ease;
 }
 
+/* ❌ REMOVE ALL HARD-CODED COLORS FROM :root */
+/* Keep only NON-COLOR defaults */
+
 :root {
-  --primary: #6366f1;
-  --secondary: #06b6d4;
-
-  --background: #f9fafb;
-  --foreground: #111827;
-
-  --surface: #ffffff;
-  --surface-hover: #f3f4f6;
-
-  --muted: #6b7280;
-  --mutedBg: #f3f4f6;
-
-  --border: #e5e7eb;
-  --card: #ffffff;
-
   --font-heading: "Inter", sans-serif;
   --font-body: "Inter", sans-serif;
 
@@ -70,6 +71,7 @@ html, body {
 /* ========================= */
 /* BASE STYLES */
 /* ========================= */
+
 @layer base {
   body {
     font-family: var(--font-body);
@@ -77,11 +79,6 @@ html, body {
     color: var(--foreground);
     line-height: 1.6;
   }
-
-  body {
-  background: var(--background);
-  color: var(--foreground);
-}
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
@@ -95,16 +92,10 @@ html, body {
     font-size: 16px;
     color: var(--muted);
   }
-
-  button {
-    font-weight: 500;
-    border-radius: var(--radius-md);
-    transition: all 0.2s ease;
-  }
 }
 
 /* ========================= */
-/* COMPONENT UTILITIES (🔥) */
+/* COMPONENT UTILITIES */
 /* ========================= */
 
 /* Card */
@@ -114,24 +105,56 @@ html, body {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   padding: 16px;
-  transition: all 0.2s ease;
 }
 
-.card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
+/* ========================= */
+/* BUTTON SYSTEM */
+/* ========================= */
 
-/* Button Primary */
-.btn-primary {
-  background: var(--primary);
-  color: white;
+/* BASE */
+.btn {
   padding: 8px 16px;
   border-radius: var(--radius-md);
   transition: all 0.2s ease;
+  font-weight: 500;
 }
 
-.btn-primary:hover {
+/* 🔵 PRIMARY */
+.btn-primary-solid {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary-outline {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+}
+
+.btn-primary-ghost {
+  background: transparent;
+  color: var(--primary);
+}
+
+/* 🟢 SECONDARY */
+.btn-secondary-solid {
+  background: var(--secondary);
+  color: white;
+}
+
+.btn-secondary-outline {
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
+  background: transparent;
+}
+
+.btn-secondary-ghost {
+  background: transparent;
+  color: var(--secondary);
+}
+
+/* HOVER */
+.btn:hover {
   opacity: 0.9;
   transform: scale(1.03);
 }
@@ -142,46 +165,13 @@ html, body {
   background: var(--input);
   padding: 8px 12px;
   border-radius: var(--radius-md);
-  transition: all 0.2s ease;
 }
 
-.input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
-}
-
-/*text colors*/
+/* ========================= */
 /* TEXT COLORS */
-.text-primary {
-  color: var(--primary);
-}
+/* ========================= */
 
-.text-secondary {
-  color: var(--secondary);
-}
-
-.text-destructive {
-  color: var(--destructive);
-}
-
-.text-muted {
-  color: var(--muted);
-}
-
-.text-foreground {
-  color: var(--foreground);
-}
-
-.text-muted-bg {
-  color: var(--mutedBg);
-}
-
-.text-surface {
-  color: var(--surface);
-}
-
-.text-surface-hover {
-  color: var(--surface-hover);
-}
-
+.text-primary { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+.text-muted { color: var(--muted); }
+.text-foreground { color: var(--foreground); }

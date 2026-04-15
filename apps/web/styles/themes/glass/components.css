@@ -1,39 +1,38 @@
-.theme-glass .card {
+[data-style="glass"] .card {
   backdrop-filter: blur(12px);
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: color-mix(in srgb, var(--background) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
 }
 
-.theme-glass button {
+[data-style="glass"] button {
   backdrop-filter: blur(8px);
 }
 
-.theme-glass input {
-  background: rgba(255,255,255,0.1);
+[data-style="glass"] input {
+  background: color-mix(in srgb, var(--background) 20%, transparent);
 }
-/* SIDEBAR */
-.theme-glass .sidebar {
-  background: rgba(255,255,255,0.1);
+
+/* Sidebar */
+[data-style="glass"] .sidebar {
+  background: color-mix(in srgb, var(--background) 20%, transparent);
   backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255,255,255,0.2);
+  border-right: 1px solid var(--border);
 }
 
-/* HEADER */
-.theme-glass .header {
-  backdrop-filter: blur(10px);
-}
-/* glass */
-.theme-glass .btn-primary {
-  backdrop-filter: blur(8px);
-}
-.theme-glass .nav-item {
+/* Header */
+[data-style="glass"] .header {
   backdrop-filter: blur(10px);
 }
 
-.theme-glass .nav-item:hover {
-  background: rgba(255,255,255,0.1);
+/* Nav */
+[data-style="glass"] .nav-item {
+  backdrop-filter: blur(10px);
 }
 
-.theme-glass .nav-active {
-  background: rgba(255,255,255,0.2);
+[data-style="glass"] .nav-item:hover {
+  background: color-mix(in srgb, var(--background) 30%, transparent);
+}
+
+[data-style="glass"] .nav-active {
+  background: color-mix(in srgb, var(--primary) 30%, transparent);
 }

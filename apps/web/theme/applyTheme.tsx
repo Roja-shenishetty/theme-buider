@@ -1,56 +1,45 @@
-import { tokens } from "./tokens";
+import { tokens as defaultTokens } from "./tokens";
 
-type Theme = typeof tokens;
-type ColorValue = string | Record<number, string>;
+type Theme = typeof defaultTokens;
+type Mode = "light" | "dark";
 
-export function applyTheme(theme: Theme) {
+export function applyTheme(theme: Theme, mode: Mode) {
   const root = document.documentElement;
 
-  Object.entries(theme.colors).forEach(([key, value]) => {
+  const active = theme?.[mode] || defaultTokens[mode];
+
+  if (!active?.colors) {
+    console.error("Invalid theme:", theme);
+    return;
+  }
+
+  // 🔥 APPLY ALL COLORS
+  Object.entries(active.colors).forEach(([key, value]) => {
     if (!value) return;
 
-    const color = value as ColorValue;
-
-    // 🎨 COLOR SCALE (primary, secondary)
-    if (typeof color === "object") {
-      Object.entries(color).forEach(([shade, val]) => {
-        if (!val) return;
+    if (typeof value === "object") {
+      Object.entries(value).forEach(([shade, val]) => {
         root.style.setProperty(`--${key}-${shade}`, String(val));
       });
 
-      // ✅ SAFE access to 500
-      if ("500" in color) {
-        root.style.setProperty(`--${key}`, String(color[500]));
+      if ("500" in value) {
+        root.style.setProperty(`--${key}`, String(value[500]));
       }
     } else {
-      // 🎨 SINGLE VALUE (background, etc.)
-      root.style.setProperty(`--${key}`, String(color));
+      root.style.setProperty(`--${key}`, String(value));
     }
   });
 
-  // 🔤 TYPOGRAPHY
- root.style.setProperty(
-  "--font-heading",
-  theme.typography.fontFamily.heading
-);
+  // 🔤 typography
+  root.style.setProperty(
+    "--font-heading",
+    theme.typography.fontFamily.heading
+  );
 
-root.style.setProperty(
-  "--font-body",
-  theme.typography.fontFamily.body
-);
+  root.style.setProperty(
+    "--font-body",
+    theme.typography.fontFamily.body
+  );
 
-  // 📏 SPACING
-  Object.entries(theme.spacing).forEach(([key, val]) => {
-    root.style.setProperty(`--space-${key}`, String(val));
-  });
-
-  // 🔘 RADIUS
-  Object.entries(theme.radius).forEach(([key, val]) => {
-    root.style.setProperty(`--radius-${key}`, String(val));
-  });
-
-  // 🌫 SHADOW
-  Object.entries(theme.shadow).forEach(([key, val]) => {
-    root.style.setProperty(`--shadow-${key}`, String(val));
-  });
+  console.log("✅ Applied theme mode:", mode);
 }

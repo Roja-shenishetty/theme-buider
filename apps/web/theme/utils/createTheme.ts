@@ -1,4 +1,4 @@
-import { generateShades } from "./generateShades";
+import { generateShades } from "../theme/utils/generateShades";
 
 export function createTheme(baseColor: string) {
   const primary = generateShades(baseColor);
