@@ -1,0 +1,16 @@
+/* 🔥 STRONG DARK MODE */
+html.dark {
+  --background: #0b1220;
+  --foreground: #e2e8f0;
+
+  --card: #1e293b;
+  --border: #334155;
+
+  --muted: #94a3b8;
+  --mutedBg: #1e293b;
+
+  --input: #0f172a;
+
+  --primary: #818cf8;
+  --secondary: #22d3ee;
+}

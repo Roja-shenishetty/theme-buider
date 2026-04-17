@@ -1,0 +1,38 @@
+[data-style="glass"] .card {
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--background) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+}
+
+[data-style="glass"] button {
+  backdrop-filter: blur(8px);
+}
+
+[data-style="glass"] input {
+  background: color-mix(in srgb, var(--background) 20%, transparent);
+}
+
+/* Sidebar */
+[data-style="glass"] .sidebar {
+  background: color-mix(in srgb, var(--background) 20%, transparent);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border);
+}
+
+/* Header */
+[data-style="glass"] .header {
+  backdrop-filter: blur(10px);
+}
+
+/* Nav */
+[data-style="glass"] .nav-item {
+  backdrop-filter: blur(10px);
+}
+
+[data-style="glass"] .nav-item:hover {
+  background: color-mix(in srgb, var(--background) 30%, transparent);
+}
+
+[data-style="glass"] .nav-active {
+  background: color-mix(in srgb, var(--primary) 30%, transparent);
+}

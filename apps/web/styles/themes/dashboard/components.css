@@ -1,0 +1,50 @@
+/* ================= DASHBOARD ================= */
+
+[data-style="dashboard"] .btn-primary-solid {
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+[data-style="dashboard"] .btn-primary-solid:hover {
+  transform: translateY(-2px);
+}
+
+[data-style="dashboard"] .btn-secondary-outline {
+  border-radius: 12px;
+}
+
+[data-style="dashboard"] .btn-secondary-outline:hover {
+  transform: translateY(-2px);
+}
+
+[data-style="dashboard"] input {
+  border-radius: 999px;
+  padding: 12px 16px;
+}
+
+[data-style="dashboard"] .card {
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+}
+[data-style="dashboard"] .sidebar {
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+[data-style="dashboard"] .header {
+  border-bottom: 1px solid var(--border);
+}
+
+[data-style="dashboard"] .nav-item {
+  border-radius: 12px;
+}
+
+[data-style="dashboard"] .nav-item:hover {
+  background: var(--mutedBg);
+  transform: translateX(4px);
+}
+
+[data-style="dashboard"] .nav-active {
+  background: var(--primary);
+  color: white;
+}
