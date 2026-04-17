@@ -1,63 +1,60 @@
 "use client"
-import { useState, useEffect} from "react"
-import { Button } from "@/components/ui/button"
-import { generateTheme } from "@/lib/theme"
+
+import { useState } from "react"
+import ControlsPanel from "@/components/builder/ControlsPanel"
+import { useApplyTheme } from "@/lib/useTheme"
+import PreviewLayout from "@/components/preview/PreviewLayout"
 
 export default function Page() {
-  const [color, setColor] = useState("#6750A4")
- 
+ const [theme, setTheme] = useState({
+  colors: {
+    primary: "#6750A4",
+    secondary: "#625B71",
+    background: "#ffffff",
+    surface: "#f5f5f5",
+  },
 
-useEffect(() => {
-  const theme = generateTheme(color)
+  radius: 16,
+  spacing: 16,
 
-  document.documentElement.style.setProperty("--primary", theme.primary)
-  document.documentElement.style.setProperty("--secondary", theme.secondary)
-  document.documentElement.style.setProperty("--background", theme.background)
-  document.documentElement.style.setProperty("--foreground", theme.foreground)
-}, [color])
+  typography: {
+    fontSize: 16,
+    fontWeight: 500,
+    lineHeight: 1.5,
+  },
+
+  components: {
+    button: {
+      radius: 16,
+      elevation: 1,
+    },
+    card: {
+      radius: 16,
+      elevation: 1,
+    },
+  },
+})
+
+  // Apply theme globally
+  useApplyTheme(theme)
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      
-      {/* LEFT PANEL */}
-      <div style={{
-  width: "280px",
-  padding: 20,
-  borderRight: "1px solid #e5e7eb",
-  background: "black",
-  color: "white",
-  display: "flex",
-  flexDirection: "column",
-}}>
-  <h2 style={{ marginBottom: 20 }}>Theme Builder</h2>
+    <div className="flex h-screen overflow-hidden">
 
-  {/* Primary */}
-  <div>
-    <label>Primary Color</label>
-    <input type="color" value={color} onChange={(e) => setColor(e.target.value)} />
-  </div>
-</div>
+      {/* LEFT PANEL */}
+      <ControlsPanel theme={theme} setTheme={setTheme} />
 
       {/* RIGHT PANEL */}
-      <div className="flex flex-1 items-center justify-center gap-4 bg-background text-foreground">
+      <div className="flex-1 overflow-auto bg-background">
 
-  <Button>
-    Primary Button
-  </Button>
+        <div className="flex min-h-full items-center justify-center gap-10 p-10">
 
-  <Button variant="secondary">
-    Secondary Button
-  </Button>
+          {/* Desktop Preview */}
+          <PreviewLayout type="desktop" />
 
-  <div className="bg-primary text-primary-foreground p-6 rounded-lg">
-    Primary Card
-  </div>
+        </div>
 
-  <div className="bg-secondary text-secondary-foreground p-6 rounded-lg">
-    Secondary Card
-  </div>
-
-</div>
+      </div>
 
     </div>
   )

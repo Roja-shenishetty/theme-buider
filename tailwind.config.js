@@ -6,24 +6,31 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+  colors: {
+  background: "hsl(var(--background))",
+  foreground: "hsl(var(--foreground))",
 
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
+  primary: {
+    DEFAULT: "hsl(var(--primary))",
+    foreground: "hsl(var(--primary-foreground))",
+  },
 
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
+  secondary: {
+    DEFAULT: "hsl(var(--secondary))",
+    foreground: "hsl(var(--secondary-foreground))",
+  },
 
-        border: "hsl(var(--border))",
-        muted: "hsl(var(--muted))",
-      },
+  surface: "hsl(var(--surface))",
+  muted: "hsl(var(--muted))",
+  border: "hsl(var(--border))",
+}
     },
+      screens: {
+    sm: "640px",
+    md: "768px",
+    lg: "1024px",
+    xl: "1280px",
+  },
   },
   plugins: [],
 }

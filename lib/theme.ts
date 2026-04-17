@@ -1,4 +1,37 @@
-export function hexToHsl(hex: string) {
+import {
+  argbFromHex,
+  themeFromSourceColor,
+  hexFromArgb,
+} from "@material/material-color-utilities"
+
+export function generateTheme(baseColor: string) {
+  const argb = argbFromHex(baseColor)
+  const theme = themeFromSourceColor(argb)
+  const light = theme.schemes.light
+
+  return {
+    primary: hexFromArgb(light.primary),
+    primaryForeground: hexFromArgb(light.onPrimary),
+
+    primaryContainer: hexFromArgb(light.primaryContainer),
+    primaryContainerForeground: hexFromArgb(light.onPrimaryContainer),
+
+    secondary: hexFromArgb(light.secondary),
+    secondaryForeground: hexFromArgb(light.onSecondary),
+
+    background: hexFromArgb(light.background),
+    foreground: hexFromArgb(light.onBackground),
+
+    surface: hexFromArgb(light.surface),
+    surfaceVariant: hexFromArgb(light.surfaceVariant),
+
+    outline: hexFromArgb(light.outline),
+  }
+}
+
+export function hexToHsl(hex?: string) {
+  if (!hex) return "0 0% 50%" // fallback color
+
   const r = parseInt(hex.slice(1, 3), 16) / 255
   const g = parseInt(hex.slice(3, 5), 16) / 255
   const b = parseInt(hex.slice(5, 7), 16) / 255
@@ -22,15 +55,4 @@ export function hexToHsl(hex: string) {
   }
 
   return `${Math.round(h * 360)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%`
-}
-
-export function generateTheme(hex: string) {
-  const primary = hexToHsl(hex)
-
-  return {
-    primary,
-    secondary: primary, // temporary (we’ll improve later)
-    background: "0 0% 100%",
-    foreground: "222 47% 11%",
-  }
 }
