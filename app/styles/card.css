@@ -1,0 +1,117 @@
+/* Card Design Tokens */
+.card {
+  @apply rounded-lg border transition-all duration-300 relative overflow-hidden;
+  background: hsl(var(--surface));
+  color: hsl(var(--foreground));
+  border-color: hsl(var(--border));
+  box-shadow: var(--elevation-1);
+}
+
+/* 🔥 Hover effect */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--elevation-3);
+}
+
+/* 🔥 Single side border (LEFT accent) */
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: hsl(var(--primary));
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+/* Enhance on hover */
+.card:hover::before {
+  width: 5px;
+  opacity: 1;
+}
+
+.card-header {
+  @apply flex flex-col gap-2 p-4;
+}
+
+.card-title {
+  @apply font-semibold text-lg leading-tight tracking-tight;
+}
+
+.card-description {
+  @apply text-sm text-muted-foreground;
+}
+
+.card-content {
+  @apply p-4 pt-0;
+}
+
+.card-footer {
+  @apply flex items-center gap-2 p-4 pt-0;
+}
+.card-elevated {
+  box-shadow: var(--elevation-3);
+}
+
+.card-outline {
+  @apply border;
+}
+
+/* Glass effect */
+.card-glass {
+  backdrop-filter: blur(12px);
+  background: hsl(var(--surface) / 0.6);
+  border: 1px solid hsl(var(--border) / 0.3);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.card-glass:hover {
+  backdrop-filter: blur(16px);
+}
+
+/* Neon glow */
+.card-neon {
+  transition: all 0.3s ease;
+}
+
+.card-neon:hover {
+  box-shadow:
+    0 0 0 1px hsl(var(--primary) / 0.2),
+    0 0 12px hsl(var(--primary) / 0.4),
+    0 0 24px hsl(var(--primary) / 0.3);
+}
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.6);
+  }
+}
+
+/* ================= LAYOUTS ================= */
+
+/* Avatar layout */
+.card-layout-avatar .card-header {
+  @apply flex flex-row items-center gap-3;
+}
+
+/* Horizontal layout */
+.card-layout-horizontal {
+  @apply flex flex-row items-center;
+}
+
+.card-layout-horizontal img {
+  @apply w-24 h-full object-cover;
+}
+
+/* Image layout */
+.card-layout-image img {
+  @apply w-full h-40 object-cover;
+}
+
+.card-animated {
+  animation: glow 2s infinite ease-in-out;
+}

@@ -1,0 +1,53 @@
+/* ================= HEADINGS ================= */
+.text-h1 {
+  @apply font-semibold tracking-tight;
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+}
+
+.text-h2 {
+  @apply font-semibold tracking-tight;
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2vw, 2rem);
+}
+
+.text-h3 {
+  @apply font-semibold;
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+}
+
+/* ================= BODY ================= */
+.text-body {
+  @apply text-foreground;
+  font-size: 1rem;
+}
+
+.text-body-muted {
+  @apply text-muted-foreground;
+  font-size: 1rem;
+}
+
+/* ================= SMALL ================= */
+.text-small {
+  @apply text-muted-foreground;
+  font-size: 0.875rem;
+}
+
+/* ================= LABEL ================= */
+.text-label {
+  @apply font-medium;
+  font-size: 0.875rem;
+}
+
+/* ================= CAPTION ================= */
+.text-caption {
+  @apply text-muted-foreground;
+  font-size: 0.75rem;
+}
+
+/* ================= CODE ================= */
+.text-code {
+  @apply font-mono bg-muted px-1.5 py-0.5 rounded;
+  font-size: 0.875rem;
+}

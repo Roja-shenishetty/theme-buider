@@ -4,27 +4,23 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}"
   ],
-  theme: {
-    extend: {
-  colors: {
-  background: "hsl(var(--background))",
-  foreground: "hsl(var(--foreground))",
+ theme: {
+  extend: {
+    colors: {
+      primary: "hsl(var(--primary))",
+      "primary-foreground": "hsl(var(--primary-foreground))",
 
-  primary: {
-    DEFAULT: "hsl(var(--primary))",
-    foreground: "hsl(var(--primary-foreground))",
-  },
+      secondary: "hsl(var(--secondary))",
+      "secondary-foreground": "hsl(var(--secondary-foreground))",
 
-  secondary: {
-    DEFAULT: "hsl(var(--secondary))",
-    foreground: "hsl(var(--secondary-foreground))",
-  },
-
-  surface: "hsl(var(--surface))",
-  muted: "hsl(var(--muted))",
-  border: "hsl(var(--border))",
-}
+      muted: "hsl(var(--muted))",
+      border: "hsl(var(--border))",
+      foreground: "hsl(var(--foreground))",
+      "muted-foreground": "hsl(var(--muted-foreground))",
+      accent: "hsl(var(--accent))",
+      "accent-foreground": "hsl(var(--accent-foreground))",
     },
+  },
       screens: {
     sm: "640px",
     md: "768px",

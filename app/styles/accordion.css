@@ -1,0 +1,378 @@
+/* ===== Page ===== */
+
+.page-wrapper {
+  background: #020617; /* zinc-950 */
+  min-height: 100vh;
+  color: white;
+  padding: 2.5rem 0;
+}
+
+/* ===== Layout Wrapper ===== */
+
+.section {
+  width: 100%;
+  padding: 0 4rem;
+  box-sizing: border-box; /* keep padding inside width */
+}
+
+/* ===== Section Block ===== */
+
+.section-block {
+  margin-bottom: 3.5rem;
+}
+
+/* ===== Title ===== */
+
+.section-title {
+  font-size: 0.75rem;
+  color: #71717a;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ===== Outer Container ===== */
+
+.section-box {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+
+  padding: 3rem 2rem;
+  border: 1px solid #27272a;
+  border-radius: 20px;
+
+  box-sizing: border-box;
+}
+
+.section-box:hover {
+  border-color: #3f3f46;
+  transition: border-color 0.2s ease;
+}
+
+/* ===== Inner Dark Surface ===== */
+
+.section-inner {
+  width: 560px;          /* 🔥 FIXED width (not max-width) */
+  margin: 0 auto;
+
+  background: #18181b;
+  border-radius: 18px;
+  padding: 1.5rem;
+
+  box-sizing: border-box;
+}
+
+/* ============================= */
+/* ===== Accordion Styles ===== */
+/* ============================= */
+
+.accordion-item {
+  border-bottom: 1px solid #27272a;
+}
+
+.accordion-item:last-child {
+  border-bottom: none;
+}
+
+/* TRIGGER */
+
+.accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;      /* 🔥 lock width */
+  min-width: 0;     /* 🔥 allow shrink */
+
+  padding: 0.9rem 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.accordion-trigger:hover {
+  background: rgba(255, 255, 255, 0.03);
+  transform: translateX(2px);
+  border-radius: 6px;
+}
+
+/* LEFT CONTENT */
+
+.accordion-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  flex: 1;          /* 🔥 take remaining space */
+  min-width: 0;     /* 🔥 allow shrink */
+}
+
+/* prevent text from pushing width */
+.accordion-left > *:not(svg) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ICON */
+
+.accordion-icon {
+  width: 16px;
+  height: 16px;
+  color: #a1a1aa;
+  flex-shrink: 0;
+}
+
+/* CHEVRON */
+
+.accordion-chevron {
+  width: 16px;
+  height: 16px;
+  color: #71717a;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;   /* 🔥 don't stretch */
+}
+
+/* rotate when open */
+
+.group[data-state="open"] .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+/* CONTENT */
+
+.accordion-content {
+  overflow: hidden;
+  width: 100%;        /* 🔥 contain width */
+  box-sizing: border-box;
+}
+
+/* INNER CONTENT */
+
+.accordion-content-inner {
+  padding: 0.25rem 0 1rem 1.75rem;
+  font-size: 0.85rem;
+  color: #a1a1aa;
+  line-height: 1.5;
+
+  width: 100%;        /* 🔥 prevent expansion */
+  box-sizing: border-box;
+  word-break: break-word; /* wrap long text */
+  max-width: 100%;
+}
+
+/* ===== Controls ===== */
+
+.accordion-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.accordion-status {
+  font-size: 0.75rem;
+  color: #71717a;
+}
+
+.accordion-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.accordion-btn {
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 6px;
+  padding: 4px 6px;
+  cursor: pointer;
+  color: #a1a1aa;
+  transition: all 0.2s ease;
+}
+
+.accordion-btn:hover {
+  background: #27272a;
+}
+
+.accordion-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* wrapper keeps icon aligned */
+.indicator-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* rotate only caret/arrow (not plus/minus) */
+.group[data-state="open"] .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+/* ===== Disabled Section ===== */
+
+.disabled-group {
+  margin-bottom: 1.5rem;
+}
+
+.disabled-title {
+  font-size: 0.75rem;
+  color: #71717a;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== Disabled States ===== */
+
+/* entire accordion disabled */
+[data-disabled] .accordion-trigger {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* individual item disabled */
+.accordion-item[data-disabled] .accordion-trigger {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* prevent hover effects */
+.accordion-item[data-disabled] .accordion-trigger:hover {
+  background: none;
+  transform: none;
+}
+
+/* ===== Custom Trigger Layout ===== */
+
+.custom-trigger {
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* LEFT BLOCK */
+
+.custom-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ICON */
+
+.custom-icon {
+  width: 44px;
+  height: 44px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* hover animation */
+
+.accordion-item:hover .custom-icon {
+  transform: scale(1.1) rotate(-6deg);
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+}
+
+/* TEXT BLOCK */
+
+.custom-text {
+  display: flex;
+  flex-direction: column;
+}
+
+/* TITLE */
+
+.custom-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}
+
+/* SUBTITLE */
+
+.custom-subtitle {
+  font-size: 0.8rem;
+  color: #a1a1aa;
+}
+
+/* CONTENT TEXT */
+
+.accordion-content-inner {
+  color: #a1a1aa;
+}
+
+/* ===== Remove separators ===== */
+
+.no-separator .accordion-item {
+  border-bottom: none;
+}
+
+/* ===== FAQ Layout ===== */
+
+.faq-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* HEADER */
+
+.faq-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: white;
+}
+
+.faq-subtitle {
+  margin-top: 0.5rem;
+  color: #a1a1aa;
+}
+
+/* CATEGORY */
+
+.faq-category {
+  margin-top: 2rem;
+}
+
+.faq-category-title {
+  color: #a1a1aa;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ===== Accordion Container (MAIN LOOK) ===== */
+
+.faq-accordion-box {
+  background: #18181b; /* zinc-900 */
+  border-radius: 16px;
+  padding: 0.25rem 1rem;
+}
+
+/* ===== Items ===== */
+
+.faq-accordion-box .accordion-item {
+  border-bottom: 1px solid #27272a;
+}
+
+.faq-accordion-box .accordion-item:last-child {
+  border-bottom: none;
+}
+
+/* ===== Trigger ===== */
+
+.faq-accordion-box .accordion-trigger {
+  padding: 1rem 0;
+}
+
+/* hover feel */
+
+.faq-accordion-box .accordion-trigger:hover {
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+}

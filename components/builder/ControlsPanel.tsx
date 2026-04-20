@@ -1,176 +1,145 @@
 "use client"
 
 import { useState } from "react"
-import Tabs from "./Tabs"
-import TonalPalette from "./TonalPalette"
 
-export default function ControlsPanel({ theme, setTheme }: any) {
-  const [activeTab, setActiveTab] = useState("colors")
+type Props = {
+  theme: any
+  setTheme: any
+  setActiveComponent: (value: string) => void
+  activeComponent: string
+}
 
-  return (
-    <div className="w-80 p-6 border-r bg-neutral-900 text-white flex flex-col">
+export default function ControlsPanel({
+  theme,
+  setTheme,
+  setActiveComponent,
+  activeComponent,
+}: Props) {
+  const [activeMenu, setActiveMenu] = useState("components")
 
-      <h2 className="text-xl font-semibold mb-4">Theme Builder</h2>
+  const menu = [
+    { name: "Introduction", id: "intro" },
+    { name: "Quick Start", id: "quick-start" },
+    { name: "Design Principles", id: "design" },
+    { name: "Showcase", id: "showcase" },
+    { name: "Components", id: "components" },
+  ]
 
-      <Tabs active={activeTab} setActive={setActiveTab} />
+  const items = [
+    { name: "Colors", id: "colors" },
+    { name: "Typography", id: "typography" },
+    { name: "Spacing", id: "spacing" },
+    { name: "Radius", id: "radius" },
+    { name: "Accordion", id: "accordion" },
+    { name: "Alert", id: "alert" },
+    { name: "AlertDialog", id: "alertdialog" },
+    { name: "Autocomplete", id: "autocomplete" },
+    { name: "Avatar", id: "avatar" },
+    { name: "Badge", id: "badge" },
+    { name: "Breadcrumbs", id: "breadcrumbs" },
+    { name: "Button", id: "button" },
+    { name: "ButtonGroup", id: "buttongroup" },
+    { name: "Calendar", id: "calendar" },
+    { name: "Card", id: "card" },
+    { name: "Checkbox", id: "checkbox" },
+    { name: "CheckboxGroup", id: "checkboxgroup" },
+    { name: "Chip", id: "chip" },
+    { name: "CloseButton", id: "closebutton" },
+    { name: "ColorArea", id: "colorarea" },
+    { name: "ColorField", id: "colorfield" },
+    { name: "ColorSlider", id: "colorslider" },
+    { name: "ColorSwatch", id: "colorswatch" },
+    { name: "ColorSwatchPicker", id: "colorswatchpicker" },
+    { name: "ColorPicker", id: "colorpicker" },
+    { name: "ComboBox", id: "combobox" },
+    { name: "DateField", id: "datefield" },
+    { name: "DatePicker", id: "datepicker" },
+    { name: "DateRangePicker", id: "daterangepicker" },
+    { name: "Description", id: "description" },
+    { name: "Disclosure", id: "disclosure" },
+    { name: "DisclosureGroup", id: "disclosuregroup" },
+    { name: "Drawer", id: "drawer" },
+    { name: "Dropdown", id: "dropdown" },
+    { name: "ErrorMessage", id: "errormessage" },
+    { name: "FieldError", id: "fielderror" },
+    { name: "Fieldset", id: "fieldset" },
+    { name: "Form", id: "form" },
+    { name: "Input", id: "input" },
+    { name: "InputGroup", id: "inputgroup" },
+    { name: "InputOTP", id: "inputotp" },
+    { name: "Kbd", id: "kbd" },
+    { name: "Label", id: "label" },
+    { name: "Link", id: "link" },
+    { name: "ListBox", id: "listbox" },
+    { name: "Meter", id: "meter" },
+    { name: "Modal", id: "modal" },
+    { name: "NumberField", id: "numberfield" },
+    { name: "Pagination", id: "pagination" },
+    { name: "Popover", id: "popover" },
+    { name: "ProgressBar", id: "progressbar" },
+    { name: "ProgressCircle", id: "progresscircle" },
+    { name: "RadioGroup", id: "radiogroup" },
+    { name: "RangeCalendar", id: "rangecalendar" },
+    { name: "ScrollShadow", id: "scrollshadow" },
+    { name: "SearchField", id: "searchfield" },
+    { name: "Select", id: "select" },
+    { name: "Separator", id: "separator" },
+    { name: "Skeleton", id: "skeleton" },
+    { name: "Slider", id: "slider" },
+    { name: "Spinner", id: "spinner" },
+    { name: "Surface", id: "surface" },
+    { name: "Switch", id: "switch" },
+    { name: "Table", id: "table" },
+    { name: "Tabs", id: "tabs" },
+    { name: "TagGroup", id: "taggroup" },
+    { name: "TextField", id: "textfield" },
+    { name: "TextArea", id: "textarea" },
+    { name: "TimeField", id: "timefield" },
+    { name: "Toast", id: "toast" },
+    { name: "Toolbar", id: "toolbar" },
+    { name: "ToggleButton", id: "togglebutton" },
+    { name: "ToggleButtonGroup", id: "togglebuttongroup" },
+    { name: "Tooltip", id: "tooltip" },
+  ]
 
-      {/* CONTENT */}
-      <div className="flex flex-col gap-6">
-
-        {activeTab === "colors" && (
-  <div className="flex flex-col gap-4">
-
-    {/* 🎨 Color Pickers */}
-    {["primary", "secondary", "background", "surface"].map((key) => (
-      <div key={key} className="bg-neutral-800 p-3 rounded-lg">
-        <label className="text-sm capitalize">{key}</label>
-
-        <input
-          type="color"
-          value={theme.colors[key]}
-          onChange={(e) =>
-            setTheme({
-              ...theme,
-              colors: {
-                ...theme.colors,
-                [key]: e.target.value,
-              },
-            })
-          }
-          className="w-full h-10 mt-2 cursor-pointer"
-        />
-      </div>
-    ))}
-
-    {/* 🔥 ADD THIS (IMPORTANT) */}
-    <div className="mt-4">
-      <p className="text-sm text-gray-400 mb-2">Tonal Palette</p>
-      <TonalPalette color={theme.colors.primary} />
-    </div>
-
-  </div>
-)}
-
-        {/* 🔤 TYPOGRAPHY */}
-        {activeTab === "typography" && (
-          <div className="flex flex-col gap-4">
-
-            <div>
-              <label className="text-sm">Font Size: {theme.fontSize}px</label>
-              <input
-                type="range"
-                min="12"
-                max="24"
-                value={theme.fontSize}
-                onChange={(e) =>
-                  setTheme({ ...theme, fontSize: +e.target.value })
-                }
-                className="w-full"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm">Font Weight: {theme.fontWeight}</label>
-              <input
-                type="range"
-                min="300"
-                max="800"
-                step="100"
-                value={theme.fontWeight}
-                onChange={(e) =>
-                  setTheme({ ...theme, fontWeight: +e.target.value })
-                }
-                className="w-full"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm">Line Height: {theme.lineHeight}</label>
-              <input
-                type="range"
-                min="1"
-                max="2"
-                step="0.1"
-                value={theme.lineHeight}
-                onChange={(e) =>
-                  setTheme({ ...theme, lineHeight: +e.target.value })
-                }
-                className="w-full"
-              />
-            </div>
-
-          </div>
-        )}
-
-        {/* 📏 SPACING */}
-        {activeTab === "spacing" && (
-          <div>
-            <label className="text-sm">Spacing: {theme.spacing}px</label>
-            <input
-              type="range"
-              min="8"
-              max="40"
-              value={theme.spacing}
-              onChange={(e) =>
-                setTheme({ ...theme, spacing: +e.target.value })
-              }
-              className="w-full"
-            />
-          </div>
-        )}
-
-        {/* 📐 LAYOUT */}
-        {activeTab === "layout" && (
-  <div className="flex flex-col gap-4">
-
+    return (
     <div>
-      <label>Button Radius: {theme.components.button.radius}px</label>
-      <input
-        type="range"
-        min="4"
-        max="40"
-        value={theme.components.button.radius}
-        onChange={(e) =>
-          setTheme({
-            ...theme,
-            components: {
-              ...theme.components,
-              button: {
-                ...theme.components.button,
-                radius: +e.target.value,
-              },
-            },
-          })
-        }
-      />
-    </div>
 
-    <div>
-      <label>Card Radius: {theme.components.card.radius}px</label>
-      <input
-        type="range"
-        min="4"
-        max="40"
-        value={theme.components.card.radius}
-        onChange={(e) =>
-          setTheme({
-            ...theme,
-            components: {
-              ...theme.components,
-              card: {
-                ...theme.components.card,
-                radius: +e.target.value,
-              },
-            },
-          })
-        }
-      />
-    </div>
+       {/* 🔹 MENU */}
+      <ul className="sidebar-menu">
+        {menu.map((item) => (
+          <li key={item.id}>
+            <span
+  onClick={() => {
+    setActiveMenu((prev) =>
+      prev === item.id ? "" : item.id
+    )
+    setActiveComponent(item.id) // ✅ IMPORTANT
+  }}
+  className="sidebar-item"
+>
+  {item.name}
+</span>
+          </li>
+        ))}
+      </ul>
 
-  </div>
-)}
+      {/* 🔥 COMPONENT LIST */}
+      <ul className="sidebar-list">
+  {items.map((item) => (
+    <li key={item.id}>
+      <span
+        onClick={() => setActiveComponent(item.id)}
+        className={`sidebar-link ${
+          activeComponent === item.id ? "active" : ""
+        }`}
+      >
+        {item.name}
+      </span>
+    </li>
+  ))}
+</ul>
 
-      </div>
     </div>
   )
 }

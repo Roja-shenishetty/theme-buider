@@ -1,0 +1,32 @@
+/* 🔹 SIDEBAR MENU (top items) */
+.sidebar-menu {
+  @apply mb-4 space-y-1;
+}
+
+.sidebar-item {
+  @apply block px-2 py-1 text-sm font-medium text-muted-foreground cursor-pointer transition-colors;
+}
+
+.sidebar-item:hover {
+  @apply text-foreground;
+}
+
+/* 🔹 COMPONENT LIST */
+.sidebar-list {
+  @apply space-y-1 overflow-y-auto max-h-[70vh] pl-2;
+}
+
+/* 🔹 LINK STYLE (single source of truth) */
+.sidebar-link {
+  @apply block px-2 py-1 text-sm text-muted-foreground cursor-pointer transition-colors;
+}
+
+.sidebar-link:hover {
+  @apply bg-muted text-foreground rounded;
+}
+
+/* 🔥 ACTIVE STATE */
+.sidebar-link.active {
+  @apply text-foreground font-medium border-l-2 border-foreground pl-2;
+}
+
