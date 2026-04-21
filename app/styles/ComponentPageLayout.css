@@ -1,0 +1,15 @@
+/* 🔹 BASE TAB */
+.tab {
+  @apply px-4 py-2 text-sm rounded-full transition-all duration-200 cursor-pointer;
+  @apply text-muted-foreground;
+}
+
+/* Hover */
+.tab:hover {
+  @apply bg-muted text-foreground;
+}
+
+/* 🔥 ACTIVE - PRIMARY */
+.tab.active {
+  @apply bg-primary text-primary-foreground;
+}

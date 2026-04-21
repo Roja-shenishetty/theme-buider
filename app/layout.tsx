@@ -6,6 +6,8 @@ import "./styles/typography.css";
 import "./styles/sidebar.css";
 import "./styles/radius-spacing.css";
 import "./styles/accordion.css";
+import "./styles/button.css";
+import "./styles/borders.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

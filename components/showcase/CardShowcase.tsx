@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Card,
   CardHeader,
@@ -6,23 +8,58 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card"
-
 import { Button } from "@/components/ui/button"
 import { PreviewTabs } from "../docs/preview-tabs"
 
-export function CardShowcase() {
-  
+function Section({
+  title,
+  description,
+  children,
+}: {
+  title: string
+  description?: string
+  children: React.ReactNode
+}) {
   return (
-    <div className="space-y-10">
+    <section className="space-y-5 animate-fade-up">
+      <div className="space-y-1">
+        <h3 className="text-base font-semibold tracking-tight">
+          {title}
+        </h3>
+        {description && (
+          <p className="text-sm text-muted-foreground max-w-2xl">
+            {description}
+          </p>
+        )}
+      </div>
 
-      {/* 🔹 Basic Card */}
-      <div>
-        <h3 className="text-sm font-medium mb-2">Basic</h3>
+      <div className="rounded-xl border bg-background p-5 shadow-sm transition-all hover:shadow-md">
+        {children}
+      </div>
+    </section>
+  )
+}
 
+export function CardShowcase() {
+  return (
+    <div className="max-w-5xl space-y-14">
+
+      {/* 🔹 Header */}
+      <section className="space-y-3 pb-6 border-b animate-fade-up">
+        <h1 className="text-2xl font-bold tracking-tight">
+          Cards
+        </h1>
+        <p className="text-muted-foreground max-w-2xl">
+          Cards group related content and actions into flexible containers.
+        </p>
+      </section>
+
+      {/* 🔹 Basic */}
+      <Section title="Basic Card">
         <Card className="w-[300px]">
           <CardHeader>
             <CardTitle>Card Title</CardTitle>
-            <CardDescription>Card Desc</CardDescription>
+            <CardDescription>Card Description</CardDescription>
           </CardHeader>
 
           <CardContent>
@@ -32,72 +69,48 @@ export function CardShowcase() {
           </CardContent>
 
           <CardFooter>
-            <Button size="sm">Card Footer</Button>
+            <Button size="sm">Action</Button>
           </CardFooter>
         </Card>
-      </div>
+      </Section>
 
-      {/* 🔥 Avatar Cards */}
-      <PreviewTabs
-        preview={
-          <div className="flex gap-4 flex-wrap">
+      {/* 🔹 Avatar Cards */}
+      <Section title="Avatar Cards">
+        <PreviewTabs
+          preview={
+            <div className="flex gap-4 flex-wrap">
+              {[1, 2].map((i) => (
+                <Card key={i} className="w-[200px] gap-2 hover:scale-105 transition">
+                  <img
+                    src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/demo1.jpg"
+                    className="w-14 h-14 rounded-xl object-cover"
+                  />
 
-            <Card className="w-[200px] gap-2">
-              <img
-                src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/demo1.jpg"
-                className="w-14 h-14 rounded-xl object-cover"
-              />
+                  <CardHeader>
+                    <CardTitle>Community {i}</CardTitle>
+                    <CardDescription>Members</CardDescription>
+                  </CardHeader>
 
-              <CardHeader>
-                <CardTitle>Indie Hackers</CardTitle>
-                <CardDescription>148 members</CardDescription>
-              </CardHeader>
+                  <CardFooter className="flex items-center gap-2">
+                    <img
+                      src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg"
+                      className="w-5 h-5 rounded-full"
+                    />
+                    <span className="text-xs text-muted-foreground">
+                      By User
+                    </span>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          }
+          code={`<Card>Avatar card</Card>`}
+        />
+      </Section>
 
-              <CardFooter className="flex items-center gap-2">
-                <img
-                  src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg"
-                  className="w-5 h-5 rounded-full"
-                />
-                <span className="text-xs text-muted-foreground">
-                  By Martha
-                </span>
-              </CardFooter>
-            </Card>
-
-            <Card className="w-[200px] gap-2">
-              <img
-                src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/demo2.jpg"
-                className="w-14 h-14 rounded-xl object-cover"
-              />
-
-              <CardHeader>
-                <CardTitle>AI Builders</CardTitle>
-                <CardDescription>362 members</CardDescription>
-              </CardHeader>
-
-              <CardFooter className="flex items-center gap-2">
-                <img
-                  src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg"
-                  className="w-5 h-5 rounded-full"
-                />
-                <span className="text-xs text-muted-foreground">
-                  By John
-                </span>
-              </CardFooter>
-            </Card>
-
-          </div>
-        }
-        code={`<Card>Avatar card example</Card>`}
-      />
-
-      {/* 🔹 Horizontal Card */}
-      <div>
-        <h3 className="text-sm font-medium mb-2">Horizontal</h3>
-
+      {/* 🔹 Horizontal */}
+      <Section title="Horizontal Card">
         <Card className="flex flex-row w-full max-w-[600px] overflow-hidden">
-
-          {/* Image */}
           <div className="w-[140px] h-[140px] shrink-0">
             <img
               src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/cherries.jpeg"
@@ -105,38 +118,29 @@ export function CardShowcase() {
             />
           </div>
 
-          {/* Content */}
-          <div className="flex flex-col flex-1 p-4 gap-3 relative">
-
+          <div className="flex flex-col flex-1 p-4 gap-3">
             <CardHeader className="p-0">
-              <CardTitle>Become an ACME Creator!</CardTitle>
+              <CardTitle>Creator Program</CardTitle>
               <CardDescription>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Join and build something amazing
               </CardDescription>
             </CardHeader>
 
-            <CardFooter className="p-0 mt-auto flex justify-between items-center">
-              <div>
-                <p className="text-sm font-medium">Only 10 spots</p>
-                <p className="text-xs text-muted-foreground">
-                  Submission ends Oct 10
-                </p>
-              </div>
-
+            <CardFooter className="p-0 mt-auto flex justify-between">
+              <span className="text-xs text-muted-foreground">
+                Limited spots
+              </span>
               <Button size="sm">Apply</Button>
             </CardFooter>
-
           </div>
         </Card>
-      </div>
+      </Section>
 
       {/* 🔹 Grid */}
-      <div>
-        <h3 className="text-sm font-medium mb-2">Grid</h3>
-
+      <Section title="Grid Layout">
         <div className="flex gap-4 flex-wrap">
           {[1, 2, 3].map((i) => (
-            <Card key={i} className="w-[260px]">
+            <Card key={i} className="w-[260px] hover:shadow-md transition">
               <CardHeader>
                 <CardTitle>Card {i}</CardTitle>
                 <CardDescription>Example</CardDescription>
@@ -150,13 +154,11 @@ export function CardShowcase() {
             </Card>
           ))}
         </div>
-      </div>
+      </Section>
 
       {/* 🔹 Elevated */}
-      <div>
-        <h3 className="text-sm font-medium mb-2">Elevated</h3>
-
-        <Card className="card-elevated w-[300px]">
+      <Section title="Elevated">
+        <Card className="w-[300px] shadow-lg hover:shadow-xl transition">
           <CardHeader>
             <CardTitle>Elevated Card</CardTitle>
           </CardHeader>
@@ -167,212 +169,67 @@ export function CardShowcase() {
             </p>
           </CardContent>
         </Card>
-      </div>
+      </Section>
 
-      {/* 🔥 Advanced Layout Cards (Converted from HeroUI) */}
-<div>
-  <h3 className="text-sm font-medium mb-4">Advanced Layout</h3>
+      {/* 🔥 NEW VARIANTS */}
 
-  <div className="grid grid-cols-12 gap-4 max-w-5xl">
+      {/* 🔹 Interactive Card */}
+      <Section title="Interactive Card">
+        <Card className="w-[280px] cursor-pointer hover:scale-105 hover:shadow-lg transition">
+          <CardHeader>
+            <CardTitle>Clickable Card</CardTitle>
+            <CardDescription>Hover me</CardDescription>
+          </CardHeader>
+        </Card>
+      </Section>
 
-    {/* 🔹 Row 1 - Horizontal Banner */}
-    <Card className="col-span-12 flex flex-col sm:flex-row overflow-hidden">
+      {/* 🔹 Glass Card */}
+      <Section title="Glass Card">
+        <Card className="w-[280px] backdrop-blur bg-white/10 border border-white/20">
+          <CardHeader>
+            <CardTitle>Glass Effect</CardTitle>
+            <CardDescription>Modern UI style</CardDescription>
+          </CardHeader>
+        </Card>
+      </Section>
 
-      <div className="w-full sm:w-[120px] h-[120px] overflow-hidden">
-        <img
-          src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/cherries.jpeg"
-          className="w-full h-full object-cover"
-        />
-      </div>
+      {/* 🔹 Image Overlay Card */}
+      <Section title="Image Overlay">
+        <Card className="w-[300px] relative overflow-hidden text-white">
+          <img
+            src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/neo2.jpeg"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
 
-      <div className="flex flex-col flex-1 p-4 gap-3">
-
-        <CardHeader className="p-0">
-          <CardTitle>Become an ACME Creator!</CardTitle>
-          <CardDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </CardDescription>
-        </CardHeader>
-
-        <CardFooter className="p-0 mt-auto flex justify-between items-center">
-          <div>
-            <p className="text-sm font-medium">Only 10 spots</p>
-            <p className="text-xs text-muted-foreground">
-              Submission ends Oct 10
-            </p>
-          </div>
-
-          <Button size="sm">Apply Now</Button>
-        </CardFooter>
-
-      </div>
-    </Card>
-
-    {/* 🔹 Row 2 LEFT */}
-    <div className="col-span-12 lg:col-span-6 grid gap-4">
-
-      {/* Notification Card */}
-      <Card>
-        <CardHeader className="flex gap-3 items-start">
-          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-            💰
-          </div>
-
-          <div>
-            <p className="text-xs text-muted-foreground uppercase">
-              Payment
-            </p>
-            <CardTitle className="text-sm">
-              Withdraw via crypto
-            </CardTitle>
-            <CardDescription className="text-xs">
-              Add your wallet in settings
+          <div className="relative z-10 p-4 bg-black/40">
+            <CardTitle>Overlay Card</CardTitle>
+            <CardDescription className="text-white/80">
+              Content over image
             </CardDescription>
           </div>
-        </CardHeader>
-
-        <CardFooter>
-          <a className="text-sm underline cursor-pointer">
-            Go to settings →
-          </a>
-        </CardFooter>
-      </Card>
-
-      {/* Small Cards Grid */}
-      <div className="grid grid-cols-2 gap-4">
-
-        <Card>
-          <CardHeader>
-            <img
-              src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/demo1.jpg"
-              className="w-14 h-14 rounded-xl object-cover"
-            />
-          </CardHeader>
-
-          <CardContent>
-            <p className="text-sm font-medium">Indie Hackers</p>
-            <p className="text-xs text-muted-foreground">
-              148 members
-            </p>
-          </CardContent>
-
-          <CardFooter className="flex items-center gap-2">
-            <img
-              src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg"
-              className="w-4 h-4 rounded-full"
-            />
-            <p className="text-xs text-muted-foreground">
-              By John
-            </p>
-          </CardFooter>
         </Card>
+      </Section>
 
-        <Card>
-          <CardHeader>
-            <img
-              src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/demo2.jpg"
-              className="w-14 h-14 rounded-xl object-cover"
-            />
-          </CardHeader>
-
-          <CardContent>
-            <p className="text-sm font-medium">AI Builders</p>
-            <p className="text-xs text-muted-foreground">
-              362 members
-            </p>
+      {/* 🔹 Stats Card */}
+      <Section title="Stats Card">
+        <Card className="w-[240px]">
+          <CardContent className="space-y-1">
+            <p className="text-sm text-muted-foreground">Revenue</p>
+            <p className="text-2xl font-bold">$12,340</p>
+            <p className="text-xs text-green-500">+12%</p>
           </CardContent>
-
-          <CardFooter className="flex items-center gap-2">
-            <img
-              src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg"
-              className="w-4 h-4 rounded-full"
-            />
-            <p className="text-xs text-muted-foreground">
-              By Martha
-            </p>
-          </CardFooter>
         </Card>
+      </Section>
 
-      </div>
-    </div>
-
-    {/* 🔹 Row 2 RIGHT (Image Card) */}
-    <Card className="col-span-12 lg:col-span-6 relative overflow-hidden">
-
-      <img
-        src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/neo2.jpeg"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-
-      <div className="relative z-10 p-4 text-black">
-        <CardTitle className="text-sm">NEO</CardTitle>
-        <CardDescription>Home Robot</CardDescription>
-      </div>
-
-      <CardFooter className="relative z-10 mt-auto flex justify-between items-center p-4">
-        <div>
-          <p className="text-sm font-medium">Available soon</p>
-          <p className="text-xs text-muted-foreground">
-            Get notified
-          </p>
-        </div>
-
-        <Button size="sm">Notify</Button>
-      </CardFooter>
-
-    </Card>
-
-    {/* 🔹 Row 3 */}
-    <div className="col-span-12 grid grid-cols-12 gap-4">
-
-      {/* Large Image Card */}
-      <Card className="col-span-12 md:col-span-8 relative overflow-hidden">
-
-        <img
-          src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/neo1.jpeg"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-
-        <CardFooter className="relative z-10 mt-auto flex justify-between p-4">
-          <div>
-            <p className="font-medium">NEO</p>
-            <p className="text-xs">$499/m</p>
-          </div>
-
-          <Button size="sm">Get Now</Button>
-        </CardFooter>
-
-      </Card>
-
-      {/* Side List Cards */}
-      <div className="col-span-12 md:col-span-4 flex flex-col gap-2">
-
-        {["robot1.jpeg", "avocado.jpeg", "oranges.jpeg"].map((img, i) => (
-          <Card key={i} className="flex flex-row items-center gap-3 p-2">
-
-            <img
-              src={`https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/${img}`}
-              className="w-16 h-16 rounded-xl object-cover"
-            />
-
-            <div>
-              <p className="text-sm font-medium">
-                Event {i + 1}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Today
-              </p>
-            </div>
-
-          </Card>
-        ))}
-
-      </div>
-
-    </div>
-
-  </div>
-</div>
+      {/* 🔹 Guidelines */}
+      <Section title="Guidelines">
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li>Use cards to group related content</li>
+          <li>Keep spacing consistent</li>
+          <li>Avoid overcrowding</li>
+          <li>Use elevation to indicate importance</li>
+        </ul>
+      </Section>
 
     </div>
   )

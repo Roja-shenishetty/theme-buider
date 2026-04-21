@@ -1,7 +1,7 @@
 /* ===== Page ===== */
 
 .page-wrapper {
-  background: #020617; /* zinc-950 */
+ background: #63637b; /* zinc-950 */
   min-height: 100vh;
   color: white;
   padding: 2.5rem 0;
@@ -313,66 +313,3 @@
   border-bottom: none;
 }
 
-/* ===== FAQ Layout ===== */
-
-.faq-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-/* HEADER */
-
-.faq-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: white;
-}
-
-.faq-subtitle {
-  margin-top: 0.5rem;
-  color: #a1a1aa;
-}
-
-/* CATEGORY */
-
-.faq-category {
-  margin-top: 2rem;
-}
-
-.faq-category-title {
-  color: #a1a1aa;
-  font-size: 0.9rem;
-  margin-bottom: 0.75rem;
-}
-
-/* ===== Accordion Container (MAIN LOOK) ===== */
-
-.faq-accordion-box {
-  background: #18181b; /* zinc-900 */
-  border-radius: 16px;
-  padding: 0.25rem 1rem;
-}
-
-/* ===== Items ===== */
-
-.faq-accordion-box .accordion-item {
-  border-bottom: 1px solid #27272a;
-}
-
-.faq-accordion-box .accordion-item:last-child {
-  border-bottom: none;
-}
-
-/* ===== Trigger ===== */
-
-.faq-accordion-box .accordion-trigger {
-  padding: 1rem 0;
-}
-
-/* hover feel */
-
-.faq-accordion-box .accordion-trigger:hover {
-  background: rgba(255,255,255,0.03);
-  border-radius: 8px;
-}

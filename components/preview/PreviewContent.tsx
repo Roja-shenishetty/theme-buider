@@ -1,36 +1,29 @@
+import SpacingPage from "@/components/pages/SpacePage"
+import TypographyPage from "@/components/pages/TypographyPage"
+import RadiusPage from "@/components/pages/BordersPage"
+import ButtonPage from "@/components/pages/buttons/ButtonPage"
+import CardPage from "@/components/pages/CardPage"
+  import AccordionPage from "@/components/pages/AccordionPage"
 import Introduction from "@/components/showcase/Introduction"
-import { ButtonShowcase } from "@/components/showcase/ButtonShowcase"
-import { CardShowcase } from "../showcase/CardShowcase"
-import { TypographyShowcase } from "../showcase/TypographyShowcase"
-import { SpacingShowcase } from "../showcase/SpacingShowcase"
-import { RadiusShowcase } from "../showcase/RadiusShowcase"
-import { AccordionShowcase } from "../showcase/accordions/AccordionShowcase"
+import IntroductionPage from "@/components/pages/IntroPage"
+import ButtonGroupPage from "../pages/buttons/ButtonGroupPage"
+import ToggleButtonPage from "../pages/buttons/ToggleButtonPage"
+import ToggleButtonGroupPage from "../pages/buttons/ToggleButtonGroupPage"
+import BordersPage from "@/components/pages/BordersPage"
 
-export default function PreviewContent({
-  activeComponent,
-}: {
-  activeComponent: string
-}) {
-  switch (activeComponent) {
-    case "intro":
-      return <Introduction />
-    case "typography":
-      return <TypographyShowcase />
-    case "spacing":
-    return <SpacingShowcase />
-
-  case "radius":
-    return <RadiusShowcase />
-
-    case "button":
-      return <ButtonShowcase />
-
-    case "card":
-      return <CardShowcase />
-   
-    case "accordion":return <AccordionShowcase />
-
-    default:
-      return null
-  }
+const componentMap: any = {
+  intro: IntroductionPage,
+  typography: TypographyPage,
+  spacing: SpacingPage,   // ✅ ADD THIS
+  borders: BordersPage,
+  button: ButtonPage,
+  buttongroup:ButtonGroupPage,
+  togglebutton:ToggleButtonPage,
+  togglebuttongroup:ToggleButtonGroupPage,
+  card: CardPage,
+  accordion: AccordionPage,
+}
+export default function PreviewContent({ activeComponent }: any) {
+  const Component = componentMap[activeComponent] || Introduction
+  return <Component />
 }

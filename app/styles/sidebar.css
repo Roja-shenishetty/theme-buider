@@ -1,32 +1,82 @@
-/* 🔹 SIDEBAR MENU (top items) */
+/* 🔹 MAIN SIDEBAR (icon sidebar) */
+.main-sidebar {
+  @apply w-20 h-screen flex flex-col items-center py-4 space-y-4 bg-muted;
+}
+
+/* 🔹 ICON BUTTON */
+.sidebar-icon {
+  @apply p-3 rounded-xl text-muted-foreground transition-all cursor-pointer flex items-center justify-center;
+}
+
+/* Hover state */
+.sidebar-icon:hover {
+  @apply bg-muted text-foreground;
+}
+
+/* 🔥 ACTIVE ICON */
+.sidebar-icon.active {
+  @apply bg-primary text-white shadow-sm;
+}
+
+
+/* 🔹 SECONDARY SIDEBAR */
 .sidebar-menu {
   @apply mb-4 space-y-1;
 }
 
+/* Top menu text items (if used) */
 .sidebar-item {
-  @apply block px-2 py-1 text-sm font-medium text-muted-foreground cursor-pointer transition-colors;
+  @apply block px-3 py-2 text-sm font-medium text-muted-foreground cursor-pointer rounded-lg transition-all;
 }
 
 .sidebar-item:hover {
-  @apply text-foreground;
+  @apply bg-muted text-foreground;
 }
+
 
 /* 🔹 COMPONENT LIST */
 .sidebar-list {
-  @apply space-y-1 overflow-y-auto max-h-[70vh] pl-2;
+  @apply space-y-1 overflow-y-auto max-h-[70vh] pl-2 pr-1;
 }
 
-/* 🔹 LINK STYLE (single source of truth) */
+
+/* 🔹 LINK STYLE */
 .sidebar-link {
-  @apply block px-2 py-1 text-sm text-muted-foreground cursor-pointer transition-colors;
+  @apply block px-3 py-2 text-sm text-muted-foreground cursor-pointer rounded-xl transition-all;
 }
 
 .sidebar-link:hover {
-  @apply bg-muted text-foreground rounded;
+  @apply bg-muted text-foreground;
 }
 
-/* 🔥 ACTIVE STATE */
+
+/* 🔥 ACTIVE ITEM (FIXED) */
 .sidebar-link.active {
-  @apply text-foreground font-medium border-l-2 border-foreground pl-2;
+  @apply bg-primary text-white font-medium;
 }
 
+
+/* 🔹 SCROLLBAR */
+.sidebar-scroll {
+  scrollbar-width: thin;
+}
+
+.sidebar-icon,
+.sidebar-link {
+  @apply duration-200 ease-in-out;
+}
+
+/* 🔹 SECTION HEADER */
+.section-header {
+  @apply px-3 py-2 text-sm cursor-pointer rounded-lg text-muted-foreground transition-all;
+}
+
+/* Hover */
+.section-header:hover {
+  @apply bg-muted text-foreground;
+}
+
+/* Active section */
+.section-header.active {
+  @apply bg-muted text-foreground font-medium;
+}
