@@ -1,0 +1,171 @@
+/* ============================= */
+/* 🔹 Base Alert */
+/* ============================= */
+
+.alert {
+  position: relative;
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+/* ============================= */
+/* 🔹 Variants */
+/* ============================= */
+
+.alert-default {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Solid variants */
+.alert-success {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.alert-warning {
+  background: #fefce8;
+  border-color: #fde68a;
+  color: #854d0e;
+}
+
+.alert-danger {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.alert-info {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1e40af;
+}
+
+/* Soft */
+.alert-success-soft {
+  background: #ecfdf5;
+  color: #166534;
+  border-color: transparent;
+}
+
+.alert-warning-soft {
+  background: #fefce8;
+  color: #854d0e;
+  border-color: transparent;
+}
+
+.alert-danger-soft {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: transparent;
+}
+
+/* Filled */
+.alert-success-filled {
+  background: #16a34a;
+  color: white;
+  border-color: transparent;
+}
+
+.alert-warning-filled {
+  background: #eab308;
+  color: black;
+  border-color: transparent;
+}
+
+.alert-danger-filled {
+  background: #dc2626;
+  color: white;
+  border-color: transparent;
+}
+
+/* ============================= */
+/* 🔹 Content */
+/* ============================= */
+
+.alert-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.alert-title {
+  font-weight: 600;
+}
+
+.alert-description {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* ============================= */
+/* 🔹 Spinner */
+/* ============================= */
+
+.alert-spinner {
+  margin-top: 4px;
+  height: 16px;
+  width: 16px;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================= */
+/* 🔹 Action */
+/* ============================= */
+
+.alert-action {
+  margin-top: 8px;
+}
+
+/* ============================= */
+/* 🔹 Close Button */
+/* ============================= */
+
+.alert-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
+.alert-close:hover {
+  color: var(--foreground);
+}
+
+/* ============================= */
+/* 🔹 Animations */
+/* ============================= */
+
+.alert {
+  animation: alertFade 0.2s ease-out;
+}
+
+@keyframes alertFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

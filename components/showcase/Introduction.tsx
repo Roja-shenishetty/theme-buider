@@ -101,7 +101,7 @@ export default function Introduction() {
             src="/images/dashboard.jpg"
             alt="Dashboard"
             width={1200}
-            height={600}
+            height={500}
             className="w-full h-full object-cover"
           />
         </motion.div>

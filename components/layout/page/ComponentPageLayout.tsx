@@ -26,10 +26,10 @@ export default function ComponentPageLayout({
     <div className="space-y-8">
 
       {/* 🔥 HEADER */}
-      <div className="space-y-6">
+      <div className="flex flex-col lg:flex-row gap-6 items-stretch">
 
         {/* 🔹 HEADER TEXT */}
-        <div className="bg-card rounded-2xl p-6 md:p-10">
+        <div className="bg-card rounded-2xl p-6 md:p-10 lg:w-1/2">
           <h1 className="text-3xl md:text-6xl font-bold mb-3">
             {title}
           </h1>
@@ -53,8 +53,8 @@ export default function ComponentPageLayout({
         </div>
 
         {/* 🔥 HERO BLOCK */}
-        <div className="w-full">
-          <div className="relative overflow-hidden rounded-2xl bg-card h-[260px] md:h-[360px] lg:h-[420px]">
+     <div className="w-full lg:w-1/2">
+  <div className="relative overflow-hidden rounded-2xl bg-card h-[220px] md:h-[260px] lg:h-full">
 
             {/* ✨ Glow */}
             <div className="absolute inset-0 bg-primary/10 blur-3xl" />
