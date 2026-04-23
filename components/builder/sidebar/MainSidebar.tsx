@@ -27,31 +27,41 @@ export default function MainSidebar({
   setActiveComponent, // ✅ ADD THIS
 }: Props) {
   return (
-    <div className="main-sidebar">
-      {menu.map((item) => {
-        const Icon = item.icon
+    <div className="main-sidebar h-full flex flex-col justify-between">
+  
+  {/* TOP ICONS */}
+  <div className="flex flex-col items-center gap-4">
+    {menu.map((item) => {
+      const Icon = item.icon
 
-        return (
-          <button
-            key={item.id}
-            onClick={() => {
-              setActiveMenu(item.id)
+      return (
+        <button
+          key={item.id}
+          onClick={() => {
+            setActiveMenu(item.id)
+            if (item.id === "components") {
+              setActiveComponent("button")
+            } else {
+              setActiveComponent("intro")
+            }
+          }}
+          className={`sidebar-icon ${
+            activeMenu === item.id ? "active" : ""
+          }`}
+        >
+          <Icon size={20} />
+        </button>
+      )
+    })}
+  </div>
 
-              // 🔥 IMPORTANT FIX
-              if (item.id === "components") {
-                setActiveComponent("button")
-              } else {
-                setActiveComponent("intro")
-              }
-            }}
-            className={`sidebar-icon ${
-              activeMenu === item.id ? "active" : ""
-            }`}
-          >
-            <Icon size={20} />
-          </button>
-        )
-      })}
+  {/* 🔻 BOTTOM PROFILE */}
+  <div className="flex justify-center pb-4">
+    <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center">
+      N
     </div>
+  </div>
+
+</div>
   )
-}
+} 

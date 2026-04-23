@@ -20,11 +20,7 @@ export default function ControlsPanel({
   isSidebarOpen,
 }: Props) {
   return (
-    <div
-      className={`fixed md:relative z-40 h-full transition-transform duration-300
-      ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
-      flex`}
-    >
+    <div className="flex h-full">
       <MainSidebar
         activeMenu={activeMenu}
         setActiveMenu={setActiveMenu}

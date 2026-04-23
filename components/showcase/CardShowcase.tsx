@@ -78,7 +78,7 @@ export function CardShowcase() {
       <Section title="Avatar Cards">
         <PreviewTabs
           preview={
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex gap-6 flex-wrap">
               {[1, 2].map((i) => (
                 <Card key={i} className="w-[200px] gap-2 hover:scale-105 transition">
                   <img
@@ -110,35 +110,42 @@ export function CardShowcase() {
 
       {/* 🔹 Horizontal */}
       <Section title="Horizontal Card">
-        <Card className="flex flex-row w-full max-w-[600px] overflow-hidden">
-          <div className="w-[140px] h-[140px] shrink-0">
-            <img
-              src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/cherries.jpeg"
-              className="w-full h-full object-cover"
-            />
-          </div>
 
-          <div className="flex flex-col flex-1 p-4 gap-3">
-            <CardHeader className="p-0">
-              <CardTitle>Creator Program</CardTitle>
-              <CardDescription>
-                Join and build something amazing
-              </CardDescription>
-            </CardHeader>
+  <Card layout="horizontal" elevation="md" interactive className="horizontal-card">
 
-            <CardFooter className="p-0 mt-auto flex justify-between">
-              <span className="text-xs text-muted-foreground">
-                Limited spots
-              </span>
-              <Button size="sm">Apply</Button>
-            </CardFooter>
-          </div>
-        </Card>
-      </Section>
+    {/* 🔥 IMAGE */}
+    <div className="horizontal-media">
+      <img
+        src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/cherries.jpeg"
+        alt="cover"
+      />
+    </div>
 
+    {/* 🔥 CONTENT */}
+    <div className="horizontal-body">
+
+      <div className="card-header">
+        <CardTitle>Creator Program</CardTitle>
+        <CardDescription>
+          Join and build something amazing
+        </CardDescription>
+      </div>
+
+      <div className="card-footer">
+        <span className="horizontal-meta">
+          Limited spots
+        </span>
+        <Button size="sm">Apply</Button>
+      </div>
+
+    </div>
+
+  </Card>
+
+</Section>
       {/* 🔹 Grid */}
       <Section title="Grid Layout">
-        <div className="flex gap-4 flex-wrap">
+        <div className="flex gap-6 flex-wrap">
           {[1, 2, 3].map((i) => (
             <Card key={i} className="w-[260px] hover:shadow-md transition">
               <CardHeader>
@@ -231,6 +238,43 @@ export function CardShowcase() {
         </ul>
       </Section>
 
+      <Section title="Badge Style Cards">
+  <div className="grid md:grid-cols-2 gap-6">
+
+    <Card layout="media" interactive elevation="md" variant="top-accent">
+
+      {/* 🔥 MEDIA */}
+      <div className="card-media custom-media">
+        <div className="media-badge">Hello</div>
+      </div>
+
+      {/* 🔥 CONTENT */}
+      <div className="card-content">
+        <CardTitle>New: Toolbars</CardTitle>
+        <CardDescription>
+          Flexible component to display frequently used actions.
+        </CardDescription>
+      </div>
+
+    </Card>
+
+    <Card layout="media" interactive elevation="md" variant="top-accent">
+
+      <div className="card-media custom-media">
+        <div className="media-badge">Hello</div>
+      </div>
+
+      <div className="card-content">
+        <CardTitle>New: Split Button</CardTitle>
+        <CardDescription>
+          Pair a button with related actions in a connected menu.
+        </CardDescription>
+      </div>
+
+    </Card>
+
+  </div>
+</Section>
     </div>
   )
 }

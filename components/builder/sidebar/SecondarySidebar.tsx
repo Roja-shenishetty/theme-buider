@@ -164,7 +164,7 @@ type Props = {
   const sections = data[activeMenu] || []
 
   return (
-    <div className="w-64 bg-background border-r p-3 overflow-y-auto">
+    <div className="w-48 bg-background border-r p-3 h-full">
       
       {/* ❗ EMPTY STATE */}
       {sections.length === 0 && (

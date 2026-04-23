@@ -11,6 +11,8 @@ import "./styles/alert.css";
 import "./styles/alertbox.css";
 import "./styles/avatar.css";
 import "./styles/badge.css";
+import "./styles/ComponentPageLayout.css"
+import "./styles/intro.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -31,7 +31,7 @@ export default function Page() {
     },
   })
 
-  // ✅ hydration safe
+  // hydration safe
   useEffect(() => {
     setMounted(true)
     const saved = localStorage.getItem("sidebar")
@@ -67,72 +67,81 @@ export default function Page() {
   if (!mounted) return null
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-background">
 
-      {/* ☰ Toggle button */}
+      {/* ☰ Toggle (mobile) */}
       {!isSidebarOpen && (
         <button
           onClick={() => setIsSidebarOpen(true)}
-          className="fixed top-4 left-4 z-50 bg-primary text-primary-foreground px-3 py-2 rounded shadow"
+          className="fixed top-4 left-4 z-50 md:hidden h-10 w-10 flex items-center justify-center rounded-xl bg-primary text-white shadow-lg"
         >
           ☰
         </button>
       )}
 
-      {/* 🌫 Overlay (mobile only) */}
+      {/* 🌫 Overlay (mobile) */}
       {isSidebarOpen && (
         <div
           onClick={() => setIsSidebarOpen(false)}
-          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-30 md:hidden"
+          className="fixed inset-0 bg-black/30 z-30 md:hidden"
         />
       )}
 
-      {/* ✅ Sidebar (ONLY ONCE) */}
+      {/* ✅ Sidebar */}
       <div
-        className={`
-          fixed md:static z-40 h-full
-          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-          transition-transform duration-300
-        `}
-      >
-        <ControlsPanel
-          activeMenu={activeMenu}
-          setActiveMenu={setActiveMenu}
-          activeComponent={activeComponent}
-          setActiveComponent={setActiveComponent}
-          isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen}
-        />
-      </div>
+  className={`
+    fixed md:relative z-40
+    w-64 h-full shrink-0
+    bg-background border-r
+    transform transition-transform duration-300
+    ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+  `}
+>
+  <div className="h-full overflow-y-auto hide-scrollbar">
+    <ControlsPanel
+      activeMenu={activeMenu}
+      setActiveMenu={setActiveMenu}
+      activeComponent={activeComponent}
+      setActiveComponent={setActiveComponent}
+      isSidebarOpen={isSidebarOpen}
+      setIsSidebarOpen={setIsSidebarOpen}
+    />
+  </div>
+</div>
 
-      {/* ✅ Content */}
-      <div
-        className="flex-1 overflow-auto bg-background md:ml-20"
-        onClick={() => {
-          if (window.innerWidth < 768) setIsSidebarOpen(false)
-        }}
-      >
-        <div className="min-h-full p-4 md:p-10">
+      {/* ✅ Main Content */}
+      <div className="flex-1 flex flex-col">
 
-          {/* 📱 Mobile preview */}
-          <div className="block md:hidden">
-            <div className="max-w-sm mx-auto border rounded-2xl shadow-lg overflow-hidden">
+        {/* Scroll container (ONLY ONE) */}
+        <div
+          className="flex-1 overflow-y-auto hide-scrollbar"
+          onClick={() => {
+            if (window.innerWidth < 768) setIsSidebarOpen(false)
+          }}
+        >
+          <div className="p-4 md:p-8 lg:p-10 w-full max-w-[1600px]">
+
+            {/* 📱 Mobile preview */}
+            <div className="block md:hidden">
+              <div className="max-w-sm mx-auto border rounded-2xl shadow-lg overflow-hidden">
+                <PreviewLayout
+                  type="mobile"
+                  activeComponent={activeComponent}
+                />
+              </div>
+            </div>
+
+            {/* 💻 Desktop preview */}
+            <div className="hidden md:block">
               <PreviewLayout
-                type="mobile"
+                type="desktop"
                 activeComponent={activeComponent}
               />
             </div>
-          </div>
 
-          {/* 💻 Desktop preview */}
-          <div className="hidden md:block">
-            <PreviewLayout
-              type="desktop"
-              activeComponent={activeComponent}
-            />
           </div>
-
         </div>
+
       </div>
 
     </div>

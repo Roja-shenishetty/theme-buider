@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -5,28 +7,33 @@ import { cva, type VariantProps } from "class-variance-authority"
 const cardVariants = cva("card", {
   variants: {
     variant: {
-      default: "",
+      default: "card-default",
       accent: "card-accent",
-      gradient: "card-gradient",
+      subtle: "card-subtle",
       glass: "card-glass",
-      glow: "card-glow",
+      outline: "card-outline",
+
+      // 🔥 NEW
+      "top-accent": "card-top-accent",
     },
+
     elevation: {
-      sm: "shadow-sm",
-      md: "shadow-md",
-      lg: "shadow-lg",
+      none: "",
+      sm: "card-elevation-sm",
+      md: "card-elevation-md",
+      lg: "card-elevation-lg",
     },
+
     interactive: {
-      true: "card-hover card-clickable card-ripple",
+      true: "card-interactive",
       false: "",
     },
 
-    /* 🔥 NEW: layout variants */
     layout: {
       default: "",
-      avatar: "card-layout-avatar",
+      media: "card-layout-media",
       horizontal: "card-layout-horizontal",
-      image: "card-layout-image",
+      avatar: "card-layout-avatar",
     },
   },
 
@@ -42,68 +49,40 @@ export interface CardProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof cardVariants> {}
 
-const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant, elevation, interactive, layout, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        cardVariants({ variant, elevation, interactive, layout }),
-        className
-      )}
-      {...props}
-    />
-  )
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, variant, elevation, interactive, layout, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          cardVariants({ variant, elevation, interactive, layout }),
+          className
+        )}
+        {...props}
+      />
+    )
+  }
 )
 Card.displayName = "Card"
 
-/* ================= SUB COMPONENTS ================= */
+/* 🔹 Sub components */
 
-const CardHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("card-header", className)} {...props} />
-))
-CardHeader.displayName = "CardHeader"
+export const CardHeader = ({ className, ...props }: any) => (
+  <div className={cn("card-header", className)} {...props} />
+)
 
-const CardTitle = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("card-title", className)} {...props} />
-))
-CardTitle.displayName = "CardTitle"
+export const CardTitle = ({ className, ...props }: any) => (
+  <div className={cn("card-title", className)} {...props} />
+)
 
-const CardDescription = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("card-description", className)} {...props} />
-))
-CardDescription.displayName = "CardDescription"
+export const CardDescription = ({ className, ...props }: any) => (
+  <div className={cn("card-description", className)} {...props} />
+)
 
-const CardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("card-content", className)} {...props} />
-))
-CardContent.displayName = "CardContent"
+export const CardContent = ({ className, ...props }: any) => (
+  <div className={cn("card-content", className)} {...props} />
+)
 
-const CardFooter = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("card-footer", className)} {...props} />
-))
-CardFooter.displayName = "CardFooter"
-
-/* ================= EXPORT ================= */
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
-  CardContent,
-}
+export const CardFooter = ({ className, ...props }: any) => (
+  <div className={cn("card-footer", className)} {...props} />
+)
