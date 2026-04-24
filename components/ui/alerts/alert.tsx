@@ -1,95 +1,101 @@
 "use client"
 
 import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Typography } from "@/components/ui/typography"
 
-const alertVariants = cva("alert", {
-  variants: {
-    variant: {
-      default: "alert-default",
-      success: "alert-success",
-      warning: "alert-warning",
-      danger: "alert-danger",
-      info: "alert-info",
+type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
+  variant?:
+    | "default"
+    | "success"
+    | "warning"
+    | "danger"
+    | "info"
+    | "success-soft"
+    | "warning-soft"
+    | "danger-soft"
+    | "success-filled"
+    | "warning-filled"
+    | "danger-filled"
 
-      "success-soft": "alert-success-soft",
-      "warning-soft": "alert-warning-soft",
-      "danger-soft": "alert-danger-soft",
+  icon?: React.ReactNode
+  title?: React.ReactNode
+  description?: React.ReactNode
 
-      "success-filled": "alert-success-filled",
-      "warning-filled": "alert-warning-filled",
-      "danger-filled": "alert-danger-filled",
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-})
-
-type AlertProps = React.HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof alertVariants> & {
-    title?: string
-    description?: string
-    loading?: boolean
-    action?: {
-      label: string
-      onClick?: () => void
-    }
-    onClose?: () => void
+  action?: {
+    label: string
+    onClick: () => void
   }
 
+  onClose?: () => void
+  loading?: boolean
+}
+
 export function Alert({
-  className,
-  variant,
+  variant = "default",
+  icon,
   title,
   description,
-  loading,
   action,
   onClose,
-  children,
+  loading,
+  className,
   ...props
 }: AlertProps) {
+
+  const variantClass =
+    variant === "default"
+      ? "alert"
+      : `alert alert-${variant}`
+
   return (
-    <div
-      role="alert"
-      className={cn(alertVariants({ variant }), className)}
-      {...props}
-    >
-      {/* Spinner */}
-      {loading && <span className="alert-spinner" />}
+    <div className={cn("alert", variantClass, className)} {...props}>
 
-      {/* Content */}
-      <div className="alert-content">
-        {title && <p className="alert-title">{title}</p>}
+      {/* ICON */}
+      {(icon || loading) && (
+        <div className="flex items-center justify-center">
+          {loading ? (
+            <span className="animate-spin">
+              {icon}
+            </span>
+          ) : (
+            icon
+          )}
+        </div>
+      )}
 
-        {description && (
-          <p className="alert-description">{description}</p>
+      {/* CONTENT */}
+      <div className="flex-1 space-group">
+
+        {title && (
+          <div className="alert-title">
+            {title}
+          </div>
         )}
 
-        {children}
-
-        {/* Action */}
-        {action && (
-          <div className="alert-action">
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={action.onClick}
-            >
-              {action.label}
-            </Button>
+        {description && (
+          <div className="alert-description">
+            {description}
           </div>
+        )}
+
+        {action && (
+          <button
+            onClick={action.onClick}
+            className="mt-2 text-caption text-primary font-medium"
+          >
+            {action.label}
+          </button>
         )}
       </div>
 
-      {/* Close */}
+      {/* CLOSE */}
       {onClose && (
         <button onClick={onClose} className="alert-close">
           ✕
         </button>
       )}
+
     </div>
   )
 }

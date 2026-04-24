@@ -4,7 +4,7 @@ import "./globals.css";
 import "./styles/card.css";
 import "./styles/typography.css";
 import "./styles/sidebar.css";
-import "./styles/radius-spacing.css";
+import "./styles/spacing.css";
 import "./styles/accordion.css";
 import "./styles/button.css";
 import "./styles/alert.css";
@@ -13,6 +13,9 @@ import "./styles/avatar.css";
 import "./styles/badge.css";
 import "./styles/ComponentPageLayout.css"
 import "./styles/intro.css"
+import "./styles/border.css"
+import "./styles/footer.css"
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

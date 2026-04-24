@@ -1,153 +1,110 @@
-/* components/ui/badge.css */
+/* ============================= */
+/* 🔹 Badge Core Architecture */
+/* ============================= */
 
-/* 🔹 Root wrapper */
-.badge-root {
-  position: relative;
-  display: inline-flex;
-}
-
-/* 🔹 Base badge */
 .badge {
-  position: absolute;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 9999px;
-  font-weight: 600;
+  white-space: nowrap;
+  font-weight: 700;
   line-height: 1;
-
-  border: 2px solid hsl(var(--background));
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
-    background-clip: padding-box;
-      z-index: 10;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
 }
 
-/* 🔹 Sizes */
-.badge-sm {
-  min-width: 16px;
-  height: 16px;
-  font-size: 10px;
-  padding: 0 4px;
-}
-
-.badge-md {
-  min-width: 20px;
-  height: 20px;
-  font-size: 11px;
-  padding: 0 6px;
-}
-
-.badge-lg {
-  min-width: 24px;
-  height: 24px;
-  font-size: 12px;
-  padding: 0 8px;
-}
-
-/* 🔹 Colors (theme-based) */
-.badge-default {
-  background: hsl(var(--muted));
-  color: hsl(var(--foreground));
-}
-
-.badge-accent {
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-}
-
-.badge-success {
-  background: hsl(142 71% 45%);
+/* 🔹 Visual Variants */
+.badge-primary {
+  background-color: var(--primary);
   color: white;
 }
 
-.badge-warning {
-  background: hsl(38 92% 50%);
-  color: black;
+.badge-secondary {
+  background-color: var(--muted);
+  color: var(--foreground);
+  border: 1px solid var(--border);
 }
 
-.badge-danger {
-  background: hsl(var(--destructive));
-  color: hsl(var(--destructive-foreground));
+.badge-outline {
+  background-color: transparent;
+  border: 1px solid currentColor;
 }
 
-/* 🔹 Dot variant */
+.badge-destructive {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* 🔹 Soft Tint Logic (Glow Style) */
+.badge-soft {
+  background-color: rgba(var(--primary-rgb), 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(var(--primary-rgb), 0.1);
+}
+
+/* ============================= */
+/* 🔹 BadgeWrapper (Overlay) Engine */
+/* ============================= */
+
+.badge-wrapper {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.badge-overlay {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  place-content: center;
+  align-items: center;
+  border: 2px solid var(--background); /* Creates the 'cutout' look */
+  border-radius: 9999px;
+  font-size: 10px;
+  padding: 0 4px;
+  min-width: 18px;
+  height: 18px;
+  transform: scale(1) translate(50%, -50%);
+  transform-origin: 100% 0%;
+}
+
+/* 🔹 Placement Logic */
+.badge-top-right { top: 0; right: 0; }
+.badge-top-left { top: 0; left: 0; transform: translate(-50%, -50%); transform-origin: 0% 0%; }
+.badge-bottom-right { bottom: 0; right: 0; transform: translate(50%, 50%); transform-origin: 100% 100%; }
+.badge-bottom-left { bottom: 0; left: 0; transform: translate(-50%, 50%); transform-origin: 0% 100%; }
+
+/* 🔹 Status Dot Logic */
 .badge-dot {
   width: 10px;
   height: 10px;
-  min-width: 0;
+  min-width: 10px;
   padding: 0;
-  border-radius: 9999px;
-
-  border-width: 1px; /* 🔥 reduce border */
-}
-/* 🔹 Placement (IMPORTANT FIX ✅) */
-.badge-top-right {
-  top: 0;
-  right: 0;
-  transform: translate(50%, -50%);
 }
 
-.badge-bottom-right {
-  bottom: 0;
-  right: 0;
-  transform: translate(50%, 50%);
+/* 🔹 Semantic State Colors */
+.badge-success { background-color: #22c55e; color: white; }
+.badge-warning { background-color: #f59e0b; color: white; }
+.badge-danger  { background-color: #ef4444; color: white; }
+.badge-accent  { background-color: var(--accent); color: white; }
+
+/* ============================= */
+/* 🔹 Animations */
+/* ============================= */
+
+/* The 'Active' pulse you used for Online status */
+.animate-pulse {
+  animation: badge-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* 🔹 Animation */
-@keyframes badgePulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; transform: translate(50%, 50%) scale(1); }
+  50% { opacity: .7; transform: translate(50%, 50%) scale(1.15); }
 }
 
-.badge-pulse {
-  animation: badgePulse 1.2s infinite;
-}
-.badge-secondary {
-  background: hsl(var(--secondary));
-  color: hsl(var(--secondary-foreground));
-}
-.badge-default {
-  background: hsl(var(--muted));
-  color: hsl(var(--foreground));
-}
-
-.badge-accent {
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-}
-
-.badge-danger {
-  background: hsl(var(--destructive));
-  color: hsl(var(--destructive-foreground));
-}
-.badge-success {
-  background: hsl(var(--success));
-  color: white;
-}
-.badge-warning {
-  background: hsl(var(--warning));
-  color: black;
-}
-
-/* 🔹 Variant styles */
-
-.badge-solid {
-  /* default look (already handled) */
-}
-.badge-secondary {
-  background: hsl(var(--secondary));
-  color: hsl(var(--secondary-foreground));
-}
-/* 🔹 Tone styles */
-
-.badge-solid {
-  /* default look */
-}
-
-.badge-soft {
-  background: hsl(var(--primary) / 0.15);
-  color: hsl(var(--primary));
-  border: none;
+/* Hover lift for your List Items */
+.group:hover .badge {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.2);
 }

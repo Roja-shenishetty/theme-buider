@@ -20,18 +20,24 @@ export default function ControlsPanel({
   isSidebarOpen,
 }: Props) {
   return (
-    <div className="flex h-full">
+    <div className="flex">
+
+      {/* SIDEBAR (fixed) */}
       <MainSidebar
         activeMenu={activeMenu}
         setActiveMenu={setActiveMenu}
         setActiveComponent={setActiveComponent}
       />
 
-      <SecondarySidebar
-        activeMenu={activeMenu}
-        activeComponent={activeComponent}
-        setActiveComponent={setActiveComponent}
-      />
+      {/* CONTENT WRAPPER */}
+      <div className="ml-20 flex">
+        <SecondarySidebar
+          activeMenu={activeMenu}
+          activeComponent={activeComponent}
+          setActiveComponent={setActiveComponent}
+        />
+      </div>
+
     </div>
   )
 }

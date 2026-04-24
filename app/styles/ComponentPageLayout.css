@@ -1,114 +1,47 @@
-/* ================= LAYOUT ================= */
-.layout {
-  display: flex;
-  flex-direction: column;
- 
-}
-
-/* ================= PAGE ================= */
-.page {
-  width: 100%;           /* ✅ full width */
-  padding: 24px 0;      /* ❗ horizontal padding removed (Tailwind handles it) */
-}
-
-/* ================= HEADER ================= */
-.header {
-  display: grid;
-  gap: 24px;
-}
-
-.header > * {
-  min-width: 0;
-}
-
-/* ================= TEXT ================= */
-.header-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 16px;
-}
-
-/* 🔥 TITLE */
-.title {
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin: 0;
-}
-
-/* 🔥 DESCRIPTION */
-.description {
-  line-height: 1.6;
-  color: hsl(var(--muted-foreground));
-}
-
 /* ================= PILLS ================= */
+
 .pill-group {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  @apply flex flex-wrap gap-2;
 }
 
 .pill {
   background: hsl(var(--muted));
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-  transition: all 0.2s ease;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  transition: background 0.2s ease;
 }
 
 .pill:hover {
   background: hsl(var(--primary) / 0.15);
 }
 
+
 /* ================= HERO ================= */
+
 .hero {
-  width: 100%;
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
+  @apply w-full relative overflow-hidden;
+  border-radius: var(--radius-xl);
   background: hsl(var(--muted));
 }
 
-/* ================= IMAGE ================= */
+/* media (image / video / animation) */
 .media {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+  @apply absolute inset-0 w-full h-full object-cover transition;
 }
 
 .hero:hover .media {
   transform: scale(1.03);
 }
 
-/* subtle overlay */
+/* overlay */
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.08));
-}
-
-/* ================= CONTENT ================= */
-.content {
-  width: 100%;          /* ✅ full width */
-  padding: 0;           /* ❗ Tailwind handles spacing */
-}
-
-/* ================= ANIMATION ================= */
-.fade-up {
-  opacity: 0;
-  transform: translateY(16px);
-  animation: fadeUp 0.5s ease forwards;
-}
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 0, 0, 0.08)
+  );
 }

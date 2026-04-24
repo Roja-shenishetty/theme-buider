@@ -3,48 +3,48 @@
 import * as React from "react"
 import { Badge } from "@/components/ui/badge/badge"
 
+type Placement = "top-right" | "bottom-right" | "top-left" | "bottom-left"
+
 type BadgeWrapperProps = {
   children: React.ReactNode
   content?: React.ReactNode
-  placement?: "top-right" | "bottom-right"
-
-  variant?:
-    | "default"
-    | "secondary"
-    | "accent"
-    | "success"
-    | "warning"
-    | "danger"
-    | "outline"
-    | "destructive"
-
-  tone?: "solid" | "soft"  
-
+  placement?: Placement
+  variant?: any
+  tone?: "solid" | "soft"
   dot?: boolean
   size?: "sm" | "md" | "lg"
+  className?: string
 }
+
 export function BadgeWrapper({
   children,
   content,
   placement = "top-right",
   variant = "default",
-  tone = "solid",   // ✅ default
-  dot,
+  tone = "solid",
+  dot = false,
   size = "md",
+  className,
 }: BadgeWrapperProps) {
+  const showBadge = dot || content
+
   return (
-    <div className="badge-root">
+    <div className="relative inline-block">
       {children}
 
-      <Badge
-  variant={variant}
-  size={size}
-  placement={placement}
-  dot={dot}
-  tone={tone}   // ✅ pass it
->
-  {content}
-</Badge>
+      {showBadge && (
+        <div className={className}>
+          <Badge
+            variant={variant}
+            size={size}
+            placement={placement}
+            dot={dot}
+            tone={tone}
+          >
+            {content}
+          </Badge>
+        </div>
+      )}
     </div>
   )
 }

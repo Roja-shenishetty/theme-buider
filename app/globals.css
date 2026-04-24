@@ -4,68 +4,74 @@
 
 /* ================= THEME TOKENS ================= */
 :root {
-  /* 🔹 Base */
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  /* 🔹 Fonts */
+  --font-heading: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* 🔹 Colors */
   --background: 0 0% 100%;
   --foreground: 222 47% 11%;
 
-  /* 🔹 Primary (main brand color) */
   --primary: 262 83% 58%;
   --primary-foreground: 0 0% 100%;
 
-  /* 🔹 Secondary */
   --secondary: 210 10% 40%;
   --secondary-foreground: 0 0% 100%;
 
-  /* 🔹 Muted */
   --muted: 240 5% 96%;
   --muted-foreground: 215 16% 47%;
 
-  /* 🔹 Accent */
   --accent: 240 5% 90%;
   --accent-foreground: 222 47% 11%;
 
-  /* 🔹 Error */
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
 
-  /* optional but good */
   --success: 142 71% 45%;
   --warning: 38 92% 50%;
 
-  /* 🔹 Border */
   --border: 220 13% 91%;
 
-  /* 🔹 Extras */
+  /* 🔹 Radius */
+  --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
 }
-/* 🔹 GLOBAL RESET */
-body {
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
-font-size: var(--font-size);
-  line-height: var(--line-height);
-  font-weight: var(--font-weight);
+
+/* ================= BASE ================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
+body {
+  font-family: var(--font-body);
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-
-/* remove underline */
 a {
   text-decoration: none;
 }
 
-/* reset list */
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-li {
-  margin: 4px 0;
-}
+/* ================= ANIMATION ================= */
 
 @keyframes fadeUp {
   from {
@@ -80,4 +86,96 @@ li {
 
 .animate-fade-up {
   animation: fadeUp 0.35s ease forwards;
+}
+
+/* ================= DESIGN SYSTEM ================= */
+
+@layer components {
+
+  .space-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-page);
+  }
+
+  .space-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-section);
+  }
+
+  .space-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .card {
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    padding: var(--space-card);
+    border-radius: var(--radius-lg);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .gap-default {
+    gap: var(--space-3);
+  }
+
+  .gap-wide {
+    gap: var(--space-4);
+  }
+
+  .grid-3 {
+    @apply grid gap-wide md:grid-cols-2 xl:grid-cols-3;
+  }
+
+  .feature-card {
+    @apply space-group;
+  }
+
+  .feature-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease;
+  }
+
+  .card:hover .feature-icon {
+    transform: scale(1.05);
+  }
+}
+
+@layer components {
+
+  .page-container {
+    width: 100%;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  /* Tablet */
+  @media (min-width: 768px) {
+    .page-container {
+      padding-left: var(--space-6);
+      padding-right: var(--space-6);
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1280px) {
+    .page-container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
 }

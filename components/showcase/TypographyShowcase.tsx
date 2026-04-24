@@ -2,42 +2,35 @@
 
 import { Typography } from "@/components/ui/typography"
 import { useState } from "react"
+import { Type, AlignLeft, Bold, Hash, Layers } from "lucide-react"
 
 const typeScale = [
-  { name: "display-lg", class: "text-5xl font-bold" },
-  { name: "display-md", class: "text-4xl font-semibold" },
-  { name: "headline-lg", class: "text-3xl font-semibold" },
-  { name: "headline-md", class: "text-2xl font-medium" },
-  { name: "title-lg", class: "text-xl font-medium" },
-  { name: "body-lg", class: "text-base" },
-  { name: "body-md", class: "text-sm" },
-  { name: "label-md", class: "text-xs font-medium" },
+  { name: "H1 / Hero", variant: "h1", size: "3rem", weight: "900" },
+  { name: "H2 / Title", variant: "h2", size: "2.25rem", weight: "800" },
+  { name: "H3 / Section", variant: "h3", size: "1.875rem", weight: "700" },
+  { name: "H4 / Subsection", variant: "h4", size: "1.5rem", weight: "600" },
+  { name: "Body / Default", variant: "body", size: "1rem", weight: "400" },
+  { name: "Muted / Secondary", variant: "muted", size: "1rem", weight: "400" },
+  { name: "Small / Utility", variant: "small", size: "0.875rem", weight: "400" },
+  { name: "Label / UI", variant: "label", size: "0.875rem", weight: "600" },
+  { name: "Caption / Legal", variant: "caption", size: "0.75rem", weight: "400" },
 ]
 
-function Section({
-  title,
-  description,
-  children,
-}: {
-  title: string
-  description?: string
-  children: React.ReactNode
-}) {
+function ShowcaseSection({ title, description, children }: any) {
   return (
-    <section className="space-y-5 animate-fade-up">
-      <div className="space-y-1">
-        <h3 className="text-base font-semibold tracking-tight">
+    <section className="space-section animate-fade-up">
+      <div className="space-group mb-6">
+        <Typography variant="h3" className="tracking-tighter font-bold text-primary/90 flex items-center gap-2">
           {title}
-        </h3>
+        </Typography>
         {description && (
-          <p className="text-sm text-muted-foreground max-w-2xl">
+          <Typography variant="body" className="text-body-muted text-sm max-w-2xl">
             {description}
-          </p>
+          </Typography>
         )}
       </div>
-
-      <div className="rounded-xl border bg-background shadow-sm overflow-hidden">
-        <div className="p-5">{children}</div>
+      <div className="card bg-muted/5 border-dashed border-2 border-primary/10 p-10 overflow-hidden relative">
+        {children}
       </div>
     </section>
   )
@@ -53,221 +46,181 @@ export function TypographyShowcase() {
   }
 
   return (
-    <div className="max-w-5xl space-y-14">
+    <div className="page-container space-page">
 
-      {/* 🔹 Header */}
-      <section className="space-y-3 pb-6 border-b animate-fade-up">
-        <h1 className="text-2xl font-bold tracking-tight">
-          Typography
-        </h1>
-        <p className="text-muted-foreground max-w-2xl">
-          Typography defines hierarchy, readability, and visual tone.
-          A consistent type scale helps users scan and understand content quickly.
-        </p>
-      </section>
+      {/* 🔹 Technical Header */}
+      <header className="space-group pb-10 border-b border-primary/10">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 radius-full bg-primary/10 text-primary text-caption font-black uppercase tracking-widest">
+          Type Protocol v1.0
+        </div>
+        
+        <Typography variant="body" className="text-body-muted max-w-2xl text-lg">
+          The structural voice of the system. Built for maximum legibility across 
+          code editors, hardware dashboards, and editorial content.
+        </Typography>
+      </header>
 
-      {/* 🔹 Type Scale */}
-      <Section
-        title="Type Scale"
-        description="Predefined text styles for consistent hierarchy."
+      {/* 🔹 The Type Matrix */}
+      <ShowcaseSection 
+        title="Scale Matrix" 
+        description="Our predefined typographic tokens. Click to copy the variant name."
       >
-        <div className="divide-y">
+        <div className="w-full divide-y divide-primary/5">
           {typeScale.map((item) => (
             <div
               key={item.name}
-              className="flex items-center justify-between gap-4 py-4"
+              onClick={() => copy(item.variant)}
+              className="grid grid-cols-1 md:grid-cols-12 items-center gap-6 py-8 group cursor-pointer hover:bg-primary/5 transition-all px-4 radius-md"
             >
-              <div className="space-y-1">
-                <p className="text-xs text-muted-foreground">
+              <div className="md:col-span-3">
+                <Typography variant="label" className="text-primary font-black uppercase tracking-widest text-[10px]">
                   {item.name}
-                </p>
-                <p className={item.class}>
-                  The quick brown fox jumps over the lazy dog
-                </p>
+                </Typography>
+                <Typography variant="caption" className="text-muted-foreground font-mono">
+                  {item.size} • {item.weight}
+                </Typography>
               </div>
 
-              <button
-                onClick={() => copy(item.class)}
-                className="
-                  text-xs px-3 py-1 rounded-md
-                  bg-muted hover:bg-primary hover:text-white
-                  transition
-                "
-              >
-                {copied === item.class ? "Copied" : "Copy"}
-              </button>
+              <div className="md:col-span-7">
+                <Typography variant={item.variant as any} className="truncate group-hover:text-primary transition-colors">
+                  System Engine Architecture
+                </Typography>
+              </div>
+
+              <div className="md:col-span-2 flex justify-end">
+                 <div className={`px-3 py-1 radius-sm text-[10px] font-bold transition-all border ${
+                   copied === item.variant ? "bg-primary text-white border-primary" : "bg-muted text-muted-foreground border-transparent"
+                 }`}>
+                   {copied === item.variant ? "COPIED" : item.variant.toUpperCase()}
+                 </div>
+              </div>
             </div>
           ))}
         </div>
-      </Section>
+      </ShowcaseSection>
 
-      <Section
-  title="Font Weights"
-  description="Font weights help create hierarchy and emphasis."
->
-  <div className="space-y-2">
-    <p className="font-light">Light (300)</p>
-    <p className="font-normal">Regular (400)</p>
-    <p className="font-medium">Medium (500)</p>
-    <p className="font-semibold">Semibold (600)</p>
-    <p className="font-bold">Bold (700)</p>
-    <p className="font-extrabold">Extra Bold (800)</p>
-  </div>
-</Section>
+      {/* 🔹 Weights & Tone */}
+      <div className="grid md:grid-cols-2 gap-wide">
+        <ShowcaseSection title="Weight System" description="Defining emphasis levels.">
+          <div className="space-y-4">
+            {["light", "normal", "medium", "semibold", "bold", "black"].map((w) => (
+              <div key={w} className="flex items-center justify-between border-b border-primary/5 pb-2">
+                <Typography className={`font-${w} text-xl capitalize`}>{w}</Typography>
+                <code className="text-[10px] opacity-40">font-{w}</code>
+              </div>
+            ))}
+          </div>
+        </ShowcaseSection>
 
-<Section
-  title="Numeric Styles"
-  description="Useful for dashboards, finance apps, and data-heavy UI."
->
-  <div className="space-y-2">
-    <p className="tabular-nums">
-      Tabular: 1111 2222 3333
-    </p>
-    <p className="proportional-nums">
-      Proportional: 1111 2222 3333
-    </p>
-    <p className="lining-nums">
-      Lining Numbers: 1234567890
-    </p>
-    <p className="oldstyle-nums">
-      Oldstyle Numbers: 1234567890
-    </p>
-  </div>
-</Section>
+        <ShowcaseSection title="Numerical Logic" description="Optimized for dashboards.">
+          <div className="space-y-6">
+            <div className="bg-background p-4 radius-md border border-primary/10">
+              <Typography variant="label" className="mb-2 block opacity-50">Tabular (Dashboards)</Typography>
+              <Typography className="tabular-nums text-2xl font-mono text-primary">
+                111.99 <br/> 888.22
+              </Typography>
+            </div>
+            <div className="bg-background p-4 radius-md border border-primary/10">
+              <Typography variant="label" className="mb-2 block opacity-50">Proportional (Reading)</Typography>
+              <Typography className="proportional-nums text-2xl">
+                111.99 <br/> 888.22
+              </Typography>
+            </div>
+          </div>
+        </ShowcaseSection>
+      </div>
 
-<Section
-  title="Text Transform"
-  description="Control casing for UI consistency."
->
-  <div className="space-y-2">
-    <p className="uppercase">uppercase text</p>
-    <p className="lowercase">LOWERCASE TEXT</p>
-    <p className="capitalize">capitalize each word</p>
-  </div>
-</Section>
+      {/* 🔹 Layout Controls */}
+      <ShowcaseSection title="Editorial Patterns" description="Handling line-height and letter-spacing for large text blocks.">
+        <div className="grid md:grid-cols-3 gap-wide">
+          <div className="space-group">
+            <Typography variant="label" className="text-primary underline decoration-primary/30">Tracking (Wide)</Typography>
+            <Typography className="tracking-widest uppercase text-xs font-bold leading-none">
+              Modernist Approach
+            </Typography>
+          </div>
+          <div className="space-group">
+            <Typography variant="label" className="text-primary underline decoration-primary/30">Leading (Loose)</Typography>
+            <Typography className="leading-loose text-sm text-body-muted">
+              Space between lines creates a premium, airy feel often used in creator portfolios.
+            </Typography>
+          </div>
+          <div className="space-group">
+            <Typography variant="label" className="text-primary underline decoration-primary/30">Overflow Control</Typography>
+            <Typography className="line-clamp-2 text-sm bg-primary/5 p-2 radius-sm italic">
+              This is a very long sentence that will be clamped after two lines to ensure your grid remains perfectly aligned even with long user content.
+            </Typography>
+          </div>
+        </div>
+      </ShowcaseSection>
 
-<Section
-  title="Text Overflow"
-  description="Handle long text gracefully in UI layouts."
->
-  <div className="space-y-3 max-w-xs">
-    <p className="truncate">
-      This is a very long sentence that will be truncated
-    </p>
+      {/* 🔹 Real Usage Layout */}
+      <ShowcaseSection title="Integrated UI" description="A composition of various typography tokens.">
+        <div className="card max-w-md bg-background border-primary/20 shadow-xl shadow-primary/5">
+          <div className="space-y-4">
+            <div className="flex justify-between items-start">
+              <Typography variant="label" className="bg-primary/10 text-primary px-2 py-0.5 radius-sm text-[10px]">DESIGN SYSTEM</Typography>
+              <Typography variant="caption" className="font-mono">APRIL 2026</Typography>
+            </div>
+            
+            <Typography variant="h2" className="leading-[0.9] tracking-tighter">
+              The Art of <span className="text-primary italic">Precision.</span>
+            </Typography>
+            
+            <Typography variant="body" className="text-body-muted">
+              Typography is the silent ambassador of your brand. It speaks before the user even reads.
+            </Typography>
+            
+            <div className="pt-4 border-t border-primary/5 flex items-center justify-between">
+               <Typography variant="small" className="font-bold">Venkateshwarlu A.</Typography>
+               <Typography variant="caption" className="opacity-50 underline">Read More</Typography>
+            </div>
+          </div>
+        </div>
+      </ShowcaseSection>
 
-    <p className="line-clamp-2">
-      This is a longer paragraph that will be limited to two lines
-      using line clamp utility classes in Tailwind CSS.
-    </p>
-  </div>
-</Section>
-
-<Section
-  title="Real UI Example"
-  description="Typography used in a real component layout."
->
-  <div className="space-y-2 max-w-md border rounded-lg p-4">
-    <p className="text-sm text-muted-foreground">Category</p>
-
-    <h4 className="text-lg font-semibold">
-      Building Scalable Design Systems
-    </h4>
-
-    <p className="text-sm text-muted-foreground">
-      Learn how to structure typography and spacing effectively.
-    </p>
-
-    <p className="text-xs text-muted-foreground">
-      5 min read
-    </p>
-  </div>
-</Section>
-
-      {/* 🔹 Font Families */}
-    <Section
-  title="Font Families"
-  description="Different font families serve different purposes in UI and content."
->
-  <div className="space-y-4">
-
-    <div>
-      <p className="text-xs text-muted-foreground">Sans-serif (UI)</p>
-      <p className="font-sans text-lg">
-        Clean, modern, and best for interfaces
+      {/* 🔹 Guidelines */}
+      <footer className="system-footer">
+  {/* Semantic Title for Typography Guidelines */}
+  <h4 className="system-footer-title">Typography Guidelines</h4>
+  
+  <div className="system-footer-grid">
+    
+    {/* Item 01: Hierarchy */}
+    <div className="space-y-2">
+      <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
+        01 Structure
+      </div>
+      <span className="system-footer-item-heading text-lg">Hierarchy</span>
+      <p className="system-footer-item-text">
+        Never skip heading levels. Use <code>H1</code> for page titles and <code>H2</code> for section headers to maintain SEO integrity and screen-reader accessibility.
       </p>
     </div>
 
-    <div>
-      <p className="text-xs text-muted-foreground">Serif (Editorial)</p>
-      <p className="font-serif text-lg">
-        Elegant and readable for long-form content
+    {/* Item 02: Contrast */}
+    <div className="space-y-2">
+      <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
+        02 Legibility
+      </div>
+      <span className="system-footer-item-heading text-lg">Contrast Ratio</span>
+      <p className="system-footer-item-text">
+        Use <code>muted</code> or <code>caption</code> for secondary info. Always ensure at least a <strong>4.5:1</strong> contrast ratio for WCAG AA compliance.
       </p>
     </div>
 
-    <div>
-      <p className="text-xs text-muted-foreground">Monospace (Code)</p>
-      <p className="font-mono text-lg">
-        Consistent width for code and data
-      </p>
-    </div>
-
-    <div>
-      <p className="text-xs text-muted-foreground">Display (Headings)</p>
-      <p className="font-bold tracking-tight text-2xl">
-        Used for strong visual impact
+    {/* Item 03: Utility */}
+    <div className="space-y-2">
+      <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
+        03 Data
+      </div>
+      <span className="system-footer-item-heading text-lg">Numeric Intelligence</span>
+      <p className="system-footer-item-text">
+        Use <code>tabular-nums</code> for data that changes rapidly, like hardware sensor stats or clock timers, to prevent layout shifting.
       </p>
     </div>
 
   </div>
-</Section>
-
-      {/* 🔹 Line Height */}
-      <Section title="Line Height">
-        <div className="space-y-2 max-w-md">
-          <p className="leading-tight">
-            Tight line height creates compact text blocks.
-          </p>
-          <p className="leading-normal">
-            Normal line height is ideal for readability.
-          </p>
-          <p className="leading-loose">
-            Loose line height improves long-form reading.
-          </p>
-        </div>
-      </Section>
-
-
-      {/* 🔹 Letter Spacing */}
-      <Section title="Letter Spacing">
-        <div className="space-y-1">
-          <p className="tracking-tight">Tracking Tight</p>
-          <p className="tracking-normal">Tracking Normal</p>
-          <p className="tracking-wide">Tracking Wide</p>
-        </div>
-      </Section>
-
-      {/* 🔹 Usage */}
-      <Section title="Usage Example">
-        <div className="space-y-2 max-w-xl">
-          <Typography variant="h2">
-            Building Better Interfaces
-          </Typography>
-          <Typography variant="body">
-            Good typography improves readability and user experience.
-            It helps users scan and understand content efficiently.
-          </Typography>
-          <Typography variant="muted">
-            Updated just now
-          </Typography>
-        </div>
-      </Section>
-
-      {/* 🔹 Code */}
-      <Section title="Code Example">
-        <div className="bg-muted border rounded-lg p-4 text-sm font-mono">
-          {"<Typography variant='h1'>Heading</Typography>"}
-        </div>
-      </Section>
+</footer>
 
     </div>
   )

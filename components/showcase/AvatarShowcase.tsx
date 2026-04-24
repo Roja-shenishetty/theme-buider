@@ -2,293 +2,217 @@
 
 import { Avatar } from "@/components/ui/avatar"
 import { BadgeWrapper } from "@/components/ui/badge/badge-wrapper"
-import { User } from "lucide-react"
+import { User, ShieldCheck, Zap, Mail, Plus } from "lucide-react"
 
 const users = [
-  {
-    id: 1,
-    image: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg",
-    name: "John Doe",
-  },
-  {
-    id: 2,
-    image: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg",
-    name: "Kate Wilson",
-  },
-  {
-    id: 3,
-    image: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/purple.jpg",
-    name: "Emily Chen",
-  },
-  {
-    id: 4,
-    image: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/orange.jpg",
-    name: "Michael Brown",
-  },
-  {
-    id: 5,
-    image: "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg",
-    name: "Olivia Davis",
-  },
+  { id: 1, image: "https://i.pravatar.cc/100?img=11", name: "John Doe" },
+  { id: 2, image: "https://i.pravatar.cc/100?img=12", name: "Kate Wilson" },
+  { id: 3, image: "https://i.pravatar.cc/100?img=13", name: "Emily Chen" },
+  { id: 4, image: "https://i.pravatar.cc/100?img=14", name: "Michael Brown" },
+  { id: 5, image: "https://i.pravatar.cc/100?img=15", name: "Olivia Davis" },
 ]
 
-const colors = ["default", "accent", "success", "warning", "danger"] as const
+const colorOptions = ["default", "accent", "success", "warning", "danger"] as const
+
+/* 🔹 Contextual Section Wrapper */
+function ShowcaseSection({ title, description, children }: any) {
+  return (
+    <section className="space-section animate-fade-up">
+      <div className="space-group mb-6">
+        <h3 className="text-h3 font-bold tracking-tight text-primary/90">{title}</h3>
+        {description && (
+          <p className="text-body-muted text-sm max-w-2xl">{description}</p>
+        )}
+      </div>
+      <div className="card bg-muted/5 border-dashed border-2 border-primary/10 p-8 flex flex-wrap items-center gap-wide overflow-hidden relative">
+        {children}
+      </div>
+    </section>
+  )
+}
 
 export function AvatarShowcase() {
   return (
-    <div className="max-w-5xl space-y-12">
-
-      {/* Header */}
-      <section className="space-y-2">
-        <h1 className="text-2xl font-bold tracking-tight">Avatar</h1>
-        <p className="text-muted-foreground">
-          Avatars represent users with images, initials, or status indicators.
+    <div className="page-container space-page">
+      
+      {/* 🔹 Header Section */}
+      <header className="space-group pb-10 border-b border-primary/10">
+        <div className="inline-flex items-center gap-2 px-3 py-1 radius-full bg-primary/10 text-primary text-caption font-bold uppercase tracking-widest">
+          Identity Components
+        </div>
+        
+        <p className="text-body-muted max-w-2xl text-lg">
+          Representing individuals and entities with a focus on presence, status, and visual depth.
         </p>
-      </section>
+      </header>
 
-      {/* Basic */}
-      <section className="space-y-4">
-        <h3 className="text-base font-semibold">Basic</h3>
-        <div className="flex gap-4">
-          <Avatar src="https://i.pravatar.cc/100?img=1" />
-          <Avatar fallback="JD" />
-          <Avatar fallback="A" />
-        </div>
-      </section>
-
-      {/* Variants */}
-      <section className="space-y-4">
-        <h3 className="text-base font-semibold">Variants</h3>
-        <div className="flex gap-4">
-          <Avatar variant="soft" fallback="S" />
-          <Avatar variant="solid" fallback="S" />
-        </div>
-      </section>
-
-      <section className="space-y-5">
-  <div className="space-y-1">
-    <h3 className="text-base font-semibold tracking-tight">
-      Avatar with Badge
-    </h3>
-    <p className="text-sm text-muted-foreground">
-      Combine avatars with badges to show notifications or status.
-    </p>
-  </div>
-
-  <div className="rounded-xl border bg-background p-5 shadow-sm">
-    <div className="flex gap-6">
-
-      <BadgeWrapper content="5" variant="destructive">
-        <Avatar src="https://i.pravatar.cc/100?img=2" fallback="JD" />
-      </BadgeWrapper>
-
-      <BadgeWrapper content="New" variant="secondary">
-        <Avatar src="https://i.pravatar.cc/100?img=3" fallback="AB" />
-      </BadgeWrapper>
-
-      <BadgeWrapper dot variant="default" placement="bottom-right">
-        <Avatar src="https://i.pravatar.cc/100?img=4" fallback="CD" />
-      </BadgeWrapper>
-
-    </div>
-  </div>
-</section>
-
-      {/* Sizes */}
-      <section className="space-y-4">
-        <h3 className="text-base font-semibold">Sizes</h3>
-        <div className="flex gap-6">
-          <Avatar size="sm" src={users[0].image} fallback="SM" />
-          <Avatar size="md" src={users[2].image} fallback="MD" />
-          <Avatar size="lg" src={users[4].image} fallback="LG" />
-        </div>
-      </section>
-
-      {/* Colors */}
-      <section className="space-y-5">
-        <h3 className="text-base font-semibold">Colors</h3>
-
-        <div className="rounded-xl border bg-background p-5 shadow-sm flex gap-6">
-          {colors.map((color) => (
-            <Avatar key={color} color={color} fallback={color.slice(0,2).toUpperCase()} />
-          ))}
-        </div>
-      </section>
-
-      {/* Variant Grid */}
-      <section className="space-y-5">
-  <div className="space-y-1">
-    <h3 className="text-base font-semibold tracking-tight">
-      Variant Combinations
-    </h3>
-    <p className="text-sm text-muted-foreground">
-      Combine colors, styles, icons, and images to create flexible avatar designs.
-    </p>
-  </div>
-
-  <div className="rounded-xl border bg-background p-5 shadow-sm space-y-4">
-
-    {/* Header row */}
-    <div className="flex items-center gap-3">
-      <div className="w-24 shrink-0" />
-      {["default", "accent", "success", "warning", "danger"].map((color) => (
-        <div
-          key={color}
-          className="w-20 shrink-0 text-center text-xs text-muted-foreground capitalize"
-        >
-          {color}
-        </div>
-      ))}
-    </div>
-
-    <div className="h-px bg-border" />
-
-    {/* Letter */}
-    <div className="flex items-center gap-3">
-      <div className="w-24 shrink-0 text-sm text-muted-foreground">
-        Letter
-      </div>
-      {["default", "accent", "success", "warning", "danger"].map((color) => (
-        <div key={color} className="w-20 flex justify-center">
-          <Avatar fallback="AG" color={color as any} />
-        </div>
-      ))}
-    </div>
-
-    {/* Letter Soft */}
-    <div className="flex items-center gap-3">
-      <div className="w-24 shrink-0 text-sm text-muted-foreground">
-        Letter Soft
-      </div>
-      {["default", "accent", "success", "warning", "danger"].map((color) => (
-        <div key={color} className="w-20 flex justify-center">
-          <Avatar fallback="AG" color={color as any} variant="soft" />
-        </div>
-      ))}
-    </div>
-
-    {/* Icon */}
-    <div className="flex items-center gap-3">
-      <div className="w-24 shrink-0 text-sm text-muted-foreground">
-        Icon
-      </div>
-      {["default", "accent", "success", "warning", "danger"].map((color) => (
-        <div key={color} className="w-20 flex justify-center">
-          <Avatar fallback="👤" color={color as any} />
-        </div>
-      ))}
-    </div>
-
-    {/* Icon Soft */}
-    <div className="flex items-center gap-3">
-      <div className="w-24 shrink-0 text-sm text-muted-foreground">
-        Icon Soft
-      </div>
-      {["default", "accent", "success", "warning", "danger"].map((color) => (
-        <div key={color} className="w-20 flex justify-center">
-          <Avatar fallback="👤" color={color as any} variant="soft" />
-        </div>
-      ))}
-    </div>
-
-    {/* Images */}
-    <div className="flex items-center gap-3">
-      <div className="w-24 shrink-0 text-sm text-muted-foreground">
-        Image
-      </div>
-      {[
-        "https://i.pravatar.cc/100?img=3",
-        "https://i.pravatar.cc/100?img=4",
-        "https://i.pravatar.cc/100?img=5",
-        "https://i.pravatar.cc/100?img=6",
-        "https://i.pravatar.cc/100?img=7",
-      ].map((src, i) => (
-        <div key={i} className="w-20 flex justify-center">
-          <Avatar src={src} fallback="U" />
-        </div>
-      ))}
-    </div>
-
-  </div>
-</section>
-
-      {/* Fallback */}
-      <section className="space-y-5">
-        <h3 className="text-base font-semibold">Fallback</h3>
-
-        <div className="rounded-xl border bg-background p-5 shadow-sm flex gap-4">
-          <Avatar fallback="JD" />
-          <Avatar fallback={<User />} />
-          <Avatar src="invalid" fallback="NA" delayMs={600} />
-          <Avatar fallback="GB" fallbackClassName="avatar-gradient" />
-        </div>
-      </section>
-
-      {/* Avatar Group */}
-      <section className="space-y-5">
-        <h3 className="text-base font-semibold">Avatar Group</h3>
-
-        <div className="rounded-xl border bg-background p-5 shadow-sm space-y-4">
-
-          <div className="flex -space-x-2">
-            {users.slice(0, 4).map((user) => (
-              <Avatar
-                key={user.id}
-                src={user.image}
-                fallback={user.name.split(" ").map(n => n[0]).join("")}
-                className="avatar-group-item"
-              />
-            ))}
+      {/* 🔹 Shape & Scale Architecture */}
+      <ShowcaseSection 
+        title="Shape & Scale" 
+        description="Using radius tokens to distinguish between different entity types (e.g., users vs. companies)."
+      >
+        <div className="flex items-end gap-wide">
+          <div className="flex flex-col items-center gap-2">
+            <Avatar size="sm" src={users[0].image} className="radius-full" />
+            <span className="text-[10px] uppercase font-bold opacity-40">Small</span>
           </div>
+          <div className="flex flex-col items-center gap-2">
+            <Avatar size="md" src={users[1].image} className="radius-md" />
+            <span className="text-[10px] uppercase font-bold opacity-40">Medium</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <Avatar size="lg" src={users[2].image} className="radius-none border-2 border-primary/20 p-1" />
+            <span className="text-[10px] uppercase font-bold opacity-40">Large Sharp</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+             <Avatar size="lg" src={users[3].image} className="radius-full shadow-lg shadow-primary/20 border-4 border-background" />
+             <span className="text-[10px] uppercase font-bold opacity-40">Hero</span>
+          </div>
+        </div>
+      </ShowcaseSection>
 
-          <div className="flex -space-x-2">
-            {users.slice(0, 3).map((user) => (
-              <Avatar
-                key={user.id}
-                src={user.image}
-                fallback={user.name.split(" ").map(n => n[0]).join("")}
-                className="avatar-group-item"
-              />
-            ))}
+      {/* 🔹 Status Integration */}
+      <ShowcaseSection 
+        title="Presence Indicators" 
+        description="Combining BadgeWrapper logic with avatars for live activity monitoring."
+      >
+        <div className="flex gap-wide">
+          <BadgeWrapper dot variant="success" placement="bottom-right">
+            <Avatar src={users[0].image} className="radius-full" />
+          </BadgeWrapper>
+          
+          <BadgeWrapper content={<ShieldCheck className="w-3 h-3" />} variant="accent" placement="top-right">
+            <Avatar src={users[4].image} className="radius-full" />
+          </BadgeWrapper>
+
+          <BadgeWrapper content="99+" variant="danger" placement="top-right">
+            <Avatar fallback="AG" color="danger" variant="soft" className="radius-md" />
+          </BadgeWrapper>
+          
+          <BadgeWrapper content={<Zap className="w-3 h-3" />} variant="warning" placement="bottom-left">
+            <Avatar src={users[2].image} className="radius-full" />
+          </BadgeWrapper>
+        </div>
+      </ShowcaseSection>
+
+      {/* 🔹 Modern Avatar Group */}
+      <ShowcaseSection 
+        title="Entity Grouping" 
+        description="Overlapping avatars for team representation with a custom limit counter."
+      >
+        <div className="flex -space-x-4">
+          {users.slice(0, 4).map((user, i) => (
             <Avatar
-              fallback={`+${users.length - 3}`}
-              className="avatar-group-item avatar-group-counter"
+              key={user.id}
+              src={user.image}
+              className={`
+                radius-full border-4 border-background shadow-sm transition-transform hover:-translate-y-2 hover:z-10
+                ${i === 0 ? "z-40" : i === 1 ? "z-30" : i === 2 ? "z-20" : "z-10"}
+              `}
             />
+          ))}
+          <div className="w-12 h-12 radius-full bg-foreground text-background border-4 border-background flex items-center justify-center text-xs font-bold z-0">
+            +12
           </div>
+        </div>
+      </ShowcaseSection>
 
+      {/* 🔹 Technical Variant Grid */}
+      <section className="space-section">
+        <h3 className="text-h3 font-bold mb-6">Technical Matrix</h3>
+        <div className="card overflow-x-auto p-0 border-primary/10">
+          <table className="w-full text-left border-collapse">
+            <thead className="bg-muted/50">
+              <tr>
+                <th className="p-4 text-xs font-bold uppercase tracking-widest opacity-50">Style</th>
+                {colorOptions.map(c => (
+                  <th key={c} className="p-4 text-xs font-bold uppercase tracking-widest opacity-50 text-center">{c}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-primary/5">
+              {[
+                { name: "Solid Fallback", variant: "solid" },
+                { name: "Soft Tint", variant: "soft" }
+              ].map((row) => (
+                <tr key={row.name}>
+                  <td className="p-4 text-sm font-medium">{row.name}</td>
+                  {colorOptions.map(color => (
+                    <td key={color} className="p-4">
+                      <div className="flex justify-center">
+                        <Avatar fallback="A" color={color} variant={row.variant as any} className="radius-md" />
+                      </div>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
-      {/* Custom Styles */}
-      <section className="space-y-5">
-  <h3 className="text-base font-semibold">Custom Styles</h3>
+      {/* 🔹 Advanced Customizations */}
+      <ShowcaseSection title="Custom Overrides" description="Leveraging global classes for unique brand moments.">
+        <div className="flex gap-wide items-center">
+          {/* Gradient Border Style */}
+          <div className="p-[2px] radius-full bg-gradient-to-tr from-primary via-accent to-danger animate-spin-slow">
+            <div className="p-1 radius-full bg-background">
+               <Avatar src={users[1].image} className="radius-full" />
+            </div>
+          </div>
 
-  <div className="rounded-xl border bg-background p-5 shadow-sm flex items-center gap-6">
+          {/* Interactive Add Button */}
+          <button className="w-12 h-12 radius-full border-2 border-dashed border-primary/30 flex items-center justify-center text-primary/50 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all group">
+            <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform" />
+          </button>
 
-    {/* XL */}
-    <Avatar src={users[0].image} fallback="XL" className="avatar-xl" />
+          {/* Square Brand Style */}
+          <Avatar fallback={<Mail className="w-5 h-5" />} className="radius-lg bg-foreground text-background" />
+        </div>
+      </ShowcaseSection>
 
-    {/* Square */}
-    <Avatar src={users[2].image} fallback="SQ" className="avatar-square" />
-
-    {/* Gradient */}
-    <div className="avatar-gradient-border">
-      <Avatar src={users[4].image} fallback="GB" className="avatar-inner" />
+      {/* 🔹 Best Practices */}
+    <footer className="system-footer">
+  {/* System Title for the Guideline Section */}
+  <h4 className="system-footer-title">Identity Protocol</h4>
+  
+  <div className="system-footer-grid">
+    
+    {/* Item 01: Hierarchy */}
+    <div className="space-y-2">
+      <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
+        01 Hierarchy
+      </div>
+      <span className="system-footer-item-heading text-lg">Scale & Depth</span>
+      <p className="system-footer-item-text">
+        Use larger Avatars (lg/xl) for profile headers and smaller ones (sm/xs) for comment threads or metadata.
+      </p>
     </div>
 
-    {/* Status */}
-    <div className="avatar-status-wrapper">
-      <Avatar src={users[3].image} fallback="ON" />
-      <span className="avatar-status-dot" />
+    {/* Item 02: Fallbacks */}
+    <div className="space-y-2">
+      <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
+        02 Fallbacks
+      </div>
+      <span className="system-footer-item-heading text-lg">Empty States</span>
+      <p className="system-footer-item-text">
+        Always provide initials or a generic Icon as a fallback to prevent "empty circle" syndrome when images fail to load.
+      </p>
     </div>
 
-    {/* ✅ BadgeWrapper (ADD THIS) */}
-    <BadgeWrapper content="5" variant="destructive">
-      <Avatar src={users[1].image} fallback="BW" />
-    </BadgeWrapper>
+    {/* Item 03: Radius */}
+    <div className="space-y-2">
+      <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
+        03 Radius
+      </div>
+      <span className="system-footer-item-heading text-lg">Entity Logic</span>
+      <p className="system-footer-item-text">
+        Consistency is key. Use <code>radius-full</code> for humans and <code>radius-md</code> for organizations or automated bots.
+      </p>
+    </div>
 
   </div>
-</section>
+</footer>
 
     </div>
   )

@@ -5,29 +5,6 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { createPortal } from "react-dom"
 
-type AlertDialogProps = {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  title: string
-  description: React.ReactNode
-
-  confirmText?: string
-  cancelText?: string
-  onConfirm?: () => void
-
-  variant?: "default" | "danger"
-  placement?: "top" | "center" | "bottom"
-  backdrop?: "opaque" | "blur" | "transparent"
-  backdropClassName?: string
-  size?: "xs" | "sm" | "md" | "lg" | "cover"
-  icon?: React.ReactNode
-  isDismissable?: boolean
-  isKeyboardDismissDisabled?: boolean
-
-  children?: React.ReactNode
-  portalContainer?: HTMLElement | null
-}
-
 export function AlertDialog({
   open,
   onOpenChange,
@@ -41,18 +18,22 @@ export function AlertDialog({
   backdrop = "opaque",
   size = "md",
   icon,
-  backdropClassName,
   isDismissable = false,
   isKeyboardDismissDisabled = true,
   children,
   portalContainer,
-}: AlertDialogProps) {
+}: any) {
 
-  // ✅ Don't render when closed
-  if (!open) return null
+  const [mounted, setMounted] = React.useState(false)
 
-  // ✅ ESC handling
   React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // ESC handling
+  React.useEffect(() => {
+    if (!open) return
+
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape" && !isKeyboardDismissDisabled) {
         onOpenChange(false)
@@ -61,82 +42,73 @@ export function AlertDialog({
 
     document.addEventListener("keydown", handleEsc)
     return () => document.removeEventListener("keydown", handleEsc)
-  }, [onOpenChange, isKeyboardDismissDisabled])
+  }, [open, onOpenChange, isKeyboardDismissDisabled])
 
-  // ✅ Dialog JSX
- const isPortal = !!portalContainer
+  // ✅ FIX: mount only when needed
+  if (!mounted || !open) return null
 
-const dialog = (
-  <div
-    className={cn(
-      "alert-overlay",
-      isPortal && "portal",
-      placement === "top" && "alert-top",
-      placement === "center" && "alert-center",
-      placement === "bottom" && "alert-bottom"
-    )}
-  >
-    {/* Backdrop */}
+  const container = portalContainer ?? document.body
+
+  const dialog = (
     <div
       className={cn(
-        "alert-backdrop",
-        backdrop
+        "fixed inset-0 z-50 flex items-center justify-center",
+        placement === "top" && "items-start pt-20",
+        placement === "bottom" && "items-end pb-20"
       )}
-      onClick={() => {
-        if (isDismissable) onOpenChange(false)
-      }}
-    />
-
-    {/* Dialog */}
-    <div
-      className={cn(
-        "alert-dialog",
-        `alert-${size}`
-      )}
-      onClick={(e) => e.stopPropagation()}
     >
-      {/* Header */}
-      <div className="alert-header">
-        {icon && (
-          <div className={cn("alert-icon", variant)}>
-            {icon}
-          </div>
+      {/* Backdrop */}
+      <div
+        className={cn(
+          "absolute inset-0 bg-black/50",
+          backdrop === "blur" && "backdrop-blur-sm",
+          backdrop === "transparent" && "bg-transparent"
         )}
+        onClick={() => {
+          if (isDismissable) onOpenChange(false)
+        }}
+      />
 
-        <div>
+      {/* Dialog */}
+      <div
+        className={cn(
+          "relative z-10 bg-white rounded-xl shadow-lg p-6 w-full max-w-md",
+          `alert-${size}`
+        )}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="mb-3">
           <h2 className="text-lg font-semibold">{title}</h2>
         </div>
+
+        {description && (
+          <p className="text-sm text-muted-foreground mb-4">
+            {description}
+          </p>
+        )}
+
+        {children ? (
+          children
+        ) : (
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => onOpenChange(false)}>
+              {cancelText}
+            </Button>
+
+            <Button
+              variant={variant === "danger" ? "danger" : "default"}
+              onClick={() => {
+                onConfirm?.()
+                onOpenChange(false)
+              }}
+            >
+              {confirmText}
+            </Button>
+          </div>
+        )}
       </div>
-
-      {/* Body */}
-      <div className="alert-body">{description}</div>
-
-      {/* Footer */}
-      {children ? (
-        <div className="pt-4">{children}</div>
-      ) : (
-        <div className="alert-footer">
-          <Button variant="secondary" onClick={() => onOpenChange(false)}>
-            {cancelText}
-          </Button>
-
-          <Button
-            variant={variant === "danger" ? "danger" : "default"}
-            onClick={() => {
-              onConfirm?.()
-              onOpenChange(false)
-            }}
-          >
-            {confirmText}
-          </Button>
-        </div>
-      )}
     </div>
-  </div>
-)
+  )
 
-  // ✅ Portal support
-  return portalContainer
-    ? createPortal(dialog, portalContainer)
-    : dialog
+  return createPortal(dialog, container)
 }

@@ -1,5 +1,5 @@
 /* ============================= */
-/* 🔹 Base Avatar */
+/* 🔹 Base Avatar Architecture */
 /* ============================= */
 
 .avatar {
@@ -7,120 +7,106 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 9999px;
+  vertical-align: middle;
   overflow: hidden;
-  background: #e5e7eb;
-  color: #374151;
-  font-weight: 500;
+  user-select: none;
+  background: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
 }
 
-/* Sizes */
-.avatar-xs { width: 24px; height: 24px; font-size: 10px; }
-.avatar-sm { width: 32px; height: 32px; font-size: 12px; }
-.avatar-md { width: 40px; height: 40px; font-size: 14px; }
-.avatar-lg { width: 56px; height: 56px; font-size: 18px; }
-.avatar-xl { width: 72px; height: 72px; font-size: 22px; }
+/* 🔹 Scaling Matrix */
+.avatar-xs { width: 24px; height: 24px; font-size: 0.625rem; }
+.avatar-sm { width: 32px; height: 32px; font-size: 0.75rem; }
+.avatar-md { width: 40px; height: 40px; font-size: 0.875rem; }
+.avatar-lg { width: 56px; height: 56px; font-size: 1.125rem; }
+.avatar-xl { width: 80px; height: 80px; font-size: 1.5rem; }
 
-/* ============================= */
-/* 🔹 Image */
-/* ============================= */
-
+/* 🔹 Internal Components */
 .avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* ============================= */
-/* 🔹 Fallback */
-/* ============================= */
-
 .avatar-fallback {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 /* ============================= */
-/* 🔹 Variants */
+/* 🔹 Visual Variants (The Soul) */
 /* ============================= */
 
-.avatar-soft {
-  background: #f3f4f6;
-}
+/* Solid Variants */
+.avatar-solid { color: white; border: none; }
+.avatar-solid.avatar-default { background: #6b7280; }
+.avatar-solid.avatar-accent  { background: var(--primary); }
+.avatar-solid.avatar-success { background: #22c55e; }
+.avatar-solid.avatar-warning { background: #facc15; color: black; }
+.avatar-solid.avatar-danger  { background: #ef4444; }
 
-.avatar-solid {
-  background: #6366f1;
-  color: white;
-}
-
-/* ============================= */
-/* 🔹 Status */
-/* ============================= */
-
-.avatar-status {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 9999px;
-  border: 2px solid white;
-}
-
-.avatar-online { background: #22c55e; }
-.avatar-offline { background: #9ca3af; }
-.avatar-busy { background: #ef4444; }
+/* Soft Tint Matrix (Glow Style) */
+.avatar-soft { border: 1px solid transparent; }
+.avatar-soft.avatar-default { background: rgba(107, 114, 128, 0.15); color: #6b7280; }
+.avatar-soft.avatar-accent  { background: rgba(var(--primary-rgb), 0.15); color: var(--primary); border-color: rgba(var(--primary-rgb), 0.1); }
+.avatar-soft.avatar-success { background: rgba(34, 197, 94, 0.15); color: #16a34a; }
+.avatar-soft.avatar-warning { background: rgba(250, 204, 21, 0.15); color: #a16207; }
+.avatar-soft.avatar-danger  { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
 
 /* ============================= */
-/* 🔹 Color Variants */
+/* 🔹 Geometric Tokens */
 /* ============================= */
 
-.avatar-default {
-  background: #e5e7eb;
-  color: #374151;
-}
+.radius-full { border-radius: 9999px; }
+.radius-lg   { border-radius: 16px; }
+.radius-md   { border-radius: 12px; }
+.radius-sm   { border-radius: 8px; }
+.radius-none { border-radius: 0px; }
 
-.avatar-accent {
-  background: #6366f1;
-  color: white;
-}
+/* ============================= */
+/* 🔹 Presence & Status Dot */
+/* ============================= */
 
-.avatar-success {
-  background: #22c55e;
-  color: white;
-}
-
-.avatar-warning {
-  background: #facc15;
-  color: black;
-}
-
-.avatar-danger {
-  background: #ef4444;
-  color: white;
-}
-
-.avatar-accent {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-}
-.avatar-ring {
-  box-shadow: 0 0 0 2px white;
-}
-.avatar-square {
-  border-radius: 8px;   /* NOT 0 width/height */
-}
-.avatar-gradient-border {
-  padding: 2px;
-  border-radius: 9999px;
-  background: linear-gradient(135deg, #ec4899, #f59e0b);
-}
+/* If you use a status wrapper */
 .avatar-status-dot {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background: #22c55e;
+  width: 25%;
+  height: 25%;
+  min-width: 8px;
+  min-height: 8px;
   border-radius: 9999px;
-  right: 0;
-  bottom: 0;
+  border: 2px solid var(--background);
+  right: 2%;
+  bottom: 2%;
+  z-index: 10;
+}
+
+.status-success { background: #22c55e; box-shadow: 0 0 8px rgba(34, 197, 94, 0.5); }
+.status-warning { background: #facc15; }
+.status-danger  { background: #ef4444; }
+
+/* ============================= */
+/* 🔹 Advanced Animations */
+/* ============================= */
+
+.animate-spin-slow {
+  animation: avatar-spin 8s linear infinite;
+}
+
+@keyframes avatar-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Hover effects for Entity Groups */
+.avatar:hover {
+  z-index: 50;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }

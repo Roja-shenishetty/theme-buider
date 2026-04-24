@@ -1,147 +1,146 @@
-/* ================= ROOT ================= */
-.intro {
-  max-width: 1200px;
+/* ============================= */
+/* 🔹 Introduction Core Layout */
+/* ============================= */
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🔹 Grid-3 Engine */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--gap-wide);
+  width: 100%;
+  max-width: 1500px;
   margin: 0 auto;
-  padding: 60px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
 }
 
-/* ================= HERO ================= */
-.intro-hero {
-  display: grid;
-  gap: 40px;
+@media (min-width: 768px) {
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
 }
 
-
-.intro-hero-text {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+@media (min-width: 1200px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
 }
 
-.intro-title {
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 700;
-  line-height: 1.1;
+/* ============================= */
+/* 🔹 Ambient Animations */
+/* ============================= */
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.15; transform: scale(1.05); }
 }
 
-.intro-title span {
-  color: hsl(var(--primary));
+.animate-pulse {
+  animation: pulse-soft 8s ease-in-out infinite;
 }
 
-.intro-subtitle {
-  font-size: 15px;
-  color: hsl(var(--muted-foreground));
-  line-height: 1.6;
-  max-width: 500px;
-}
-
-.intro-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.intro-hero-image {
-  width: 100%;
-  height: 320px;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.intro-hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* ================= INFO ================= */
-.intro-info {
-  display: grid;
-  gap: 40px;
-}
-
-@media (min-width: 1024px) {
-  .intro-info {
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.intro-info-text {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.intro-info-text h2 {
-  font-size: 24px;
-  font-weight: 600;
+/* ============================= */
+/* 🔹 Code Playground Logic */
+/* ============================= */
+
+.text-code {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  tab-size: 2;
 }
 
-.intro-info-text p {
-  font-size: 14px;
-  color: hsl(var(--muted-foreground));
+/* Progress Bar Shimmer */
+@keyframes shimmer-move {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
 }
 
-.intro-list {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 14px;
-}
-
-.intro-info-image {
-  height: 280px;
-  border-radius: 16px;
+.animate-shimmer {
+  position: relative;
   overflow: hidden;
 }
 
-.intro-info-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.animate-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: shimmer-move 2s infinite;
 }
 
-/* ================= SECTION ================= */
-.intro-section {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+/* ============================= */
+/* 🔹 Interactive States */
+/* ============================= */
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
 }
 
-.intro-section-title {
-  font-size: 22px;
+.btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--foreground);
   font-weight: 600;
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
 }
 
-/* ================= GRID ================= */
-.intro-grid-3 {
-  display: grid;
-  gap: 24px;
+/* Glass-morphism Card */
+.backdrop-blur-sm {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-
-/* ================= CTA ================= */
-.intro-cta {
-  text-align: center;
-  padding: 40px;
-  border-radius: 20px;
-  background: hsl(var(--muted));
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* Carbon Fibre Pattern Overlay */
+.bg-foreground {
+  background-color: #0a0a0a;
 }
 
-.intro-cta h2 {
-  font-size: 24px;
-  font-weight: 600;
+.footer-texture {
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
-.intro-cta p {
-  font-size: 14px;
-  color: hsl(var(--muted-foreground));
+/* ============================= */
+/* 🔹 Responsive Utilities */
+/* ============================= */
+
+@media (max-width: 640px) {
+  .text-h1 {
+    font-size: 2.5rem;
+  }
+  
+  .space-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
 }

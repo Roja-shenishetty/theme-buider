@@ -1,0 +1,85 @@
+/* ============================= */
+/* 🔹 Border Core Architecture */
+/* ============================= */
+
+:root {
+  /* Default System Border Color */
+  --border: rgba(var(--primary-rgb), 0.1);
+  --border-hover: rgba(var(--primary-rgb), 0.3);
+}
+
+/* 🔹 Stroke Weights */
+.border { border-width: 1px; border-style: solid; }
+.border-2 { border-width: 2px; border-style: solid; }
+.border-4 { border-width: 4px; border-style: solid; }
+.border-8 { border-width: 8px; border-style: solid; }
+
+/* 🔹 Technical Styles */
+.border-dashed { border-style: dashed; }
+.border-dotted { border-style: dotted; }
+.border-none { border: none; }
+
+/* 🔹 Geometric Radius (The Blueprint) */
+.radius-none { border-radius: 0; }
+.radius-sm   { border-radius: 4px; }
+.radius-md   { border-radius: 8px; }
+.radius-lg   { border-radius: 12px; }
+.radius-xl   { border-radius: 20px; }
+.radius-2xl  { border-radius: 32px; }
+.radius-full { border-radius: 9999px; }
+
+/* 🔹 Directional Utility */
+.border-t-4 { border-top-width: 4px; border-top-style: solid; }
+.border-b-4 { border-bottom-width: 4px; border-bottom-style: solid; }
+.border-l-4 { border-left-width: 4px; border-left-style: solid; }
+.border-r-4 { border-right-width: 4px; border-right-style: solid; }
+
+/* ============================= */
+/* 🔹 Divider & Content Logic */
+/* ============================= */
+
+/* Targets child elements for clean lists */
+.divide-y > * + * {
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+
+.divide-x > * + * {
+  border-left-width: 1px;
+  border-left-style: solid;
+}
+
+/* ============================= */
+/* 🔹 Interaction & Accessibility */
+/* ============================= */
+
+/* The focus-ring system for keyboard navigation */
+.focus-ring {
+  outline: none;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.focus\:ring-2:focus {
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--primary);
+}
+
+.focus\:ring-4:focus {
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.4);
+}
+
+/* ============================= */
+/* 🔹 System State Borders */
+/* ============================= */
+
+.border-primary { border-color: var(--primary); }
+.border-accent  { border-color: var(--accent); }
+.border-success { border-color: #22c55e; }
+.border-danger  { border-color: #ef4444; }
+
+/* Soft alpha borders for glassmorphism */
+.border-primary\/5  { border-color: rgba(var(--primary-rgb), 0.05); }
+.border-primary\/10 { border-color: rgba(var(--primary-rgb), 0.1); }
+.border-primary\/20 { border-color: rgba(var(--primary-rgb), 0.2); }
+.border-primary\/30 { border-color: rgba(var(--primary-rgb), 0.3); }
+.border-primary\/40 { border-color: rgba(var(--primary-rgb), 0.4); }
+.border-primary\/50 { border-color: rgba(var(--primary-rgb), 0.5); }

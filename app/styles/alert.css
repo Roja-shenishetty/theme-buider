@@ -1,171 +1,122 @@
 /* ============================= */
-/* 🔹 Base Alert */
+/* 🔹 Base Alert Architecture */
 /* ============================= */
 
 .alert {
   position: relative;
   display: flex;
-  gap: 0.75rem;
-  padding: 1rem;
-  border-radius: 12px;
-  border: 1px solid var(--border);
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 16px; /* Using your radius-xl feel */
+  border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.875rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px); /* Modern glass effect */
+}
+
+.alert:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.2);
 }
 
 /* ============================= */
-/* 🔹 Variants */
+/* 🔹 Colorful Variants (The "Soul") */
 /* ============================= */
 
-.alert-default {
-  background: var(--background);
-  color: var(--foreground);
-}
-
-/* Solid variants */
+/* 🟢 SUCCESS: Emerald Glow */
 .alert-success {
-  background: #ecfdf5;
-  border-color: #bbf7d0;
-  color: #166534;
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border-color: #10b981;
+  color: #065f46;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
 }
 
-.alert-warning {
-  background: #fefce8;
-  border-color: #fde68a;
-  color: #854d0e;
-}
-
-.alert-danger {
-  background: #fef2f2;
-  border-color: #fecaca;
-  color: #991b1b;
-}
-
-.alert-info {
-  background: #eff6ff;
-  border-color: #bfdbfe;
-  color: #1e40af;
-}
-
-/* Soft */
 .alert-success-soft {
-  background: #ecfdf5;
-  color: #166534;
-  border-color: transparent;
+  background: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.alert-success-filled {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+}
+
+/* 🟡 WARNING: Amber Glow */
+.alert-warning {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border-color: #f59e0b;
+  color: #92400e;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
 }
 
 .alert-warning-soft {
-  background: #fefce8;
-  color: #854d0e;
-  border-color: transparent;
-}
-
-.alert-danger-soft {
-  background: #fef2f2;
-  color: #991b1b;
-  border-color: transparent;
-}
-
-/* Filled */
-.alert-success-filled {
-  background: #16a34a;
-  color: white;
-  border-color: transparent;
+  background: rgba(245, 158, 11, 0.08);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .alert-warning-filled {
-  background: #eab308;
-  color: black;
-  border-color: transparent;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 16px rgba(245, 158, 11, 0.3);
+}
+
+/* 🔴 DANGER: Crimson Glow */
+.alert-danger {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border-color: #ef4444;
+  color: #991b1b;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.1);
+}
+
+.alert-danger-soft {
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 .alert-danger-filled {
-  background: #dc2626;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   color: white;
-  border-color: transparent;
+  border: none;
+  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.3);
+}
+
+/* 🔵 INFO: Cobalt Glow */
+.alert-info {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-color: #3b82f6;
+  color: #1e40af;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
 }
 
 /* ============================= */
-/* 🔹 Content */
+/* 🔹 Content Refinement */
 /* ============================= */
-
-.alert-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
 
 .alert-title {
-  font-weight: 600;
+  font-weight: 800; /* Heavier for better hierarchy */
+  letter-spacing: -0.025em;
+  font-size: 1rem;
 }
 
 .alert-description {
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
+  opacity: 0.8;
+  line-height: 1.5;
 }
-
-/* ============================= */
-/* 🔹 Spinner */
-/* ============================= */
-
-.alert-spinner {
-  margin-top: 4px;
-  height: 16px;
-  width: 16px;
-  border-radius: 9999px;
-  border: 2px solid currentColor;
-  border-top-color: transparent;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ============================= */
-/* 🔹 Action */
-/* ============================= */
-
-.alert-action {
-  margin-top: 8px;
-}
-
-/* ============================= */
-/* 🔹 Close Button */
-/* ============================= */
 
 .alert-close {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--muted-foreground);
-  font-size: 14px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  padding: 0.5rem;
 }
 
 .alert-close:hover {
-  color: var(--foreground);
-}
-
-/* ============================= */
-/* 🔹 Animations */
-/* ============================= */
-
-.alert {
-  animation: alertFade 0.2s ease-out;
-}
-
-@keyframes alertFade {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
 }

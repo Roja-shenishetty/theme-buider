@@ -1,4 +1,7 @@
+"use client"
+
 import { useState } from "react"
+import { Typography } from "@/components/ui/typography"
 
 type Props = {
   activeMenu: string
@@ -6,14 +9,14 @@ type Props = {
   setActiveComponent: React.Dispatch<React.SetStateAction<string>>
 }
 
- export default function SecondarySidebar({
+export default function SecondarySidebar({
   activeMenu,
   activeComponent,
   setActiveComponent,
 }: Props) {
   const [openSection, setOpenSection] = useState<string | null>(null)
 
-  const data: any = {
+   const data: any = {
     components: [
       {
     title: "Foundations",
@@ -160,54 +163,62 @@ type Props = {
       },
     ],
   }
- 
+
   const sections = data[activeMenu] || []
 
   return (
-    <div className="w-48 bg-background border-r p-3 h-full">
-      
-      {/* ❗ EMPTY STATE */}
+    <div className="w-48 bg-background border-r pad-3 h-full space-group">
+
+      {/* 🔹 EMPTY STATE */}
       {sections.length === 0 && (
-        <div className="text-sm text-muted-foreground px-3">
+        <Typography variant="muted">
           No items available
-        </div>
+        </Typography>
       )}
 
       {sections.map((section: any) => (
-        <div key={section.title} className="mb-3">
+        <div key={section.title} className="space-group">
 
+          {/* 🔹 SECTION HEADER */}
           <div
-  onClick={() =>
-    setOpenSection(
-      openSection === section.title ? null : section.title
-    )
-  }
-  className={`section-header ${
-    openSection === section.title ? "active" : ""
-  }`}
->
-  {section.title}
-</div>
+            onClick={() =>
+              setOpenSection(
+                openSection === section.title ? null : section.title
+              )
+            }
+            className={`section-header ${
+              openSection === section.title ? "active" : ""
+            }`}
+          >
+            <Typography variant="label">
+              {section.title}
+            </Typography>
+          </div>
 
-          {/* 🔥 CHILD ITEMS */}
+          {/* 🔹 CHILD ITEMS */}
           {openSection === section.title && (
-            <div className="ml-2 mt-1 space-y-1">
+            <div className="pl-2 space-group">
               {section.children.map((item: any) => (
                 <div
                   key={item.id}
                   onClick={() => setActiveComponent(item.id)}
-                  className={`px-3 py-2 rounded-xl text-sm cursor-pointer transition
-                    ${
-                      activeComponent === item.id
-                        ? "bg-primary text-white"
-                        : "text-muted-foreground hover:bg-muted"
-                    }`}
+                  className={`
+  px-2 py-2 rounded-md cursor-pointer transition
+  ${
+    activeComponent === item.id
+      ? "bg-muted text-foreground font-medium"
+      : "text-muted-foreground hover:bg-muted"
+  }
+`}
                 >
-                  {item.name}
+                  <Typography variant="small">
+                    {item.name}
+                  </Typography>
                 </div>
               ))}
             </div>
           )}
+
         </div>
       ))}
     </div>

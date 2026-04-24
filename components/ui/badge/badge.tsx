@@ -16,7 +16,7 @@ type BadgeVariant =
 type BadgeProps = React.HTMLAttributes<HTMLDivElement> & {
   variant?: BadgeVariant
   size?: "sm" | "md" | "lg"
-  placement?: "top-right" | "bottom-right"
+  placement?: "top-right" | "bottom-right" | "top-left" | "bottom-left"
   dot?: boolean
     tone?: "solid" | "soft"  
 }

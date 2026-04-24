@@ -15,6 +15,7 @@ const menu = [
   { id: "foundations", icon: Palette },
   { id: "components", icon: Boxes },
 ]
+
 type Props = {
   activeMenu: string
   setActiveMenu: React.Dispatch<React.SetStateAction<string>>
@@ -24,44 +25,40 @@ type Props = {
 export default function MainSidebar({
   activeMenu,
   setActiveMenu,
-  setActiveComponent, // ✅ ADD THIS
+  setActiveComponent,
 }: Props) {
   return (
     <div className="main-sidebar h-full flex flex-col justify-between">
-  
-  {/* TOP ICONS */}
-  <div className="flex flex-col items-center gap-4">
-    {menu.map((item) => {
-      const Icon = item.icon
 
-      return (
-        <button
-          key={item.id}
-          onClick={() => {
-            setActiveMenu(item.id)
-            if (item.id === "components") {
-              setActiveComponent("button")
-            } else {
-              setActiveComponent("intro")
-            }
-          }}
-          className={`sidebar-icon ${
-            activeMenu === item.id ? "active" : ""
-          }`}
-        >
-          <Icon size={20} />
-        </button>
-      )
-    })}
-  </div>
+      {/* 🔹 TOP ICONS */}
+      <div className="flex flex-col items-center gap-default">
 
-  {/* 🔻 BOTTOM PROFILE */}
-  <div className="flex justify-center pb-4">
-    <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center">
-      N
+        {menu.map((item) => {
+          const Icon = item.icon
+
+          return (
+            <button
+              key={item.id}
+              onClick={() => {
+                setActiveMenu(item.id)
+
+                if (item.id === "components") {
+                  setActiveComponent("button")
+                } else {
+                  setActiveComponent("intro")
+                }
+              }}
+              className={`sidebar-icon ${
+                activeMenu === item.id ? "active" : ""
+              }`}
+            >
+              <Icon size={20} />
+            </button>
+          )
+        })}
+
+      </div>
+
     </div>
-  </div>
-
-</div>
   )
-} 
+}

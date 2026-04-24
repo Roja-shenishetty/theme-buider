@@ -1,0 +1,106 @@
+/* ============================= */
+/* 🔹 Spacing System Core */
+/* ============================= */
+
+:root {
+  /* 4px Base Unit Scale */
+  --space-0: 0px;
+  --space-1: 4px;   /* 0.25rem */
+  --space-2: 8px;   /* 0.5rem */
+  --space-3: 12px;  /* 0.75rem */
+  --space-4: 16px;  /* 1rem */
+  --space-5: 20px;  /* 1.25rem */
+  --space-6: 24px;  /* 1.5rem */
+  --space-8: 32px;  /* 2rem */
+  --space-10: 40px; /* 2.5rem */
+  --space-12: 48px; /* 3rem */
+  --space-16: 64px; /* 4rem */
+  --space-20: 80px; /* 5rem */
+
+  /* Semantic Aliases used in your layouts */
+  --space-page: var(--space-12);
+  --space-section: var(--space-16);
+  --space-group: var(--space-4);
+  --gap-default: var(--space-4);
+  --gap-wide: var(--space-8);
+}
+
+/* ============================= */
+/* 🔹 Padding Utilities */
+/* ============================= */
+
+.p-0 { padding: var(--space-0); }
+.p-1 { padding: var(--space-1); }
+.p-2 { padding: var(--space-2); }
+.p-3 { padding: var(--space-3); }
+.p-4 { padding: var(--space-4); }
+.p-5 { padding: var(--space-5); }
+.p-6 { padding: var(--space-6); }
+.p-8 { padding: var(--space-8); }
+.p-10 { padding: var(--space-10); }
+.p-12 { padding: var(--space-12); }
+.p-16 { padding: var(--space-16); }
+
+/* Horizontal/Vertical shorthand */
+.px-page { padding-left: var(--space-page); padding-right: var(--space-page); }
+.py-section { padding-top: var(--space-section); padding-bottom: var(--space-section); }
+
+/* ============================= */
+/* 🔹 Margin Utilities */
+/* ============================= */
+
+.m-0 { margin: var(--space-0); }
+.m-1 { margin: var(--space-1); }
+.m-2 { margin: var(--space-2); }
+.m-3 { margin: var(--space-3); }
+.m-4 { margin: var(--space-4); }
+.m-5 { margin: var(--space-5); }
+.m-6 { margin: var(--space-6); }
+.m-8 { margin: var(--space-8); }
+.m-10 { margin: var(--space-10); }
+.m-12 { margin: var(--space-12); }
+.m-16 { margin: var(--space-16); }
+
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* ============================= */
+/* 🔹 Flex/Grid Gaps */
+/* ============================= */
+
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-default { gap: var(--gap-default); }
+.gap-wide { gap: var(--gap-wide); }
+
+/* ============================= */
+/* 🔹 Space-Y (Vertical Stack) */
+/* ============================= */
+
+/* Targets every child except the first to add top margin */
+.space-y-1 > * + * { margin-top: var(--space-1); }
+.space-y-2 > * + * { margin-top: var(--space-2); }
+.space-y-4 > * + * { margin-top: var(--space-4); }
+.space-y-6 > * + * { margin-top: var(--space-6); }
+.space-y-8 > * + * { margin-top: var(--space-8); }
+.space-y-12 > * + * { margin-top: var(--space-12); }
+
+/* ============================= */
+/* 🔹 Structural Aliases */
+/* ============================= */
+
+.space-page {
+  padding: var(--space-page);
+}
+
+.space-section {
+  padding-top: var(--space-section);
+  padding-bottom: var(--space-section);
+}
+
+.space-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-group);
+}

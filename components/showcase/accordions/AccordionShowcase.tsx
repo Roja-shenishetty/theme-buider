@@ -1,5 +1,7 @@
 "use client"
 
+import { Typography } from "@/components/ui/typography"
+
 import { BasicAccordion } from "./BasicAccordion"
 import { ControlledAccordion } from "./ControlledAccordion"
 import { CustomIndicatorAccordion } from "./CustomindicatorAccordion"
@@ -19,19 +21,18 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <section className="space-y-5 animate-fade-up">
-      <div className="space-y-1">
-        <h3 className="text-base font-semibold tracking-tight">
-          {title}
-        </h3>
+    <section className="space-section animate-fade-up">
+      <div className="space-y-2">
+        <Typography variant="h3">{title}</Typography>
+
         {description && (
-          <p className="text-sm text-muted-foreground max-w-2xl">
+          <Typography variant="muted">
             {description}
-          </p>
+          </Typography>
         )}
       </div>
 
-      <div className="rounded-xl border bg-background p-5 shadow-sm transition-all hover:shadow-md">
+      <div className="card">
         {children}
       </div>
     </section>
@@ -40,17 +41,16 @@ function Section({
 
 export function AccordionShowcase() {
   return (
-    <div className="max-w-5xl space-y-14">
+    <div className="page-container space-page">
 
       {/* 🔹 Header */}
-      <section className="space-y-3 pb-6 border-b animate-fade-up">
-        <h1 className="text-2xl font-bold tracking-tight">
-          Accordion
-        </h1>
-        <p className="text-muted-foreground max-w-2xl">
+      <section className="space-y-3 pb-8 border-b animate-fade-up">
+        <Typography variant="h2">Accordion</Typography>
+
+        <Typography variant="muted">
           Accordions allow users to expand and collapse sections of content,
           helping reduce clutter and improve readability.
-        </p>
+        </Typography>
       </section>
 
       {/* 🔹 Basic */}
@@ -58,12 +58,12 @@ export function AccordionShowcase() {
         <BasicAccordion />
       </Section>
 
-      {/* 🔹 Surface Style */}
+      {/* 🔹 Surface */}
       <Section title="Surface Variant">
         <SurfaceAccordion />
       </Section>
 
-      {/* 🔹 Multiple Open */}
+      {/* 🔹 Multiple */}
       <Section title="Multiple Selection">
         <MultipleAccordion />
       </Section>
@@ -73,12 +73,12 @@ export function AccordionShowcase() {
         <ControlledAccordion />
       </Section>
 
-      {/* 🔹 Custom Indicator */}
+      {/* 🔹 Indicator */}
       <Section title="Custom Indicator">
         <CustomIndicatorAccordion />
       </Section>
 
-      {/* 🔹 Custom Styled */}
+      {/* 🔹 Styled */}
       <Section title="Custom Styled">
         <CustomStyledAccordion />
       </Section>

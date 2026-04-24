@@ -2,30 +2,34 @@
 
 import { useState } from "react"
 import { Button } from "../../ui/button"
+import { Typography } from "@/components/ui/typography"
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Home, 
+  Pencil, 
+  Paperclip, 
+  Trash2, 
+  Plus, 
+  LayoutGrid, 
+  List, 
+  Check 
+} from "lucide-react"
 
-function Section({
-  title,
-  description,
-  children,
-}: {
-  title: string
-  description?: string
-  children: React.ReactNode
-}) {
+/* 🔹 Refined Section Wrapper */
+function Section({ title, description, children }: any) {
   return (
-    <section className="space-y-5 animate-fade-up">
-      <div className="space-y-1">
-        <h3 className="text-base font-semibold tracking-tight">
-          {title}
-        </h3>
+    <section className="space-section animate-fade-up">
+      <div className="space-y-2 mb-6">
+        <Typography variant="h3" className="tracking-tight">{title}</Typography>
         {description && (
-          <p className="text-sm text-muted-foreground max-w-2xl">
+          <Typography variant="body" className="text-body-muted text-sm max-w-2xl">
             {description}
-          </p>
+          </Typography>
         )}
       </div>
-
-      <div className="rounded-xl border bg-background p-5 shadow-sm transition-all hover:shadow-md">
+      {/* Added dash border and subtle bg for better contrast */}
+      <div className="card bg-muted/5 border-dashed border-2 p-8 flex flex-wrap items-center gap-wide">
         {children}
       </div>
     </section>
@@ -33,140 +37,99 @@ function Section({
 }
 
 export function ButtonGroupShowcase() {
-  const [active, setActive] = useState("left")
+  const [active, setActive] = useState("center")
+  const [view, setView] = useState("grid")
 
   return (
-    <div className="max-w-5xl space-y-14">
-
-      {/* 🔹 Header */}
-      <section className="space-y-3 pb-6 border-b animate-fade-up">
-        <h1 className="text-2xl font-bold tracking-tight">
-          Button Groups
-        </h1>
-        <p className="text-muted-foreground max-w-2xl">
-          Button groups organize related actions into a single container,
-          reducing visual clutter and improving usability.
-        </p>
-      </section>
-
-      {/* 🔹 Basic */}
-      <Section title="Basic">
-        <div className="flex">
-          <Button className="rounded-r-none">Left</Button>
-          <Button variant="secondary" className="rounded-none">Middle</Button>
-          <Button variant="outline" className="rounded-l-none">Right</Button>
+    <div className="page-container space-page">
+      
+      {/* 🔹 Header Section */}
+      <header className="space-group pb-12 border-b border-primary/10">
+        <div className="inline-flex items-center gap-2 px-3 py-1 radius-full bg-primary/10 text-primary text-caption font-bold uppercase tracking-widest">
+          Components
         </div>
-      </Section>
+       
+        <Typography variant="body" className="text-body-muted max-w-xl">
+          Polished interface patterns for organizing related actions, toggles, and toolbars.
+        </Typography>
+      </header>
 
-      {/* 🔹 Sizes */}
-      <Section title="Sizes">
-        <div className="flex gap-4">
-          <div className="flex">
-            <Button size="sm" className="rounded-r-none">A</Button>
-            <Button size="sm" className="rounded-l-none">B</Button>
-          </div>
-
-          <div className="flex">
-            <Button size="lg" className="rounded-r-none">A</Button>
-            <Button size="lg" className="rounded-l-none">B</Button>
-          </div>
+      {/* 🔹 Connected Group (Basic) */}
+      <Section 
+        title="Connected Action Group" 
+        description="Buttons are merged into a single unit using radius-none and negative margins to prevent double borders."
+      >
+        <div className="flex -space-x-px">
+          <Button variant="outline" className="radius-r-none border-primary/20 hover:z-10 hover:border-primary">Left</Button>
+          <Button variant="outline" className="radius-none border-primary/20 hover:z-10 hover:border-primary">Middle</Button>
+          <Button variant="outline" className="radius-l-none border-primary/20 hover:z-10 hover:border-primary">Right</Button>
         </div>
-      </Section>
 
-      {/* 🔹 Segmented */}
-      <Section title="Segmented Control">
-        <div className="flex bg-muted p-1 rounded-full w-fit">
-          <Button className="rounded-full bg-background shadow-sm">
-            Day
-          </Button>
-          <Button variant="ghost" className="rounded-full">
-            Week
-          </Button>
-          <Button variant="ghost" className="rounded-full">
-            Month
+        <div className="flex -space-x-px ml-auto">
+          <Button className="radius-r-none border-white/10 hover:z-10">Publish</Button>
+          <Button size="icon" className="radius-l-none border-l border-white/20 hover:z-10">
+            <ChevronRight className="w-4 h-4" />
           </Button>
         </div>
       </Section>
 
-      {/* 🔹 Icon Group */}
-      <Section title="Icon Group">
-        <div className="flex">
-          <Button size="icon" className="rounded-r-none">⬅️</Button>
-          <Button size="icon" className="rounded-none">🏠</Button>
-          <Button size="icon" className="rounded-l-none">➡️</Button>
+      {/* 🔹 Segmented Control */}
+      <Section 
+        title="Segmented Control" 
+        description="Perfect for switching views or filter states. Uses your radius-full and muted tokens."
+      >
+        <div className="flex bg-muted/50 p-1 radius-full border w-fit backdrop-blur-sm">
+          {["grid", "list"].map((type) => (
+            <button
+              key={type}
+              onClick={() => setView(type)}
+              className={`flex items-center gap-2 px-6 py-2 radius-full text-small font-medium transition-all ${
+                view === type 
+                ? "bg-background text-primary shadow-sm ring-1 ring-black/5" 
+                : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {type === "grid" ? <LayoutGrid className="w-4 h-4" /> : <List className="w-4 h-4" />}
+              <span className="capitalize">{type}</span>
+            </button>
+          ))}
         </div>
       </Section>
 
-      {/* 🔹 Toolbar */}
-      <Section title="Toolbar">
-        <div className="flex gap-2 bg-muted p-2 rounded-lg w-fit">
-          <Button size="icon" variant="ghost">✏️</Button>
-          <Button size="icon" variant="ghost">📎</Button>
-          <Button size="icon" variant="ghost">🗑</Button>
-        </div>
-      </Section>
-
-      {/* 🔹 Vertical */}
-      <Section title="Vertical">
-        <div className="flex flex-col w-fit">
-          <Button className="rounded-b-none">Top</Button>
-          <Button className="rounded-none">Middle</Button>
-          <Button className="rounded-t-none">Bottom</Button>
-        </div>
-      </Section>
-
-      {/* 🔹 Responsive */}
-      <Section title="Responsive">
-        <div className="flex flex-col sm:flex-row gap-2">
-          <Button fullWidth>Save</Button>
-          <Button fullWidth variant="secondary">Cancel</Button>
-        </div>
-      </Section>
-
-      {/* 🔹 With Badges */}
-      <Section title="With Badges">
-        <div className="flex gap-2">
-          <Button>
-            Inbox
-            <span className="ml-2 text-xs bg-primary text-white px-2 py-0.5 rounded-full">
-              5
-            </span>
+      {/* 🔹 Modern Toolbar */}
+      <Section 
+        title="Creator Toolbar" 
+        description="Ghost variants paired with a solid container for document or asset editing."
+      >
+        <div className="flex items-center gap-1 bg-foreground text-background pad-1 radius-lg shadow-xl">
+          <Button size="icon" variant="ghost" className="hover:bg-white/10 text-background">
+            <Pencil className="w-4 h-4" />
           </Button>
-
-          <Button variant="secondary">
-            Alerts
-            <span className="ml-2 text-xs bg-destructive text-white px-2 py-0.5 rounded-full">
-              2
-            </span>
+          <div className="w-px h-4 bg-white/20 mx-1" />
+          <Button size="icon" variant="ghost" className="hover:bg-white/10 text-background">
+            <Paperclip className="w-4 h-4" />
+          </Button>
+          <Button size="icon" variant="ghost" className="hover:bg-red-500/20 hover:text-red-400 text-background">
+            <Trash2 className="w-4 h-4" />
           </Button>
         </div>
       </Section>
 
-      {/* 🔹 Floating */}
-      <Section title="Floating Actions">
-        <div className="flex gap-3">
-          <Button className="rounded-full shadow-lg">➕</Button>
-          <Button className="rounded-full shadow-lg">✏️</Button>
-        </div>
-      </Section>
-
-      {/* 🔹 Active State (FIXED CLEANLY) */}
-      <Section title="Active State">
-        <div className="flex">
-          {["left", "center", "right"].map((item, i) => (
+      {/* 🔹 State-Driven Group */}
+      <Section 
+        title="Active States" 
+        description="Using data-attributes to drive styling for selection-heavy interfaces."
+      >
+        <div className="flex -space-x-px bg-muted radius-md p-1 border">
+          {["left", "center", "right"].map((item) => (
             <Button
               key={item}
-              data-state={active === item ? "on" : "off"}
+              variant="ghost"
               onClick={() => setActive(item)}
-              className="
-                capitalize
-                data-[state=on]:bg-primary
-                data-[state=on]:text-primary-foreground
-                transition-all
-                first:rounded-r-none
-                last:rounded-l-none
-                not-first:not-last:rounded-none
-              "
+              className={`
+                capitalize px-8 radius-sm transition-all
+                ${active === item ? "bg-background text-primary shadow-sm" : "text-muted-foreground"}
+              `}
             >
               {item}
             </Button>
@@ -174,21 +137,53 @@ export function ButtonGroupShowcase() {
         </div>
       </Section>
 
-      {/* 🔹 Guidelines */}
-      <Section title="Guidelines">
-        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1 max-w-xl">
-          <li>Group only related actions together</li>
-          <li>Maintain consistent sizes</li>
-          <li>Avoid mixing too many variants</li>
-        </ul>
-      </Section>
+      {/* 🔹 Indicators & Badges */}
+      <Section 
+        title="Status Indicators" 
+        description="Buttons that carry live data or notifications using your primary color tokens."
+      >
+        <div className="flex gap-default">
+          <Button variant="outline" className="group relative border-primary/20">
+            Inbox
+            <span className="ml-3 flex h-5 w-5 items-center justify-center radius-full bg-primary text-[10px] text-primary-foreground font-bold group-hover:scale-110 transition-transform">
+              12
+            </span>
+          </Button>
 
-      {/* 🔹 Code */}
-      <Section title="Code Example">
-        <div className="bg-muted border rounded-lg p-4 text-sm font-mono">
-          {"<ButtonGroup><Button>A</Button><Button>B</Button></ButtonGroup>"}
+          <Button variant="secondary" className="radius-full px-6">
+            <span className="w-2 h-2 radius-full bg-green-500 animate-pulse mr-2" />
+            Live Server
+          </Button>
         </div>
       </Section>
+
+      {/* 🔹 Guidelines Footer */}
+    <footer className="system-footer shadow-sm">
+  <h4 className="system-footer-title">Best Practices</h4>
+  
+  <div className="system-footer-grid">
+    <div className="space-y-1">
+      <span className="system-footer-item-heading">Contextual</span>
+      <p className="system-footer-item-text">
+        Only group actions that perform similar logic (e.g., Align Left, Center, Right).
+      </p>
+    </div>
+
+    <div className="space-y-1">
+      <span className="system-footer-item-heading">Visual Weight</span>
+      <p className="system-footer-item-text">
+        Avoid grouping multiple high-intensity 'Primary' buttons together.
+      </p>
+    </div>
+
+    <div className="space-y-1">
+      <span className="system-footer-item-heading">Edge Cases</span>
+      <p className="system-footer-item-text">
+        Ensure your radius-none logic accounts for border-radius on the outer edges.
+      </p>
+    </div>
+  </div>
+</footer>
 
     </div>
   )
