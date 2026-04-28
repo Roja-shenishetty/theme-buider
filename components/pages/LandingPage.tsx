@@ -1,5 +1,5 @@
 import ComponentPageLayout from "@/components/layout/page/ComponentPageLayout"
-import Introduction from "@/components/showcase/Introduction"
+import Introduction from "@/components/showcase/LandingShowcase"
 
 export default function IntroductionPage() {
   return (

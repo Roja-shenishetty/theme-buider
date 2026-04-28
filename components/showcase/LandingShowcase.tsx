@@ -137,7 +137,7 @@ export default function Introduction() {
 
           {activeTab === "code" ? (
             <pre className="p-8 w-full overflow-x-auto">
-              <code className="text-code text-primary/90 leading-relaxed">
+              <code className="text-primary leading-relaxed">
 {`// Your dynamic components
 import { Button, Card } from "@/ui"
 
@@ -181,7 +181,7 @@ export default function Hero() {
         className="group flex items-center gap-4 bg-white/5 hover:bg-white/10 px-8 py-5 radius-xl border border-white/10 cursor-pointer transition-all shadow-2xl"
       >
         <Terminal className="w-5 h-5 text-primary" />
-        <code className="text-xl font-mono tracking-tight text-white/90">
+        <code className="text-xl font-mono tracking-tight text-primary/90">
           npx system-init@latest
         </code>
         {copied ? (
@@ -191,7 +191,7 @@ export default function Hero() {
         )}
       </div>
 
-      <button className="btn-primary bg-white text-black hover:bg-white/90 px-12 py-5 radius-full font-black text-xl shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)]">
+      <button className="btn-default bg-white text-primary/90 px-12 py-5 radius-full font-black text-xl shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)]">
         Get Unlimited Access
       </button>
     </div>

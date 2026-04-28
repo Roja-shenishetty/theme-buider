@@ -6,7 +6,7 @@ export default function AccordionPage() {
     <ComponentPageLayout
       title="Accordion"
       description="Accordions organize content into collapsible sections"
-      image="https://images.pexels.com/photos/34804018/pexels-photo-34804018.jpeg"
+      image="/images/accordion.jpg"
     >
       <AccordionShowcase />
     </ComponentPageLayout>

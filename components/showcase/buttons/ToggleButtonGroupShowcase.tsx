@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Button } from "../../ui/button"
 import { Typography } from "@/components/ui/typography"
+import { ComponentWrapper } from "./../../system/ComponentWrapper"
 import { 
   Bold, 
   Italic, 
@@ -17,20 +18,112 @@ import {
   AlignRight
 } from "lucide-react"
 
-/* 🔹 Reusable Layout for the Showcase */
+/* 🔹 TECHNICAL SOURCE CODE STRINGS */
+const codeGlassSegmented = `<div className="inline-flex p-1 bg-muted/50 radius-lg border border-primary/5 backdrop-blur-sm">
+  {[
+    { id: "left", icon: <AlignLeft className="w-4 h-4" /> },
+    { id: "center", icon: <AlignCenter className="w-4 h-4" /> },
+    { id: "right", icon: <AlignRight className="w-4 h-4" /> }
+  ].map((item) => (
+    <Button
+      key={item.id}
+      variant="ghost"
+      onClick={() => setActive(item.id)}
+      className={\`radius-md px-6 py-2 transition-all duration-300 \${
+        active === item.id 
+          ? "bg-background text-primary shadow-sm scale-100" 
+          : "text-muted-foreground hover:text-foreground opacity-60"
+      }\`}
+    >
+      {item.icon}
+      <span className="ml-2 capitalize">{item.id}</span>
+    </Button>
+  ))}
+</div>`;
+
+const codeSelectionPersistence = `<div className="flex -space-x-px bg-muted/20 radius-md border overflow-hidden">
+  {[
+    { id: "bold", icon: <Bold className="w-4 h-4" /> },
+    { id: "italic", icon: <Italic className="w-4 h-4" /> },
+    { id: "underline", icon: <Underline className="w-4 h-4" /> }
+  ].map((item) => {
+    const isActive = formats.includes(item.id)
+    return (
+      <Button
+        key={item.id}
+        variant="ghost"
+        onClick={() => toggleFormat(item.id)}
+        className={\`radius-none border-x border-primary/5 px-6 py-6 transition-colors \${
+          isActive 
+            ? "bg-primary text-primary-foreground z-10 shadow-[inset_0_0_10px_rgba(0,0,0,0.1)]" 
+            : "text-muted-foreground hover:bg-primary/5"
+        }\`}
+      >
+        {item.icon}
+      </Button>
+    )
+  })}
+</div>`;
+
+const codeSubtleView = `<div className="flex gap-default">
+  {[
+    { id: "grid", icon: <LayoutGrid className="w-4 h-4" /> },
+    { id: "list", icon: <List className="w-4 h-4" /> }
+  ].map((item) => (
+    <Button
+      key={item.id}
+      onClick={() => setActive(item.id)}
+      className={\`radius-full px-6 transition-all border \${
+        active === item.id 
+          ? "bg-primary/10 text-primary border-primary/20" 
+          : "bg-transparent border-transparent text-muted-foreground hover:bg-muted"
+      }\`}
+    >
+      {item.icon}
+      <span className="ml-2 capitalize">{item.id}</span>
+    </Button>
+  ))}
+</div>`;
+
+const codeThemeSelector = `<div className="flex bg-muted/30 p-1 radius-full border max-w-md w-full">
+  {[
+    { id: "light", icon: <Sun className="w-4 h-4" /> },
+    { id: "dark", icon: <Moon className="w-4 h-4" /> },
+    { id: "system", icon: <Monitor className="w-4 h-4" /> }
+  ].map((item) => (
+    <button
+      key={item.id}
+      onClick={() => setTheme(item.id)}
+      className={\`flex-1 flex items-center justify-center gap-2 py-2.5 radius-full transition-all duration-500 \${
+        theme === item.id 
+          ? "bg-foreground text-background shadow-lg scale-[1.02]" 
+          : "text-muted-foreground hover:text-foreground"
+      }\`}
+    >
+      {item.icon}
+      <span className="text-small font-bold capitalize">{item.id}</span>
+    </button>
+  ))}
+</div>`;
+
+/* 🔹 Refined Section Wrapper */
 function Section({ title, description, children }: any) {
   return (
     <section className="space-section animate-fade-up">
-      <div className="space-group mb-6">
-        <Typography variant="h3" className="tracking-tight font-bold text-primary/90">{title}</Typography>
+      <div className="space-group mb-6 relative">
+        {/* Subtle background identifier */}
+        <div className="absolute -top-4 right-0 p-3 opacity-[0.04] pointer-events-none select-none z-0 rotate-12">
+          <LayoutGrid className="w-24 h-24" />
+        </div>
+        <Typography variant="h3" className="tracking-tight font-bold relative z-10">{title}</Typography>
         {description && (
-          <Typography variant="body" className="text-body-muted text-sm max-w-2xl">
+          <Typography variant="body" className="text-body-muted text-sm max-w-2xl relative z-10">
             {description}
           </Typography>
         )}
       </div>
 
-      <div className="card bg-muted/5 border-dashed border-2 border-primary/10 p-8 flex flex-wrap items-center gap-wide overflow-hidden relative">
+      <div className="w-full">
         {children}
       </div>
     </section>
@@ -57,7 +150,7 @@ export function ToggleButtonGroupShowcase() {
           Toggle Engine
         </div>
         
-        <Typography variant="body" className="text-body-muted max-w-xl text-lg">
+        <Typography variant="body" className="text-body-muted max-w-xl text-lg mt-2">
           Versatile controls for single and multiple selection states with high-fidelity feedback.
         </Typography>
       </header>
@@ -67,28 +160,32 @@ export function ToggleButtonGroupShowcase() {
         title="Glass Segmented Control" 
         description="Ideal for mutually exclusive options. Uses a unified container with internal padding."
       >
-        <div className="inline-flex p-1 bg-muted/50 radius-lg border border-primary/5 backdrop-blur-sm">
-          {[
-            { id: "left", icon: <AlignLeft className="w-4 h-4" /> },
-            { id: "center", icon: <AlignCenter className="w-4 h-4" /> },
-            { id: "right", icon: <AlignRight className="w-4 h-4" /> }
-          ].map((item) => (
-            <Button
-              key={item.id}
-              variant="ghost"
-              onClick={() => setActive(item.id)}
-              className={`
-                radius-md px-6 py-2 transition-all duration-300
-                ${active === item.id 
-                  ? "bg-background text-primary shadow-sm scale-100" 
-                  : "text-muted-foreground hover:text-foreground opacity-60"}
-              `}
-            >
-              {item.icon}
-              <span className="ml-2 capitalize">{item.id}</span>
-            </Button>
-          ))}
-        </div>
+        <ComponentWrapper title="State // Single_Selection" code={codeGlassSegmented}>
+          <div className="flex justify-center p-4">
+            <div className="inline-flex p-1 bg-muted/50 radius-lg border border-primary/5 backdrop-blur-sm">
+              {[
+                { id: "left", icon: <AlignLeft className="w-4 h-4" /> },
+                { id: "center", icon: <AlignCenter className="w-4 h-4" /> },
+                { id: "right", icon: <AlignRight className="w-4 h-4" /> }
+              ].map((item) => (
+                <Button
+                  key={item.id}
+                  variant="ghost"
+                  onClick={() => setActive(item.id)}
+                  className={`
+                    radius-md px-6 py-2 transition-all duration-300
+                    ${active === item.id 
+                      ? "bg-background text-primary shadow-sm scale-100" 
+                      : "text-muted-foreground hover:text-foreground opacity-60"}
+                  `}
+                >
+                  {item.icon}
+                  <span className="ml-2 capitalize">{item.id}</span>
+                </Button>
+              ))}
+            </div>
+          </div>
+        </ComponentWrapper>
       </Section>
 
       {/* 🔹 Multi-Select: Formatting Toolbar */}
@@ -96,30 +193,34 @@ export function ToggleButtonGroupShowcase() {
         title="Selection Persistence" 
         description="Multiple options can be active simultaneously. Perfect for text editors or filters."
       >
-        <div className="flex -space-x-px bg-muted/20 radius-md border overflow-hidden">
-          {[
-            { id: "bold", icon: <Bold className="w-4 h-4" /> },
-            { id: "italic", icon: <Italic className="w-4 h-4" /> },
-            { id: "underline", icon: <Underline className="w-4 h-4" /> }
-          ].map((item) => {
-            const isActive = formats.includes(item.id)
-            return (
-              <Button
-                key={item.id}
-                variant="ghost"
-                onClick={() => toggleFormat(item.id)}
-                className={`
-                  radius-none border-x border-primary/5 px-6 py-6 transition-colors
-                  ${isActive 
-                    ? "bg-primary text-primary-foreground z-10 shadow-[inset_0_0_10px_rgba(0,0,0,0.1)]" 
-                    : "text-muted-foreground hover:bg-primary/5"}
-                `}
-              >
-                {item.icon}
-              </Button>
-            )
-          })}
-        </div>
+        <ComponentWrapper title="State // Multi_Selection_Array" code={codeSelectionPersistence}>
+          <div className="flex justify-center p-4">
+            <div className="flex -space-x-px bg-muted/20 radius-md border overflow-hidden shadow-inner">
+              {[
+                { id: "bold", icon: <Bold className="w-4 h-4" /> },
+                { id: "italic", icon: <Italic className="w-4 h-4" /> },
+                { id: "underline", icon: <Underline className="w-4 h-4" /> }
+              ].map((item) => {
+                const isActive = formats.includes(item.id)
+                return (
+                  <Button
+                    key={item.id}
+                    variant="ghost"
+                    onClick={() => toggleFormat(item.id)}
+                    className={`
+                      radius-none border-x border-primary/5 px-6 py-6 transition-colors
+                      ${isActive 
+                        ? "bg-primary text-primary-foreground z-10 shadow-[inset_0_0_10px_rgba(0,0,0,0.1)]" 
+                        : "text-muted-foreground hover:bg-primary/5"}
+                    `}
+                  >
+                    {item.icon}
+                  </Button>
+                )
+              })}
+            </div>
+          </div>
+        </ComponentWrapper>
       </Section>
 
       {/* 🔹 Soft Toggle: View Switcher */}
@@ -127,96 +228,102 @@ export function ToggleButtonGroupShowcase() {
         title="Subtle View Toggles" 
         description="Uses your primary/10 token for a non-intrusive 'active' state."
       >
-        <div className="flex gap-default">
-          {[
-            { id: "grid", icon: <LayoutGrid className="w-4 h-4" /> },
-            { id: "list", icon: <List className="w-4 h-4" /> }
-          ].map((item) => (
-            <Button
-              key={item.id}
-              onClick={() => setActive(item.id)}
-              className={`
-                radius-full px-6 transition-all border
-                ${active === item.id 
-                  ? "bg-primary/10 text-primary border-primary/20" 
-                  : "bg-transparent border-transparent text-muted-foreground hover:bg-muted"}
-              `}
-            >
-              {item.icon}
-              <span className="ml-2 capitalize">{item.id}</span>
-            </Button>
-          ))}
-        </div>
+        <ComponentWrapper title="UI // View_Switcher" code={codeSubtleView}>
+          <div className="flex justify-center gap-default p-4">
+            {[
+              { id: "grid", icon: <LayoutGrid className="w-4 h-4" /> },
+              { id: "list", icon: <List className="w-4 h-4" /> }
+            ].map((item) => (
+              <Button
+                key={item.id}
+                onClick={() => setActive(item.id)}
+                className={`
+                  radius-full px-6 transition-all border
+                  ${active === item.id 
+                    ? "bg-primary/10 text-primary border-primary/20" 
+                    : "bg-transparent border-transparent text-muted-foreground hover:bg-muted"}
+                `}
+              >
+                {item.icon}
+                <span className="ml-2 capitalize">{item.id}</span>
+              </Button>
+            ))}
+          </div>
+        </ComponentWrapper>
       </Section>
 
       {/* 🔹 Theme Engine Toggle */}
       <Section title="Theme Selector" description="A clean, full-width approach for system-wide settings.">
-        <div className="flex bg-muted/30 p-1 radius-full border max-w-md w-full">
-          {[
-            { id: "light", icon: <Sun className="w-4 h-4" /> },
-            { id: "dark", icon: <Moon className="w-4 h-4" /> },
-            { id: "system", icon: <Monitor className="w-4 h-4" /> }
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setTheme(item.id)}
-              className={`
-                flex-1 flex items-center justify-center gap-2 py-2.5 radius-full transition-all duration-500
-                ${theme === item.id 
-                  ? "bg-foreground text-background shadow-lg scale-[1.02]" 
-                  : "text-muted-foreground hover:text-foreground"}
-              `}
-            >
-              {item.icon}
-              <span className="text-small font-bold capitalize">{item.id}</span>
-            </button>
-          ))}
-        </div>
+        <ComponentWrapper title="Global // Theme_Protocol" code={codeThemeSelector}>
+          <div className="flex justify-center p-4">
+            <div className="flex bg-muted/30 p-1 radius-full border max-w-md w-full shadow-inner">
+              {[
+                { id: "light", icon: <Sun className="w-4 h-4" /> },
+                { id: "dark", icon: <Moon className="w-4 h-4" /> },
+                { id: "system", icon: <Monitor className="w-4 h-4" /> }
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setTheme(item.id)}
+                  className={`
+                    flex-1 flex items-center justify-center gap-2 py-2.5 radius-full transition-all duration-500
+                    ${theme === item.id 
+                      ? "bg-foreground text-background shadow-lg scale-[1.02]" 
+                      : "text-muted-foreground hover:text-foreground"}
+                  `}
+                >
+                  {item.icon}
+                  <span className="text-small font-bold capitalize">{item.id}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </ComponentWrapper>
       </Section>
 
       {/* 🔹 Code & Guidelines */}
-  <footer className="system-footer grid md:grid-cols-2 gap-wide">
-  
-  {/* Card 1: Usage Tips (High Contrast) */}
-  <div className="space-y-4">
-    <h4 className="system-footer-title">Usage Protocol</h4>
-    <div className="space-y-6">
-      <div className="space-y-2">
-        <span className="system-footer-item-heading">Selection Logic</span>
-        <ul className="system-footer-item-text list-disc ml-4 space-y-2">
-          <li><strong>Single:</strong> Mutually exclusive logic (e.g., Align Left vs Right).</li>
-          <li><strong>Multiple:</strong> Additive properties (e.g., Bold + Italic).</li>
-        </ul>
-      </div>
-      <div className="space-y-2">
-        <span className="system-footer-item-heading">Tactile Response</span>
-        <p className="system-footer-item-text">
-          Apply <code>active:scale(0.95)</code> to simulate physical hardware feedback.
-        </p>
-      </div>
-    </div>
-  </div>
+      <footer className="system-footer mt-16 grid md:grid-cols-2 gap-wide shadow-sm">
+        
+        {/* Card 1: Usage Tips (High Contrast) */}
+        <div className="space-y-4">
+          <h4 className="system-footer-title">Usage Protocol</h4>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <span className="system-footer-item-heading">Selection Logic</span>
+              <ul className="system-footer-item-text list-disc ml-4 space-y-2">
+                <li><strong>Single:</strong> Mutually exclusive logic (e.g., Align Left vs Right).</li>
+                <li><strong>Multiple:</strong> Additive properties (e.g., Bold + Italic).</li>
+              </ul>
+            </div>
+            <div className="space-y-2">
+              <span className="system-footer-item-heading">Tactile Response</span>
+              <p className="system-footer-item-text">
+                Apply <code>active:scale(0.95)</code> to simulate physical hardware feedback.
+              </p>
+            </div>
+          </div>
+        </div>
 
-  {/* Card 2: Implementation (Technical/Code) */}
-  <div className="space-y-4">
-    <h4 className="system-footer-title">Implementation</h4>
-    <div className="space-y-4">
-      <p className="system-footer-item-text">
-        Logic for managing multi-select arrays in state-driven interfaces:
-      </p>
-      <div className="text-code bg-black/40 p-5 radius-lg border border-white/5 overflow-x-auto">
-        <pre className="font-mono text-[11px] leading-relaxed text-primary/90">
+        {/* Card 2: Implementation (Technical/Code) */}
+        <div className="space-y-4">
+          <h4 className="system-footer-title">Implementation</h4>
+          <div className="space-y-4">
+            <p className="system-footer-item-text">
+              Logic for managing multi-select arrays in state-driven interfaces:
+            </p>
+            <div className="text-code bg-black/80 p-5 radius-lg border border-white/10 overflow-x-auto shadow-inner">
+              <pre className="font-mono text-[11px] leading-relaxed text-primary/90">
 {`const toggle = (val) => {
   setArr(prev => prev.includes(val) 
     ? prev.filter(i => i !== val) 
     : [...prev, val])
 }`}
-        </pre>
-      </div>
-    </div>
-  </div>
+              </pre>
+            </div>
+          </div>
+        </div>
 
-</footer>
+      </footer>
 
     </div>
   )

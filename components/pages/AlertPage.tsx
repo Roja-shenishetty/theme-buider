@@ -6,7 +6,7 @@ export default function AlertPage() {
     <ComponentPageLayout
       title="Alerts"
       description="Alerts display important messages, feedback, and system status to users."
-      image="/images/alert.jpg" 
+      image="/images/alert.svg" 
     >
       <AlertShowcase />
     </ComponentPageLayout>

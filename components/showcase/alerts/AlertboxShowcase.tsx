@@ -1,16 +1,16 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
 import { AlertDialog } from "@/components/ui/alerts/alertbox"
+import { ComponentWrapper } from "./../../system/ComponentWrapper"
 
 import { ControlledSection } from "./ControlledSection"
 import { DialogHooksSection } from "./DialogHookSection"
 import { DismissBehaviorSection } from "./DismisableBehaviourSection"
 
 import {
-  AlertTriangle,
   Info,
   Trash2,
   Box,
@@ -19,6 +19,85 @@ import {
   ShieldAlert,
   Settings2,
 } from "lucide-react"
+
+/* 🔹 TECHNICAL SOURCE CODE STRINGS */
+const intentCode = `"use client"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { AlertDialog } from "@/components/ui/alerts/alertbox"
+import { Info, Trash2 } from "lucide-react"
+
+export function InteractionIntents() {
+  const [openBasic, setOpenBasic] = useState(false)
+  const [openDanger, setOpenDanger] = useState(false)
+
+  return (
+    <div className="grid md:grid-cols-2 gap-8">
+      {/* Standard Implementation */}
+      <div className="card p-10 bg-muted/5">
+        <Button onClick={() => setOpenBasic(true)} className="btn-primary w-full">
+          <Info className="w-5 h-5 mr-3" /> Initialize Sync
+        </Button>
+        <AlertDialog
+          open={openBasic}
+          onOpenChange={setOpenBasic}
+          title="Sync Local Configuration?"
+          description="This will push your current Arduino pin mappings to the cloud database."
+          confirmText="Start Sync"
+        />
+      </div>
+
+      {/* Danger Implementation */}
+      <div className="card p-10 bg-red-500/[0.02] border-red-500/10">
+        <Button variant="danger" onClick={() => setOpenDanger(true)} className="w-full">
+          <Trash2 className="w-5 h-5 mr-3" /> Wipe Build History
+        </Button>
+        <AlertDialog
+          open={openDanger}
+          onOpenChange={setOpenDanger}
+          variant="danger"
+          title="Wipe Build History?"
+          description="This action is irreversible and will delete 14 production binaries from local storage."
+          confirmText="Wipe Permanently"
+        />
+      </div>
+    </div>
+  )
+}`;
+
+const portalCode = `"use client"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { AlertDialog } from "@/components/ui/alerts/alertbox"
+import { Box } from "lucide-react"
+
+export function PortalDemo() {
+  const [openPortal, setOpenPortal] = useState(false)
+  const [portalEl, setPortalEl] = useState<HTMLDivElement | null>(null)
+
+  return (
+    <div
+      ref={setPortalEl}
+      className="relative w-full h-[400px] border-2 border-dashed border-primary/20 radius-2xl overflow-hidden"
+    >
+      <Button variant="secondary" onClick={() => setOpenPortal(true)}>
+        <Box className="w-4 h-4 mr-2" /> Mount Inside Blueprint
+      </Button>
+
+      {portalEl && (
+        <AlertDialog
+          open={openPortal}
+          onOpenChange={setOpenPortal}
+          portalContainer={portalEl}
+          title="Portaled Interaction"
+          description="This dialog is rendered specifically inside this blue-print zone."
+        />
+      )}
+    </div>
+  )
+}`;
 
 /* 🔹 Full-Width Section Wrapper */
 function ShowcaseSection({ title, description, children, badge }: any) {
@@ -74,9 +153,6 @@ export function AlertDialogShowcase() {
           <ShieldAlert className="w-3 h-3" />
           Protocol Engine v2.4.0
         </div>
-        <Typography variant="h1" className="text-h1 lg:text-7xl tracking-tighter mb-4 leading-tight">
-          Alert <span className="text-primary italic">Dialog</span>
-        </Typography>
         <Typography variant="body" className="text-body-muted max-w-2xl text-lg lg:text-xl leading-relaxed">
           Critical system overrides. Use these components when the user must acknowledge an action 
           before the application can continue.
@@ -91,30 +167,49 @@ export function AlertDialogShowcase() {
           description="Different visual weights for standard info vs high-risk hardware wipes."
           badge="UI Logic"
         >
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Standard Implementation */}
-            <div className="card p-10 radius-2xl border-2 border-primary/5 bg-muted/5 space-y-6 group">
-               <Typography variant="h4" className="font-bold">Standard Intent</Typography>
-               <Typography variant="body" className="text-sm opacity-60">General confirmation protocol for non-destructive cloud syncs.</Typography>
-               <Button onClick={() => setOpenBasic(true)} className="btn-primary w-full py-7 radius-lg shadow-lg shadow-primary/20">
-                  <Info className="w-5 h-5 mr-3" />
-                  Initialize Sync
-               </Button>
-            </div>
+          <ComponentWrapper title="Logic_Gates // Action_Intents" code={intentCode}>
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Standard Implementation */}
+              <div className="card p-10 radius-2xl border-2 border-primary/5 bg-muted/5 space-y-6 group">
+                 <Typography variant="h4" className="font-bold">Standard Intent</Typography>
+                 <Typography variant="body" className="text-sm opacity-60">General confirmation protocol for non-destructive cloud syncs.</Typography>
+                 <Button onClick={() => setOpenBasic(true)} className="btn-primary w-full py-7 radius-lg shadow-lg shadow-primary/20">
+                    <Info className="w-5 h-5 mr-3" />
+                    Initialize Sync
+                 </Button>
+                 
+                 <AlertDialog
+                   open={openBasic}
+                   onOpenChange={setOpenBasic}
+                   title="Sync Local Configuration?"
+                   description="This will push your current Arduino pin mappings to the cloud database."
+                   confirmText="Start Sync"
+                 />
+              </div>
 
-            {/* Danger Implementation */}
-            <div className="card p-10 radius-2xl border-2 border-red-500/10 bg-red-500/[0.02] space-y-6">
-               <Typography variant="h4" className="font-bold text-red-500">Destructive Protocol</Typography>
-               <Typography variant="body" className="text-sm opacity-60">High-risk confirmation for permanent hardware memory wipes.</Typography>
-               <Button variant="danger" onClick={() => setOpenDanger(true)} className="w-full py-7 radius-lg shadow-lg shadow-red-500/20">
-                  <Trash2 className="w-5 h-5 mr-3" />
-                  Wipe Build History
-               </Button>
+              {/* Danger Implementation */}
+              <div className="card p-10 radius-2xl border-2 border-red-500/10 bg-red-500/[0.02] space-y-6">
+                 <Typography variant="h4" className="font-bold text-red-500">Destructive Protocol</Typography>
+                 <Typography variant="body" className="text-sm opacity-60">High-risk confirmation for permanent hardware memory wipes.</Typography>
+                 <Button variant="danger" onClick={() => setOpenDanger(true)} className="w-full py-7 radius-lg shadow-lg shadow-red-500/20">
+                    <Trash2 className="w-5 h-5 mr-3" />
+                    Wipe Build History
+                 </Button>
+
+                 <AlertDialog
+                   open={openDanger}
+                   onOpenChange={setOpenDanger}
+                   variant="danger"
+                   title="Wipe Build History?"
+                   description="This action is irreversible and will delete 14 production binaries from local storage."
+                   confirmText="Wipe Permanently"
+                 />
+              </div>
             </div>
-          </div>
+          </ComponentWrapper>
         </ShowcaseSection>
 
-        {/* 2. Logic Panels */}
+        {/* 2. Logic Panels (Already wrapped in their own files) */}
         <div className="space-y-16">
           <ControlledSection />
           <DialogHooksSection />
@@ -125,61 +220,84 @@ export function AlertDialogShowcase() {
           title="Custom Container Portal" 
           description="Demonstrating the 'portalContainer' property for rendering dialogs into specific DOM nodes."
         >
-          <div
-            ref={setPortalEl}
-            className="relative w-full h-[400px] border-2 border-dashed border-primary/20 radius-2xl bg-muted/20 flex flex-col items-center justify-center overflow-hidden"
-          >
-            {/* Blueprint Grid Overlay */}
-            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#var(--primary)_1px,transparent_1px)] [background-size:20px_20px]" />
-            
-            <Zap className="w-12 h-12 text-primary/30 mb-4 animate-pulse" />
-            <Button variant="secondary" onClick={() => setOpenPortal(true)} className="radius-full border-primary/20 backdrop-blur-sm">
-              <Box className="w-4 h-4 mr-2" />
-              Mount Inside Blueprint
-            </Button>
+          <ComponentWrapper title="DOM_Node // Portal_Injection" code={portalCode}>
+            <div
+              ref={setPortalEl}
+              className="relative w-full h-[400px] border-2 border-dashed border-primary/20 radius-2xl bg-muted/20 flex flex-col items-center justify-center overflow-hidden"
+            >
+              {/* Blueprint Grid Overlay */}
+              <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#var(--primary)_1px,transparent_1px)] [background-size:20px_20px]" />
+              
+              <Zap className="w-12 h-12 text-primary/30 mb-4 animate-pulse" />
+              <Button variant="secondary" onClick={() => setOpenPortal(true)} className="radius-full border-primary/20 backdrop-blur-sm relative z-10">
+                <Box className="w-4 h-4 mr-2" />
+                Mount Inside Blueprint
+              </Button>
 
-            {portalEl && (
-              <AlertDialog
-                open={openPortal}
-                onOpenChange={setOpenPortal}
-                portalContainer={portalEl}
-                title="Portaled Interaction"
-                description="This dialog is rendered specifically inside this blue-print zone."
-              />
-            )}
-          </div>
+              {portalEl && (
+                <AlertDialog
+                  open={openPortal}
+                  onOpenChange={setOpenPortal}
+                  portalContainer={portalEl}
+                  title="Portaled Interaction"
+                  description="This dialog is rendered specifically inside this blue-print zone."
+                />
+              )}
+            </div>
+          </ComponentWrapper>
         </ShowcaseSection>
 
-        {/* 4. Strict Logic (Occupying Full Width) */}
+        {/* 4. Strict Logic (Already wrapped in its own file) */}
         <DismissBehaviorSection />
 
       </div>
 
       {/* 🔹 FOOTER: Technical Guidelines */}
-      <footer className="card bg-foreground text-background radius-2xl mt-40 p-16 relative overflow-hidden shadow-2xl">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 radius-full blur-[120px] -mr-64 -mt-64" />
-        <div className="flex items-center gap-4 mb-12 relative z-10 border-b border-white/10 pb-8">
+      <footer className="system-footer mt-32">
+        {/* Header Section */}
+        <div className="flex items-center gap-4 mb-12 relative z-10 border-b border-primary/20 pb-8">
           <ShieldAlert className="text-primary w-10 h-10" />
-          <Typography variant="h2" className="text-primary font-bold tracking-tighter uppercase text-4xl">
+          <Typography variant="h2" className="text-primary font-black tracking-tighter uppercase text-4xl">
             Interaction Guidelines
           </Typography>
         </div>
-        <div className="grid md:grid-cols-3 gap-12 relative z-10">
+
+        {/* Grid Layout */}
+        <div className="system-footer-grid">
+          
+          {/* Item 01: Hierarchy */}
           <div className="space-y-4">
-             <div className="text-primary font-mono text-3xl font-black">01</div>
-             <Typography variant="label" className="text-white text-xl">Hierarchy</Typography>
-             <Typography variant="body" className="text-sm opacity-50">Never use Alert Dialogs for marketing or information. Only for blocking flow.</Typography>
+            <div className="text-primary font-mono text-3xl font-black tracking-tighter">01</div>
+            <Typography variant="label" className="text-foreground text-xl font-bold">
+              Hierarchy
+            </Typography>
+            <Typography variant="body" className="system-footer-item-text text-sm">
+              Never use Alert Dialogs for marketing or information. Only for blocking flow and critical user confirmation.
+            </Typography>
           </div>
+
+          {/* Item 02: Accessibility */}
           <div className="space-y-4">
-             <div className="text-primary font-mono text-3xl font-black">02</div>
-             <Typography variant="label" className="text-white text-xl">Accessibility</Typography>
-             <Typography variant="body" className="text-sm opacity-50">Ensure the 'Escape' key logic is consistent across the entire hardware dashboard.</Typography>
+            <div className="text-primary font-mono text-3xl font-black tracking-tighter">02</div>
+            <Typography variant="label" className="text-foreground text-xl font-bold">
+              Accessibility
+            </Typography>
+            <Typography variant="body" className="system-footer-item-text text-sm">
+              Ensure the <code>'Escape'</code> key logic is consistent across the entire hardware dashboard for intuitive navigation.
+            </Typography>
           </div>
+
+          {/* Item 03: Safety */}
           <div className="space-y-4">
-             <div className="text-primary font-mono text-3xl font-black">03</div>
-             <Typography variant="label" className="text-white text-xl">Safety</Typography>
-             <Typography variant="body" className="text-sm opacity-50">Use 'isDismissable=false' when resetting ESP32 chips to prevent accidental closes.</Typography>
+            <div className="text-primary font-mono text-3xl font-black tracking-tighter">03</div>
+            <Typography variant="label" className="text-foreground text-xl font-bold">
+              Safety
+            </Typography>
+            <Typography variant="body" className="system-footer-item-text text-sm">
+              Use <code>isDismissable=false</code> when resetting ESP32 chips to prevent accidental state loss during flashing.
+            </Typography>
           </div>
+
         </div>
       </footer>
 

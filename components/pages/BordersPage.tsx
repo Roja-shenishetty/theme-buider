@@ -6,7 +6,7 @@ export default function BordersPage() {
     <ComponentPageLayout
       title="Spacing & Borders"
       description="Spacing and borders define the structure and separation of elements. Use margin, padding, border width, color, and radius to create clear, consistent layouts."
-      image="/images/borders.png" // ✅ update this image
+      image="/images/borders.jpg" 
     >
       <BordersShowcase />
     </ComponentPageLayout>

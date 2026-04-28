@@ -6,7 +6,7 @@ export default function BadgePage() {
     <ComponentPageLayout
       title="Badge"
       description="Badges display counts, notifications, and statuses"
-      video="/videos/badge.mp4"
+      image="/images/badge.jpg"
     >
       <BadgeShowcase />
     </ComponentPageLayout>

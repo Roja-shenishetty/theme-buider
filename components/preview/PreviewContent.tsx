@@ -3,8 +3,8 @@ import TypographyPage from "@/components/pages/TypographyPage"
 import ButtonPage from "@/components/pages/buttons/ButtonPage"
 import CardPage from "@/components/pages/CardPage"
 import AccordionPage from "@/components/pages/AccordionPage"
-import Introduction from "@/components/showcase/Introduction"
-import IntroductionPage from "@/components/pages/IntroPage"
+import Introduction from "@/components/showcase/LandingShowcase"
+import IntroductionPage from "@/components/pages/LandingPage"
 import ButtonGroupPage from "../pages/buttons/ButtonGroupPage"
 import ToggleButtonPage from "../pages/buttons/ToggleButtonPage"
 import ToggleButtonGroupPage from "../pages/buttons/ToggleButtonGroupPage"
@@ -13,13 +13,12 @@ import AlertPage from "@/components/pages/AlertPage"
 import AlertboxPage from "@/components/pages/AlertboxPage"
 import AvatarPage from "@/components/pages/AvatarPage"
 import BadgePage from "@/components/pages/BadgePage"
-
-
+import ColorsPage from "@/components/pages/ColorsPage"
 
 const componentMap: any = {
   intro: IntroductionPage,
   typography: TypographyPage,
-  spacing: SpacingPage,   // ✅ ADD THIS
+  spacing: SpacingPage,  
   borders: BordersPage,
   button: ButtonPage,
   buttongroup:ButtonGroupPage,
@@ -31,6 +30,8 @@ const componentMap: any = {
   alertdialog: AlertboxPage,
   avatar: AvatarPage,
   badge: BadgePage,
+  colors: ColorsPage,
+
 }
 export default function PreviewContent({ activeComponent }: any) {
   const Component = componentMap[activeComponent] || Introduction

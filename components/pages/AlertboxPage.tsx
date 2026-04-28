@@ -6,7 +6,7 @@ export default function AlertDialogPage() {
     <ComponentPageLayout
       title="Alert Dialog"
       description="Dialogs that require user confirmation before proceeding"
-      image="/images/alert.jpg" 
+      image="/images/alertbox.jpg" 
     >
       <AlertDialogShowcase />
     </ComponentPageLayout>

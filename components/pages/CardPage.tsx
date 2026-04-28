@@ -6,7 +6,7 @@ export default function CardPage() {
     <ComponentPageLayout
       title="Cards"
       description="Cards group related content and actions in a flexible container"
-      image="https://images.pexels.com/photos/11780441/pexels-photo-11780441.jpeg"
+      image="/images/card.jpg"
     >
       <CardShowcase />
     </ComponentPageLayout>

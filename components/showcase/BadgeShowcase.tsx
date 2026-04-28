@@ -4,7 +4,88 @@ import { BadgeWrapper } from "@/components/ui/badge/badge-wrapper"
 import { Avatar } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge/badge"
 import { Typography } from "@/components/ui/typography"
+import { ComponentWrapper } from "./../system/ComponentWrapper"
 import { Bell, Mail, ShieldCheck, Activity, Info } from "lucide-react"
+
+/* 🔹 TECHNICAL SOURCE CODE STRINGS */
+const codeVisualVariants = `<div className="flex flex-wrap items-center gap-default">
+  <Badge className="radius-sm bg-primary text-primary-foreground px-3 py-1">Featured</Badge>
+  <Badge variant="secondary" className="radius-sm border-primary/10">Beta v2.4</Badge>
+  <Badge variant="outline" className="radius-sm border-primary/30 text-primary">Documentation</Badge>
+  <Badge variant="destructive" className="radius-sm shadow-lg shadow-destructive/20">Critical</Badge>
+  <div className="bg-primary/10 text-primary px-3 py-1 radius-full text-[10px] font-bold uppercase tracking-wider">
+    Soft Tint
+  </div>
+</div>`;
+
+const codePresenceOverlays = `<div className="flex gap-wide items-center">
+  <BadgeWrapper content="12" variant="destructive" className="shadow-lg">
+    <Avatar src="https://i.pravatar.cc/100?img=3" className="radius-md" />
+  </BadgeWrapper>
+
+  <BadgeWrapper content={<ShieldCheck className="w-2.5 h-2.5" />} variant="accent" placement="top-right">
+    <Avatar src="https://i.pravatar.cc/100?img=5" className="radius-full border-2 border-background" />
+  </BadgeWrapper>
+
+  <BadgeWrapper dot variant="success" placement="bottom-right" className="animate-pulse">
+    <div className="w-12 h-12 radius-lg bg-muted flex items-center justify-center border">
+      <Mail className="w-5 h-5 text-muted-foreground" />
+    </div>
+  </BadgeWrapper>
+
+  <BadgeWrapper content="NEW" variant="warning" tone="soft" className="text-[8px] font-black">
+     <div className="px-6 py-3 radius-md bg-foreground text-background font-bold text-sm">
+       System Log
+     </div>
+  </BadgeWrapper>
+</div>`;
+
+const codeAdaptiveScaling = `<div className="flex items-end gap-wide">
+  <BadgeWrapper content="5" variant="destructive">
+    <Avatar size="sm" fallback="SM" className="radius-full" />
+  </BadgeWrapper>
+
+  <BadgeWrapper content="99+" variant="destructive" className="px-1.5 py-0.5 text-[10px]">
+    <Avatar size="md" fallback="MD" className="radius-full" />
+  </BadgeWrapper>
+
+  <BadgeWrapper content="UNREAD" variant="destructive" className="text-[8px] tracking-tighter">
+    <Avatar size="lg" fallback="LG" className="radius-full border-4 border-background" />
+  </BadgeWrapper>
+</div>`;
+
+const codeSemanticMatrix = `<div className="grid grid-cols-2 md:grid-cols-5 gap-wide w-full">
+  {items.map((item) => (
+    <div key={item.label} className="flex flex-col items-center gap-3 p-4 radius-lg bg-muted/20 border border-primary/5">
+      <BadgeWrapper dot variant={item.color} placement="bottom-right">
+        <div className="w-10 h-10 radius-md bg-background border flex items-center justify-center text-primary/50">
+          {item.icon}
+        </div>
+      </BadgeWrapper>
+      <Typography variant="label" className="text-[10px] uppercase tracking-widest">{item.label}</Typography>
+    </div>
+  ))}
+</div>`;
+
+const codeIntegratedPatterns = `<div className="grid gap-default w-full max-w-md">
+  {/* Hover-Reactive Count Badge */}
+  <div className="flex items-center justify-between p-4 radius-md bg-muted/30 border border-primary/5 hover:bg-primary/5 transition-colors cursor-pointer group">
+    <div className="flex items-center gap-3">
+      <Mail className="w-4 h-4 text-primary" />
+      <Typography variant="body" className="font-medium">Direct Messages</Typography>
+    </div>
+    <Badge className="bg-primary text-primary-foreground radius-full px-2 font-bold group-hover:scale-110 transition-transform">24</Badge>
+  </div>
+
+  {/* Soft Tint Status Badge */}
+  <div className="flex items-center justify-between p-4 radius-md bg-muted/30 border border-primary/5">
+    <div className="flex items-center gap-3">
+      <ShieldCheck className="w-4 h-4 text-success" />
+      <Typography variant="body" className="font-medium">Security Clearance</Typography>
+    </div>
+    <Badge variant="outline" className="text-success border-success/30 bg-success/5 radius-sm">Verified</Badge>
+  </div>
+</div>`;
 
 type SectionProps = {
   title: string
@@ -16,22 +97,22 @@ type SectionProps = {
 function Section({ title, description, children }: SectionProps) {
   return (
     <section className="space-section animate-fade-up">
-      <div className="space-group mb-6">
-        <Typography variant="h3" className="tracking-tight font-bold text-primary/90">
+      <div className="space-group mb-6 relative">
+        {/* Subtle background identifier */}
+        <div className="absolute -top-6 right-0 p-3 opacity-[0.03] pointer-events-none select-none z-0">
+          <Typography variant="h1" className="text-8xl uppercase">{title[0]}</Typography>
+        </div>
+        <Typography variant="h3" className="tracking-tight font-bold text-primary/90 relative z-10">
           {title}
         </Typography>
         {description && (
-          <Typography variant="body" className="text-body-muted text-sm max-w-2xl">
+          <Typography variant="body" className="text-body-muted text-sm max-w-2xl relative z-10">
             {description}
           </Typography>
         )}
       </div>
 
-      <div className="card bg-muted/5 border-dashed border-2 border-primary/10 p-10 flex flex-wrap items-center gap-wide overflow-hidden relative">
-        {/* Subtle background identifier */}
-        <div className="absolute top-0 right-0 p-3 opacity-5 pointer-events-none select-none">
-          <Typography variant="h1" className="text-6xl uppercase">{title[0]}</Typography>
-        </div>
+      <div className="w-full">
         {children}
       </div>
     </section>
@@ -58,15 +139,17 @@ export function BadgeShowcase() {
         title="Visual Variants" 
         description="High-contrast labels for categorization and priority signaling."
       >
-        <div className="flex flex-wrap items-center gap-default">
-          <Badge className="radius-sm bg-primary text-primary-foreground px-3 py-1">Featured</Badge>
-          <Badge variant="secondary" className="radius-sm border-primary/10">Beta v2.4</Badge>
-          <Badge variant="outline" className="radius-sm border-primary/30 text-primary">Documentation</Badge>
-          <Badge variant="destructive" className="radius-sm shadow-lg shadow-destructive/20">Critical</Badge>
-          <div className="bg-primary/10 text-primary px-3 py-1 radius-full text-[10px] font-bold uppercase tracking-wider">
-            Soft Tint
+        <ComponentWrapper title="Badges // Base_Components" code={codeVisualVariants}>
+          <div className="flex flex-wrap items-center gap-default p-4">
+            <Badge className="radius-sm bg-primary text-primary-foreground px-3 py-1">Featured</Badge>
+            <Badge variant="secondary" className="radius-sm border-primary/10">Beta v2.4</Badge>
+            <Badge variant="outline" className="radius-sm border-primary/30 text-primary">Documentation</Badge>
+            <Badge variant="destructive" className="radius-sm shadow-lg shadow-destructive/20">Critical</Badge>
+            <div className="bg-primary/10 text-primary px-3 py-1 radius-full text-[10px] font-bold uppercase tracking-wider">
+              Soft Tint
+            </div>
           </div>
-        </div>
+        </ComponentWrapper>
       </Section>
 
       {/* 🔹 Dynamic BadgeWrapper (Overlays) */}
@@ -74,131 +157,139 @@ export function BadgeShowcase() {
         title="Presence Overlays" 
         description="Attach counts or status dots to parent components like Avatars or Icons."
       >
-        <div className="flex gap-wide items-center">
-          <BadgeWrapper content="12" variant="destructive" className="shadow-lg">
-            <Avatar src="https://i.pravatar.cc/100?img=3" className="radius-md" />
-          </BadgeWrapper>
+        <ComponentWrapper title="Wrappers // Positional_Logic" code={codePresenceOverlays}>
+          <div className="flex flex-wrap gap-wide items-center p-4">
+            <BadgeWrapper content="12" variant="destructive" className="shadow-lg">
+              <Avatar src="https://i.pravatar.cc/100?img=3" className="radius-md" />
+            </BadgeWrapper>
 
-          <BadgeWrapper content={<ShieldCheck className="w-2.5 h-2.5" />} variant="accent" placement="top-right">
-            <Avatar src="https://i.pravatar.cc/100?img=5" className="radius-full border-2 border-background" />
-          </BadgeWrapper>
+            <BadgeWrapper content={<ShieldCheck className="w-2.5 h-2.5" />} variant="accent" placement="top-right">
+              <Avatar src="https://i.pravatar.cc/100?img=5" className="radius-full border-2 border-background" />
+            </BadgeWrapper>
 
-          <BadgeWrapper dot variant="success" placement="bottom-right" className="animate-pulse">
-            <div className="w-12 h-12 radius-lg bg-muted flex items-center justify-center border">
-              <Mail className="w-5 h-5 text-muted-foreground" />
-            </div>
-          </BadgeWrapper>
+            <BadgeWrapper dot variant="success" placement="bottom-right" className="animate-pulse">
+              <div className="w-12 h-12 radius-lg bg-muted flex items-center justify-center border border-primary/10 shadow-inner">
+                <Mail className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </BadgeWrapper>
 
-          <BadgeWrapper content="NEW" variant="warning" tone="soft" className="text-[8px] font-black">
-             <div className="px-6 py-3 radius-md bg-foreground text-background font-bold text-sm">
-                System Log
-             </div>
-          </BadgeWrapper>
-        </div>
+            <BadgeWrapper content="NEW" variant="warning" tone="soft" className="text-[8px] font-black">
+               <div className="px-6 py-3 radius-md bg-foreground text-background font-bold text-sm">
+                 System Log
+               </div>
+            </BadgeWrapper>
+          </div>
+        </ComponentWrapper>
       </Section>
 
       {/* 🔹 Adaptive Scaling */}
       <Section title="Scale & Density" description="Badges that adapt to the scale of their host component.">
-        <div className="flex items-end gap-wide">
-          <BadgeWrapper content="5" variant="destructive">
-            <Avatar size="sm" fallback="SM" className="radius-full" />
-          </BadgeWrapper>
+        <ComponentWrapper title="Scale // Responsive_Density" code={codeAdaptiveScaling}>
+          <div className="flex flex-wrap items-end gap-wide p-4">
+            <BadgeWrapper content="5" variant="destructive">
+              <Avatar size="sm" fallback="SM" className="radius-full" />
+            </BadgeWrapper>
 
-          <BadgeWrapper content="99+" variant="destructive" className="px-1.5 py-0.5 text-[10px]">
-            <Avatar size="md" fallback="MD" className="radius-full" />
-          </BadgeWrapper>
+            <BadgeWrapper content="99+" variant="destructive" className="px-1.5 py-0.5 text-[10px]">
+              <Avatar size="md" fallback="MD" className="radius-full" />
+            </BadgeWrapper>
 
-          <BadgeWrapper content="UNREAD" variant="destructive" className="text-[8px] tracking-tighter">
-            <Avatar size="lg" fallback="LG" className="radius-full border-4 border-background" />
-          </BadgeWrapper>
-        </div>
+            <BadgeWrapper content="UNREAD" variant="destructive" className="text-[8px] tracking-tighter">
+              <Avatar size="lg" fallback="LG" className="radius-full border-4 border-background shadow-lg shadow-primary/10" />
+            </BadgeWrapper>
+          </div>
+        </ComponentWrapper>
       </Section>
 
       {/* 🔹 Matrix of Status Colors */}
       <Section title="Semantic Matrix" description="Universal status colors for consistent user comprehension.">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-wide w-full">
-          {[
-            { label: "Online", color: "success", icon: <Activity /> },
-            { label: "Away", color: "warning", icon: <Bell /> },
-            { label: "Error", color: "danger", icon: <Info /> },
-            { label: "Sync", color: "accent", icon: <Bell /> },
-            { label: "Locked", color: "default", icon: <ShieldCheck /> },
-          ].map((item) => (
-            <div key={item.label} className="flex flex-col items-center gap-3 p-4 radius-lg bg-muted/20 border border-primary/5">
-              <BadgeWrapper dot variant={item.color as any} placement="bottom-right">
-                <div className="w-10 h-10 radius-md bg-background border flex items-center justify-center text-primary/50">
-                  {item.icon}
-                </div>
-              </BadgeWrapper>
-              <Typography variant="label" className="text-[10px] uppercase tracking-widest">{item.label}</Typography>
-            </div>
-          ))}
-        </div>
+        <ComponentWrapper title="Matrix // System_Colors" code={codeSemanticMatrix}>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-wide w-full">
+            {[
+              { label: "Online", color: "success", icon: <Activity className="w-4 h-4" /> },
+              { label: "Away", color: "warning", icon: <Bell className="w-4 h-4" /> },
+              { label: "Error", color: "danger", icon: <Info className="w-4 h-4" /> },
+              { label: "Sync", color: "accent", icon: <Bell className="w-4 h-4" /> },
+              { label: "Locked", color: "default", icon: <ShieldCheck className="w-4 h-4" /> },
+            ].map((item) => (
+              <div key={item.label} className="flex flex-col items-center gap-3 p-4 radius-lg bg-muted/20 border border-primary/5">
+                <BadgeWrapper dot variant={item.color as any} placement="bottom-right">
+                  <div className="w-10 h-10 radius-md bg-background border border-primary/10 flex items-center justify-center text-primary/60">
+                    {item.icon}
+                  </div>
+                </BadgeWrapper>
+                <Typography variant="label" className="text-[10px] uppercase tracking-widest opacity-80">{item.label}</Typography>
+              </div>
+            ))}
+          </div>
+        </ComponentWrapper>
       </Section>
 
       {/* 🔹 Real Usage Layouts */}
       <Section title="Integrated Patterns" description="Common interface patterns using badge components.">
-        <div className="grid gap-default w-full max-w-md">
-          <div className="flex items-center justify-between p-4 radius-md bg-muted/30 border border-primary/5 hover:bg-primary/5 transition-colors cursor-pointer group">
-            <div className="flex items-center gap-3">
-              <Mail className="w-4 h-4 text-primary" />
-              <Typography variant="body" className="font-medium">Direct Messages</Typography>
+        <ComponentWrapper title="Layouts // Practical_Integration" code={codeIntegratedPatterns}>
+          <div className="grid gap-default w-full max-w-md mx-auto md:mx-0">
+            <div className="flex items-center justify-between p-4 radius-md bg-muted/30 border border-primary/5 hover:bg-primary/5 transition-colors cursor-pointer group">
+              <div className="flex items-center gap-3">
+                <Mail className="w-4 h-4 text-primary" />
+                <Typography variant="body" className="font-medium">Direct Messages</Typography>
+              </div>
+              <Badge className="bg-primary text-primary-foreground radius-full px-2 font-bold group-hover:scale-110 transition-transform">24</Badge>
             </div>
-            <Badge className="bg-primary text-primary-foreground radius-full px-2 font-bold group-hover:scale-110 transition-transform">24</Badge>
-          </div>
 
-          <div className="flex items-center justify-between p-4 radius-md bg-muted/30 border border-primary/5">
-            <div className="flex items-center gap-3">
-              <ShieldCheck className="w-4 h-4 text-success" />
-              <Typography variant="body" className="font-medium">Security Clearance</Typography>
+            <div className="flex items-center justify-between p-4 radius-md bg-muted/30 border border-primary/5">
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="w-4 h-4 text-success" />
+                <Typography variant="body" className="font-medium">Security Clearance</Typography>
+              </div>
+              <Badge variant="outline" className="text-success border-success/30 bg-success/5 radius-sm">Verified</Badge>
             </div>
-            <Badge variant="outline" className="text-success border-success/30 bg-success/5 radius-sm">Verified</Badge>
           </div>
-        </div>
+        </ComponentWrapper>
       </Section>
 
       {/* 🔹 Best Practices */}
-    <footer className="system-footer">
-  {/* The Semantic Title */}
-  <h4 className="system-footer-title">System Architecture</h4>
-  
-  <div className="system-footer-grid">
-    
-    {/* Item 01: Precision */}
-    <div className="space-y-2">
-      <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
-        01 Precision
-      </div>
-      <span className="system-footer-item-heading text-lg">Indicator Intent</span>
-      <p className="system-footer-item-text">
-        Use <strong>dot variants</strong> for real-time presence/status and <strong>content variants</strong> for specific numerical data or counts.
-      </p>
-    </div>
+      <footer className="system-footer mt-16">
+        {/* The Semantic Title */}
+        <h4 className="system-footer-title">System Architecture</h4>
+        
+        <div className="system-footer-grid">
+          
+          {/* Item 01: Precision */}
+          <div className="space-y-2">
+            <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
+              01 Precision
+            </div>
+            <span className="system-footer-item-heading text-lg">Indicator Intent</span>
+            <p className="system-footer-item-text">
+              Use <strong>dot variants</strong> for real-time presence/status and <strong>content variants</strong> for specific numerical data or counts.
+            </p>
+          </div>
 
-    {/* Item 02: Visibility */}
-    <div className="space-y-2">
-      <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
-        02 Visibility
-      </div>
-      <span className="system-footer-item-heading text-lg">Spatial Balance</span>
-      <p className="system-footer-item-text">
-        Badges should never exceed <strong>25%</strong> of the parent component's surface area to maintain visual balance and prevent occlusion.
-      </p>
-    </div>
+          {/* Item 02: Visibility */}
+          <div className="space-y-2">
+            <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
+              02 Visibility
+            </div>
+            <span className="system-footer-item-heading text-lg">Spatial Balance</span>
+            <p className="system-footer-item-text">
+              Badges should never exceed <strong>25%</strong> of the parent component's surface area to maintain visual balance and prevent occlusion.
+            </p>
+          </div>
 
-    {/* Item 03: Logic */}
-    <div className="space-y-2">
-      <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
-        03 Logic
-      </div>
-      <span className="system-footer-item-heading text-lg">Boundary Handling</span>
-      <p className="system-footer-item-text">
-        Always cap numerical badges at <code>'99+'</code> to avoid layout breakage in high-density dashboard areas.
-      </p>
-    </div>
+          {/* Item 03: Logic */}
+          <div className="space-y-2">
+            <div className="text-caption font-bold opacity-50 uppercase tracking-widest text-primary">
+              03 Logic
+            </div>
+            <span className="system-footer-item-heading text-lg">Boundary Handling</span>
+            <p className="system-footer-item-text">
+              Always cap numerical badges at <code>'99+'</code> to avoid layout breakage in high-density dashboard areas.
+            </p>
+          </div>
 
-  </div>
-</footer>
+        </div>
+      </footer>
 
     </div>
   )

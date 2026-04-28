@@ -6,7 +6,7 @@ export default function TypographyPage() {
     <ComponentPageLayout
       title="Typography"
       description="Typography helps establish hierarchy, readability, and visual consistency across your UI"
-      image="https://images.pexels.com/photos/6475825/pexels-photo-6475825.jpeg"
+      image="/images/typography.jpeg"
     >
       <TypographyShowcase />
     </ComponentPageLayout>

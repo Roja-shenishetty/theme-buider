@@ -1,32 +1,32 @@
 /* ============================= */
-/* 🔹 Spacing System Core */
+/* 🔹 Ultra-Compact Design Tokens */
 /* ============================= */
 
 :root {
-  /* 4px Base Unit Scale */
+  /* Tightened Base Units (Moving towards a 3px/4px hybrid) */
   --space-0: 0px;
-  --space-1: 4px;   /* 0.25rem */
-  --space-2: 8px;   /* 0.5rem */
-  --space-3: 12px;  /* 0.75rem */
-  --space-4: 16px;  /* 1rem */
-  --space-5: 20px;  /* 1.25rem */
-  --space-6: 24px;  /* 1.5rem */
-  --space-8: 32px;  /* 2rem */
-  --space-10: 40px; /* 2.5rem */
-  --space-12: 48px; /* 3rem */
-  --space-16: 64px; /* 4rem */
-  --space-20: 80px; /* 5rem */
+  --space-1: 3px;   /* Extra tight */
+  --space-2: 6px;   /* Extra tight */
+  --space-3: 10px;  /* Compacted */
+  --space-4: clamp(10px, 1.5vw, 14px); /* Tighter 1rem */
+  --space-5: clamp(12px, 2vw, 18px);
+  --space-6: clamp(14px, 2.5vw, 20px);
+  --space-8: clamp(18px, 3.5vw, 28px);
+  --space-10: clamp(20px, 4vw, 32px);
+  --space-12: clamp(24px, 5vw, 38px);
+  --space-16: clamp(32px, 6vw, 50px);
+  --space-20: clamp(40px, 8vw, 64px);
 
-  /* Semantic Aliases used in your layouts */
-  --space-page: var(--space-12);
-  --space-section: var(--space-16);
-  --space-group: var(--space-4);
-  --gap-default: var(--space-4);
-  --gap-wide: var(--space-8);
+  /* Semantic Aliases - Maximum Information Density */
+  --space-page: clamp(0.75rem, 3vw, 1.5rem);   /* Very tight gutters */
+  --space-section: clamp(1.5rem, 5vh, 3rem);   /* Reduced vertical breathing room */
+  --space-group: var(--space-2);               /* 6px gaps for related items */
+  --gap-default: var(--space-3);               /* 10px standard gap */
+  --gap-wide: var(--space-5);                  /* Reduced from space-8 */
 }
 
 /* ============================= */
-/* 🔹 Padding Utilities */
+/* 🔹 Padding Utilities          */
 /* ============================= */
 
 .p-0 { padding: var(--space-0); }
@@ -38,65 +38,59 @@
 .p-6 { padding: var(--space-6); }
 .p-8 { padding: var(--space-8); }
 .p-10 { padding: var(--space-10); }
-.p-12 { padding: var(--space-12); }
-.p-16 { padding: var(--space-16); }
 
-/* Horizontal/Vertical shorthand */
+/* Directional & Semantic Padding */
+.pt-section { padding-top: var(--space-section); }
+.pb-section { padding-bottom: var(--space-section); }
 .px-page { padding-left: var(--space-page); padding-right: var(--space-page); }
-.py-section { padding-top: var(--space-section); padding-bottom: var(--space-section); }
 
 /* ============================= */
-/* 🔹 Margin Utilities */
+/* 🔹 Margin Utilities           */
 /* ============================= */
 
-.m-0 { margin: var(--space-0); }
 .m-1 { margin: var(--space-1); }
 .m-2 { margin: var(--space-2); }
-.m-3 { margin: var(--space-3); }
 .m-4 { margin: var(--space-4); }
-.m-5 { margin: var(--space-5); }
 .m-6 { margin: var(--space-6); }
-.m-8 { margin: var(--space-8); }
-.m-10 { margin: var(--space-10); }
-.m-12 { margin: var(--space-12); }
-.m-16 { margin: var(--space-16); }
-
 .mx-auto { margin-left: auto; margin-right: auto; }
 
 /* ============================= */
-/* 🔹 Flex/Grid Gaps */
+/* 🔹 Flex/Grid Gaps             */
 /* ============================= */
 
 .gap-1 { gap: var(--space-1); }
 .gap-2 { gap: var(--space-2); }
 .gap-3 { gap: var(--space-3); }
-.gap-4 { gap: var(--space-4); }
 .gap-default { gap: var(--gap-default); }
 .gap-wide { gap: var(--gap-wide); }
 
 /* ============================= */
-/* 🔹 Space-Y (Vertical Stack) */
+/* 🔹 Space-Y (Vertical Stack)   */
 /* ============================= */
 
-/* Targets every child except the first to add top margin */
 .space-y-1 > * + * { margin-top: var(--space-1); }
 .space-y-2 > * + * { margin-top: var(--space-2); }
+.space-y-3 > * + * { margin-top: var(--space-3); }
 .space-y-4 > * + * { margin-top: var(--space-4); }
 .space-y-6 > * + * { margin-top: var(--space-6); }
-.space-y-8 > * + * { margin-top: var(--space-8); }
-.space-y-12 > * + * { margin-top: var(--space-12); }
 
 /* ============================= */
-/* 🔹 Structural Aliases */
+/* 🔹 Structural Containers      */
 /* ============================= */
+
+.page-container {
+  width: 100%;
+  max-width: 1300px; /* Narrower max-width for focus */
+  margin-inline: auto;
+  padding-inline: var(--space-page);
+}
 
 .space-page {
-  padding: var(--space-page);
+  padding-block: var(--space-page);
 }
 
 .space-section {
-  padding-top: var(--space-section);
-  padding-bottom: var(--space-section);
+  padding-block: var(--space-section);
 }
 
 .space-group {

@@ -153,29 +153,23 @@ ul {
   }
 }
 
-@layer components {
+/* 🔹 Terminal Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 3px;
+  width: 3px;
+}
 
-  .page-container {
-    width: 100%;
-    padding-left: var(--space-4);
-    padding-right: var(--space-4);
-  }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(var(--primary-rgb), 0.3);
+  border-radius: 10px;
+}
 
-  /* Tablet */
-  @media (min-width: 768px) {
-    .page-container {
-      padding-left: var(--space-6);
-      padding-right: var(--space-6);
-    }
-  }
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-  /* Desktop */
-  @media (min-width: 1280px) {
-    .page-container {
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
+/* 🔹 Text Rendering */
+code {
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
 }

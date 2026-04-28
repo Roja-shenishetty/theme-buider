@@ -6,7 +6,7 @@ export default function SpacingPage() {
     <ComponentPageLayout
       title="Spacing"
       description="Spacing defines the distance between elements, helping create structure, hierarchy, and visual balance"
-      image="https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg"
+      image="/images/spacing.jpg"
     >
       <SpacingShowcase />
     </ComponentPageLayout>
