@@ -30,12 +30,32 @@ export function useThemeEngine() {
   const [theme, setTheme] = useState({
     brand: "#7c3aed",
     accent: "#B91048",
+    success: "#16a34a",
+    error: "#dc2626",
+    warning: "#d97706",
+    info: "#2563eb",
     neutralSat: 5
   })
 
+  // 🔹 LOAD FROM STORAGE: Runs once on component mount
   useEffect(() => {
+    const savedTheme = localStorage.getItem("system-theme")
+    if (savedTheme) {
+      setTheme(JSON.parse(savedTheme))
+    }
+  }, [])
+
+  // 🔹 INJECT CSS & SAVE TO STORAGE: Runs every time 'theme' changes
+  useEffect(() => {
+    // Save to persistence
+    localStorage.setItem("system-theme", JSON.stringify(theme))
+
     const brand = hexToHSL(theme.brand)
     const accent = hexToHSL(theme.accent)
+    const success = hexToHSL(theme.success)
+    const error = hexToHSL(theme.error)
+    const warning = hexToHSL(theme.warning)
+    const info = hexToHSL(theme.info)
 
     const setProp = (name: string, value: string) => 
       document.documentElement.style.setProperty(name, value)
@@ -46,7 +66,19 @@ export function useThemeEngine() {
     setProp('--primary-light', `${brand.h} ${brand.s}% ${brand.l + 20}%`)
     setProp('--primary-foreground', brand.l > 60 ? "222 47% 11%" : "0 0% 100%")
 
-    // Background Set (Derived from Neutral Saturation)
+    // Accent Set
+    setProp('--accent', accent.string)
+    setProp('--accent-dark', `${accent.h} ${accent.s}% ${accent.l - 15}%`)
+    setProp('--accent-light', `${accent.h} ${accent.s}% ${accent.l + 20}%`)
+    setProp('--accent-foreground', accent.l > 60 ? "222 47% 11%" : "0 0% 100%")
+
+    // Status Set
+    setProp('--success', success.string)
+    setProp('--error', error.string)
+    setProp('--warning', warning.string)
+    setProp('--info', info.string)
+
+    // Background Set 
     setProp('--background-page', `${brand.h} ${theme.neutralSat}% 98%`)
     setProp('--background-surface', `0 0% 100%`)
     setProp('--background-elevated', `${brand.h} ${theme.neutralSat}% 92%`)
