@@ -11,6 +11,7 @@
   "dependencies": {
     "@material/material-color-utilities": "^0.4.0",
     "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-progress": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "chroma-js": "^3.2.0",
     "class-variance-authority": "^0.7.1",

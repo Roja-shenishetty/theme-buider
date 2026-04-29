@@ -75,9 +75,9 @@ export default function ComponentPageLayout({
           {/* RIGHT MEDIA: The Showcase Frame */}
           <div className="relative group mx-auto xl:mx-0 w-full max-w-2xl">
             {/* Decorative Blueprint Corner */}
-            <div className="absolute -top-3 -left-3 w-12 h-12 border-t-2 border-l-2 border-primary/30 radius-tl-xl pointer-events-none z-10" />
+            {/* <div className="absolute mt-6 -top-3 -left-3 w-12 h-12 border-t-2 border-l-2 border-primary/30 radius-tl-xl pointer-events-none z-10" /> */}
             
-            <div className="h-[240px] sm:h-[300px] md:h-[400px] xl:h-[520px] radius-xl overflow-hidden bg-[#0d0d0d] border-2 border-primary/10 flex items-center justify-center shadow-2xl shadow-primary/5 relative group-hover:border-primary/30 transition-all duration-500">
+            <div className="h-[240px] sm:h-[300px] md:h-[400px] xl:h-[520px] mt-6 radius-xl overflow-hidden bg-[#0d0d0d] border-2 border-primary/10 flex items-center justify-center shadow-2xl shadow-primary/5 relative group-hover:border-primary/30 transition-all duration-500">
               
               {/* Media Content */}
               {video ? (

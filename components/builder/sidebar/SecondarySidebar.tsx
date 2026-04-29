@@ -18,7 +18,7 @@ export default function SecondarySidebar({ activeMenu, activeComponent, setActiv
       {
     title: "Foundations",
     children: [
-      { name: "Colors", id: "colors" },
+      { name: "Theme", id: "theme" },
       { name: "Typography", id: "typography" },
       { name: "Spacing", id: "spacing" },
       { name: "Borders", id: "borders" },
@@ -201,7 +201,7 @@ return (
   </div>
 
   {/* 🔹 THEME EDITOR: Now wrapped in a distinct, padded container */}
-  {item.id === "colors" && activeComponent === "colors" && (
+  {item.id === "theme" && activeComponent === "theme" && (
     <div className="my-1 rounded bg-muted/30 shadow-sm animate-in slide-in-from-left-2">
        <ThemeEditorPanel />
   </div>

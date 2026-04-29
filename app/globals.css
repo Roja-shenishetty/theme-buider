@@ -41,6 +41,15 @@
   --accent: 240 5% 90%;
   --accent-foreground: 222 47% 11%;
 
+  --success: var(--status-success);
+  --warning: var(--status-warning);
+  --danger: var(--status-danger);
+  --info: var(--status-info);
+  --status-success: ${hexToHsl(theme.statusSuccess)};
+  --status-warning: ${hexToHsl(theme.statusWarning)};
+  --status-danger: ${hexToHsl(theme.statusDanger)};
+  --status-info: ${hexToHsl(theme.statusInfo)};
+
   /* 🔹 Radius & Borders (Static) */
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -95,6 +104,20 @@ ul {
 
 .animate-fade-up {
   animation: fadeUp 0.35s ease forwards;
+}
+/* ================= UTILITY CLASSES ================= */
+@layer utilities {
+  .text-success { color: hsl(var(--success)); }
+  .text-warning { color: hsl(var(--warning)); }
+  .text-danger  { color: hsl(var(--danger)); }
+  .text-info   { color: hsl(var(--info)); }
+  
+  .bg-success { background-color: hsl(var(--success)); }
+  .bg-warning { background-color: hsl(var(--warning)); }
+  .bg-danger  { background-color: hsl(var(--danger)); }
+
+  .border-success { border-color: hsl(var(--success) / 0.2); }
+  .border-danger  { border-color: hsl(var(--danger) / 0.2); }
 }
 
 /* ================= DESIGN SYSTEM ================= */

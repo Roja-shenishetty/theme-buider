@@ -36,7 +36,7 @@ export function InteractionIntents() {
     <div className="grid md:grid-cols-2 gap-8">
       {/* Standard Implementation */}
       <div className="card p-10 bg-muted/5">
-        <Button onClick={() => setOpenBasic(true)} className="btn-primary w-full">
+        <Button onClick={() => setOpenBasic(true)} className="w-full">
           <Info className="w-5 h-5 mr-3" /> Initialize Sync
         </Button>
         <AlertDialog
@@ -173,7 +173,7 @@ export function AlertDialogShowcase() {
               <div className="card p-10 radius-2xl border-2 border-primary/5 bg-muted/5 space-y-6 group">
                  <Typography variant="h4" className="font-bold">Standard Intent</Typography>
                  <Typography variant="body" className="text-sm opacity-60">General confirmation protocol for non-destructive cloud syncs.</Typography>
-                 <Button onClick={() => setOpenBasic(true)} className="btn-primary w-full py-7 radius-lg shadow-lg shadow-primary/20">
+                 <Button onClick={() => setOpenBasic(true)} className="w-full py-7 radius-lg shadow-lg shadow-primary/20">
                     <Info className="w-5 h-5 mr-3" />
                     Initialize Sync
                  </Button>

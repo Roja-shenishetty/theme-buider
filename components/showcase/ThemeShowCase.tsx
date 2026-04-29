@@ -4,7 +4,7 @@ import React, { useState } from "react" // 🔹 Added useState for modal control
 import { useThemeEngine } from "@/hooks/useThemeEngine"
 import { Typography } from "@/components/ui/typography"
 import { Button } from "@/components/ui/button"
-import { ThemePaletteSelector } from "./../system/ThemePaletteSelector" // 🔹 Ensure this is imported
+import { ThemePaletteSelector } from "../system/ThemePaletteSelector" // 🔹 Ensure this is imported
 import { 
   Zap, 
   Cpu, 
@@ -15,7 +15,7 @@ import {
   X        // 🔹 Icon to close the modal
 } from "lucide-react"
 
-export function ColorShowcase() {
+export function ThemeShowcase() {
   const { theme } = useThemeEngine()
   const [isModalOpen, setIsModalOpen] = useState(false) // 🔹 Local state for the modal
 

@@ -2,7 +2,7 @@
 
 import React from "react"
 import { ThemePaletteSelector } from "@/components/system/ThemePaletteSelector"
-import { ColorShowcase } from "@/components/showcase/ColorShowcase"
+import { ColorShowcase } from "@/components/showcase/ThemeShowCase"
 import { Typography } from "@/components/ui/typography"
 
 export default function DesignSystemPage() {

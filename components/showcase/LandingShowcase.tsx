@@ -12,6 +12,7 @@ import {
   Copy,
   Check,
 } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export default function Introduction() {
   const [activeTab, setActiveTab] = useState<"code" | "preview">("code")
@@ -63,14 +64,14 @@ export default function Introduction() {
         </Typography>
 
         <div className="flex flex-wrap justify-center gap-wide">
-          <button className="btn-primary px-8 py-4 radius-lg flex items-center gap-2 group shadow-lg shadow-primary/20">
+          <Button className="px-8 py-4 radius-lg flex items-center gap-2 group shadow-lg shadow-primary/20">
             Get Started
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
+          </Button>
 
-          <button className="btn-secondary px-8 py-4 radius-lg border-primary/20 hover:bg-primary/5">
+          <Button className="btn-secondary px-8 py-4 radius-lg border-primary/20 hover:bg-primary/5">
             View Documentation
-          </button>
+          </Button>
         </div>
       </header>
 
@@ -108,22 +109,22 @@ export default function Introduction() {
           </Typography>
 
           <div className="flex p-1 bg-muted radius-md w-fit border">
-            <button
+            <Button
               onClick={() => setActiveTab("code")}
               className={`px-6 py-2 radius-sm transition-all ${
                 activeTab === "code" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               Code
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setActiveTab("preview")}
               className={`px-6 py-2 radius-sm transition-all ${
                 activeTab === "preview" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               Preview
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -154,7 +155,7 @@ export default function Hero() {
             </pre>
           ) : (
             <div className="flex flex-col items-center gap-4 animate-in fade-in zoom-in duration-300">
-               <div className="btn-primary px-8 py-3 radius-full shadow-[0_0_20px_rgba(var(--primary),0.3)]">
+               <div className="px-8 py-3 radius-full shadow-[0_0_20px_rgba(var(--primary),0.3)]">
                   Deploy to Edge
                </div>
                <div className="w-48 h-2 bg-white/10 radius-full overflow-hidden">
@@ -191,9 +192,9 @@ export default function Hero() {
         )}
       </div>
 
-      <button className="btn-default bg-white text-primary/90 px-12 py-5 radius-full font-black text-xl shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)]">
+      <Button className="btn-default bg-white text-primary/90 px-12 py-5 radius-full font-black text-xl shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)]">
         Get Unlimited Access
-      </button>
+      </Button>
     </div>
   </div>
 </footer>

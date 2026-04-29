@@ -19,7 +19,7 @@ import {
 
 /* 🔹 TECHNICAL SOURCE CODE STRINGS */
 const codeVisualVariants = `<div className="flex flex-wrap items-center gap-default">
-  <Button className="btn-primary radius-md shadow-lg shadow-primary/20">Primary</Button>
+  <Button className="radius-md shadow-lg shadow-primary/20">Primary</Button>
   <Button variant="secondary" className="radius-md">Secondary</Button>
   <Button variant="tertiary" className="radius-md border-primary/20">Tertiary</Button>
   <Button variant="outline" className="radius-md border-primary/30 text-primary hover:bg-primary/5">Outline</Button>
@@ -131,7 +131,7 @@ export function ButtonShowcase() {
       >
         <ComponentWrapper title="Buttons // Base_Tokens" code={codeVisualVariants}>
           <div className="flex flex-wrap items-center gap-default p-4">
-            <Button className="btn-primary radius-md shadow-lg shadow-primary/20">Primary</Button>
+            <Button className="radius-md shadow-lg shadow-primary/20">Primary</Button>
             <Button variant="secondary" className="radius-md">Secondary</Button>
             <Button variant="tertiary" className="radius-md border-primary/20">Tertiary</Button>
             <Button variant="outline" className="radius-md border-primary/30 text-primary hover:bg-primary/5">Outline</Button>

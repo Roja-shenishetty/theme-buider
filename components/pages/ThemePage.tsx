@@ -1,14 +1,14 @@
 import ComponentPageLayout from "@/components/layout/page/ComponentPageLayout"
-import { ColorShowcase } from "@/components/showcase/ColorShowcase"
+import { ThemeShowcase } from "@/components/showcase/ThemeShowCase"
 
-export default function ColorsPage() {
+export default function ThemePage() {
   return (
     <ComponentPageLayout
       title="Colors"
       description="Mathematical color generation, tonal palettes, and dynamic theme tokens driven by HSL values."
-    image="/images/colors1.jpg" 
+    image="/images/colors.jpg" 
     >
-      <ColorShowcase />
+      <ThemeShowcase />
     </ComponentPageLayout>
   )
 }

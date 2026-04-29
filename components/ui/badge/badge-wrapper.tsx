@@ -1,19 +1,16 @@
 "use client"
 
 import * as React from "react"
-import { Badge } from "@/components/ui/badge/badge"
-
-type Placement = "top-right" | "bottom-right" | "top-left" | "bottom-left"
+import { Badge } from "./badge"
 
 type BadgeWrapperProps = {
   children: React.ReactNode
   content?: React.ReactNode
-  placement?: Placement
+  placement?: "top-right" | "bottom-right" | "top-left" | "bottom-left"
   variant?: any
   tone?: "solid" | "soft"
   dot?: boolean
-  size?: "sm" | "md" | "lg"
-  className?: string
+  className?: string // This applies to the Badge itself
 }
 
 export function BadgeWrapper({
@@ -23,27 +20,21 @@ export function BadgeWrapper({
   variant = "default",
   tone = "solid",
   dot = false,
-  size = "md",
   className,
 }: BadgeWrapperProps) {
-  const showBadge = dot || content
-
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-flex align-middle">
       {children}
-
-      {showBadge && (
-        <div className={className}>
-          <Badge
-            variant={variant}
-            size={size}
-            placement={placement}
-            dot={dot}
-            tone={tone}
-          >
-            {content}
-          </Badge>
-        </div>
+      {(dot || content) && (
+        <Badge
+          variant={variant}
+          placement={placement}
+          dot={dot}
+          tone={tone}
+          className={className}
+        >
+          {content}
+        </Badge>
       )}
     </div>
   )

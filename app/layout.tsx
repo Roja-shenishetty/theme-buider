@@ -17,7 +17,7 @@ import "./styles/border.css"
 import "./styles/footer.css"
 import "./styles/themeEditorPanel.css"
 import { ThemeProvider } from "@/context/ThemeContext";
-
+import "./styles/progresscircle.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

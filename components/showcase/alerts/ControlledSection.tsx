@@ -49,7 +49,7 @@ export function ControlledSection() {
         <div className="flex flex-wrap gap-default mt-4">
           <Button 
             onClick={handleOpen} 
-            className="btn-primary radius-md shadow-lg shadow-primary/10 group"
+            className=" radius-md shadow-lg shadow-primary/10 group"
           >
             <Activity className="w-4 h-4 mr-2 group-hover:scale-125 transition-transform" />
             Set Open
@@ -130,7 +130,7 @@ export function ControlledSection() {
           <div className="flex flex-wrap gap-default mt-4">
             <Button 
               onClick={handleOpen} 
-              className="btn-primary radius-md shadow-lg shadow-primary/10 group"
+              className="radius-md shadow-lg shadow-primary/10 group"
             >
               <Activity className="w-4 h-4 mr-2 group-hover:scale-125 transition-transform" />
               Set Open

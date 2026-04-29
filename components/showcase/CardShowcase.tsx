@@ -34,7 +34,7 @@ const codeIdentityCard = `<Card className="w-[340px] radius-xl border-primary/10
     </Typography>
   </CardContent>
   <CardFooter className="border-t border-primary/5 pt-4">
-    <Button fullWidth className="btn-primary radius-md group">
+    <Button fullWidth className="radius-md group">
       View Profile
       <ArrowUpRight className="ml-2 w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
     </Button>
@@ -182,7 +182,7 @@ export function CardShowcase() {
                 </Typography>
               </CardContent>
               <CardFooter className="border-t border-primary/5 pt-4">
-                <Button fullWidth className="btn-primary radius-md group">
+                <Button fullWidth className="radius-md group">
                   View Profile
                   <ArrowUpRight className="ml-2 w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </Button>

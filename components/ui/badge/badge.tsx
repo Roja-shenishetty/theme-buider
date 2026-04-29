@@ -3,50 +3,40 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-type BadgeVariant =
-  | "default"
-  | "secondary"
-  | "accent"
-  | "success"
-  | "warning"
-  | "danger"
-  | "destructive"
-  | "outline"
+type BadgeVariant = "default" | "secondary" | "accent" | "success" | "warning" | "danger" | "destructive" | "outline"
 
 type BadgeProps = React.HTMLAttributes<HTMLDivElement> & {
   variant?: BadgeVariant
-  size?: "sm" | "md" | "lg"
-  placement?: "top-right" | "bottom-right" | "top-left" | "bottom-left"
+  tone?: "solid" | "soft"
   dot?: boolean
-    tone?: "solid" | "soft"  
+  placement?: "top-right" | "bottom-right" | "top-left" | "bottom-left"
+  className?: string
 }
 
 export function Badge({
   className,
   variant = "default",
-  size = "md",
-  placement = "top-right",
-  dot,
-  children,
   tone = "solid",
+  dot,
+  placement,
+  children,
   ...props
 }: BadgeProps) {
-  const normalizedVariant =
-    variant === "destructive" ? "danger" : variant
-    const toneClass =
-  tone === "soft" ? "badge-soft" : "badge-solid"
+  // Map 'destructive' to 'danger' to match your CSS semantic naming
+  const normalizedVariant = variant === "destructive" ? "danger" : variant
 
   return (
     <div
-   className={cn(
-  "badge",
-  `badge-${normalizedVariant}`,
-  `badge-${size}`,
-  `badge-${placement}`,
-  toneClass,
-  dot && "badge-dot",
-  className
-)}
+      className={cn(
+        "badge",
+        `badge-${normalizedVariant}`,
+        // If placement is provided, it's an overlay; otherwise, it's a standalone chip
+        placement ? "badge-overlay" : "px-2.5 py-0.5 rounded-full text-[10px]",
+        placement && `badge-${placement}`,
+        tone === "soft" && "badge-soft",
+        dot && "badge-dot",
+        className
+      )}
       {...props}
     >
       {!dot && children}

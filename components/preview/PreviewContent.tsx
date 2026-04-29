@@ -13,7 +13,13 @@ import AlertPage from "@/components/pages/AlertPage"
 import AlertboxPage from "@/components/pages/AlertboxPage"
 import AvatarPage from "@/components/pages/AvatarPage"
 import BadgePage from "@/components/pages/BadgePage"
-import ColorsPage from "@/components/pages/ColorsPage"
+import ChipPage from "@/components/pages/ChipPage"
+import TablePage from "@/components/pages/TablePage"
+import ThemePage from "@/components/pages/ThemePage"
+import MeterPage from "../pages/MeterPage"
+import ProgressBarPage from "../pages/ProgressBarPage"
+import ProgressCirclePage from "../pages/ProgressCirclePage"
+
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -30,8 +36,13 @@ const componentMap: any = {
   alertdialog: AlertboxPage,
   avatar: AvatarPage,
   badge: BadgePage,
-  colors: ColorsPage,
-
+  theme: ThemePage,
+  chip: ChipPage,
+  table: TablePage,
+  meter: MeterPage,
+  progressbar: ProgressBarPage,
+  progresscircle:ProgressCirclePage,
+  
 }
 export default function PreviewContent({ activeComponent }: any) {
   const Component = componentMap[activeComponent] || Introduction

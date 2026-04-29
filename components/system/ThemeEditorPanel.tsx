@@ -2,20 +2,18 @@
 
 import { useState } from "react"
 import { useThemeEngine } from "@/hooks/useThemeEngine"
-import { ChevronDown, Save, Download } from "lucide-react"
+import { ChevronDown, Save, Download, ShieldAlert } from "lucide-react"
 
 export function ThemeEditorPanel() {
   const { theme, setTheme } = useThemeEngine()
   const [openSection, setOpenSection] = useState<string | null>("brand")
 
-  // 🔹 FIX: Allow both string and number to prevent TypeScript errors
   const updateTheme = (key: string, val: string | number) => {
     setTheme({ ...theme, [key]: val })
   }
 
   const TokenRow = ({ label, themeKey }: { label: string; themeKey: string }) => (
     <label className="flex items-center gap-2 py-2 px-1 hover:bg-foreground/[0.04] transition-colors cursor-pointer group">
-      {/* 🔧 LARGE ROUNDED COLOR BOX */}
       <div 
         className="relative w-5 h-5 rounded-md shrink-0 transition-all duration-300 group-hover:scale-110 shadow-sm border border-black/5"
         style={{ backgroundColor: theme[themeKey] }}
@@ -58,25 +56,33 @@ export function ThemeEditorPanel() {
   return (
     <div className="w-full max-w-[140px] flex flex-col box-border pt-2 pb-10">
       
+      {/* 🔹 BRAND SYSTEM */}
       <Section id="brand" title="Brand System">
         <TokenRow label="Default" themeKey="brand" />
         <TokenRow label="Dark" themeKey="brandDark" />
         <TokenRow label="Light" themeKey="brandLight" />
-        <TokenRow label="Front" themeKey="brandFront" />
       </Section>
 
+      {/* 🔹 NEW: STATUS SYSTEM (Health Colors) */}
+      <Section id="status" title="System Health">
+        <TokenRow label="Success" themeKey="statusSuccess" />
+        <TokenRow label="Warning" themeKey="statusWarning" />
+        <TokenRow label="Danger" themeKey="statusDanger" />
+      </Section>
+
+      {/* 🔹 ACCENT SYSTEM */}
       <Section id="accent" title="Accent System">
         <TokenRow label="Default" themeKey="accent" />
         <TokenRow label="Dark" themeKey="accentDark" />
         <TokenRow label="Light" themeKey="accentLight" />
       </Section>
 
+      {/* 🔹 SURFACES */}
       <Section id="surfaces" title="Surfaces">
         <TokenRow label="Page" themeKey="bgPage" />
         <TokenRow label="Elevated" themeKey="bgElevated" />
         <TokenRow label="Sunken" themeKey="bgSunken" />
         
-        {/* TALLER SLIDER AREA */}
         <div className="mt-6 py-4 bg-foreground/[0.02] rounded-lg">
           <div className="flex justify-between items-center px-2 mb-4">
             <span className="text-[7px] font-black uppercase tracking-[0.2em] opacity-40">Tint</span>
@@ -88,7 +94,6 @@ export function ThemeEditorPanel() {
             <input 
               type="range" min="0" max="25" 
               value={theme.neutralSat} 
-              // 🔹 Passes a NUMBER to updateTheme
               onChange={(e) => updateTheme("neutralSat", parseInt(e.target.value))} 
               className="w-full h-1 bg-foreground/10 appearance-none cursor-pointer accent-primary block transition-all" 
             />
@@ -96,13 +101,14 @@ export function ThemeEditorPanel() {
         </div>
       </Section>
 
+      {/* 🔹 TYPOGRAPHY */}
       <Section id="text" title="Typography">
         <TokenRow label="Heading" themeKey="textHeading" />
         <TokenRow label="Body" themeKey="textBody" />
         <TokenRow label="Muted" themeKey="textMuted" />
       </Section>
 
-      {/* 🔹 TALL ACTION STACK */}
+      {/* 🔹 ACTION STACK */}
       <div className="mt-8 flex flex-col gap-2 px-1">
         <button className="flex items-center justify-center gap-2 w-full py-3.5 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-[0.25em] rounded-md hover:brightness-110 active:scale-[0.98] transition-all shadow-md">
           <Save size={14} /> Save Palette
