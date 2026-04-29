@@ -4,45 +4,62 @@
 
 /* ================= THEME TOKENS ================= */
 :root {
-
+  /* 🔹 Fonts (Static) */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   --font-serif: 'Playfair Display', Georgia, serif;
-  /* 🔹 Fonts */
   --font-heading: "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
 
-  /* 🔹 Colors */
-  --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
+  /* 🔹 DYNAMIC REDIRECTS 
+     We point the standard names to your Engine's variables.
+  */
+  --background: var(--bg-page);
+  --foreground: var(--text-body);
 
-  --primary: 262 83% 58%;
-  --primary-foreground: 0 0% 100%;
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
+  
+  --accent: var(--accent);
+  --accent-foreground: var(--accent-foreground);
 
-  --secondary: 210 10% 40%;
-  --secondary-foreground: 0 0% 100%;
+  --muted: var(--bg-surface); /* Mapped to your Surface level */
+  --muted-foreground: var(--text-muted);
+  --text-active: 222 47% 11%; /* Initial Black/Dark color */
 
-  --muted: 240 5% 96%;
-  --muted-foreground: 215 16% 47%;
+  /* 🔹 FALLBACKS (Initial values before the Engine loads) */
+  --bg-page: 0 0% 100%;
+  --text-body: 222 47% 11%;
+  --text-muted: 215 16% 47%;
+  --bg-surface: 240 5% 96%;
+  
+  --brand: 262 83% 58%;
+  --brand-foreground: 0 0% 100%;
+  --brand-dark: 262 83% 45%;
+  --brand-light: 262 83% 80%;
 
   --accent: 240 5% 90%;
   --accent-foreground: 222 47% 11%;
 
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 100%;
-
-  --success: 142 71% 45%;
-  --warning: 38 92% 50%;
-
-  --border: 220 13% 91%;
-
-  /* 🔹 Radius */
+  /* 🔹 Radius & Borders (Static) */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-full: 9999px;
+  --border: 220 13% 91%;
+}
+
+
+body {
+  font-family: var(--font-body);
+  /* Linked to dynamic background */
+  background: hsl(var(--background)); 
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Smoothes the color transition when you switch palettes */
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* ================= BASE ================= */
@@ -51,14 +68,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-body {
-  font-family: var(--font-body);
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -109,18 +118,21 @@ ul {
     flex-direction: column;
     gap: var(--space-3);
   }
-
+@layer components {
   .card {
+    /* Now reacts to your "Page" or "Surface" colors */
     background: hsl(var(--background));
-    border: 1px solid hsl(var(--border));
+    border: 1px solid hsl(var(--primary) / 0.1); /* Reacts to brand color */
     padding: var(--space-card);
     border-radius: var(--radius-lg);
-    transition: box-shadow 0.2s ease;
+    transition: all 0.3s ease;
   }
 
   .card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    border-color: hsl(var(--primary) / 0.3);
   }
+}
 
   .gap-default {
     gap: var(--space-3);

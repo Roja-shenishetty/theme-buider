@@ -1,0 +1,52 @@
+/* 🔹 THEME EDITOR PANEL (Borderless & Minimalist) */
+
+.te-panel {
+  /* Removed border and shadow-inner for a flat, clean look */
+  @apply mt-2 p-0 bg-transparent space-y-4 box-border w-full overflow-hidden;
+}
+
+/* Headers for each section */
+.te-header {
+  @apply flex items-center gap-1.5 opacity-40 px-1 mb-1.5;
+}
+.te-header-text {
+  @apply text-[8px] font-black uppercase tracking-[0.2em] truncate;
+}
+
+/* 🔥 NEW: Full-width color box (Borderless) */
+.te-color-box-full {
+  @apply relative w-full h-7 overflow-hidden transition-all;
+}
+.te-color-input-full {
+  @apply absolute -top-4 -left-4 w-48 h-32 cursor-pointer;
+}
+
+/* The row holding the text and the color picker */
+.te-input-row {
+  /* Removed border and shadow */
+  @apply flex items-center justify-between bg-transparent px-1 py-1.5 transition-all w-full;
+}
+
+.te-input-row:hover {
+  @apply bg-foreground/[0.03];
+}
+
+/* The wrapper for small color pickers (Sharp Square) */
+.te-color-box {
+  @apply relative w-3.5 h-3.5 overflow-hidden shrink-0;
+}
+
+/* The actual oversized, invisible input */
+.te-color-input {
+  @apply absolute -top-2 -left-2 w-10 h-10 cursor-pointer;
+}
+
+/* The range slider for the neutral tint */
+.te-slider {
+  @apply w-full h-[1px] bg-foreground/10 appearance-none cursor-pointer accent-primary;
+}
+
+/* Ensure the slider thumb uses the primary color */
+.te-slider::-webkit-slider-thumb {
+  @apply appearance-none w-2.5 h-2.5 rounded-full bg-primary;
+}

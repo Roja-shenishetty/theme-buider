@@ -2,8 +2,7 @@
 
 import { useState } from "react"
 import { Typography } from "@/components/ui/typography"
-import { useThemeEngine } from "@/hooks/useThemeEngine" // 🔹 Import the brain
-import { Zap, Palette, Layers, Hash } from "lucide-react"
+import { ThemeEditorPanel } from "./../../system/ThemeEditorPanel"
 
 type Props = {
   activeMenu: string
@@ -12,7 +11,6 @@ type Props = {
 }
 
 export default function SecondarySidebar({ activeMenu, activeComponent, setActiveComponent }: Props) {
-  const { theme, setTheme } = useThemeEngine() // 🔹 Hook into global state
   const [openSection, setOpenSection] = useState<string | null>("Foundations")
 
    const data: any = {
@@ -165,7 +163,7 @@ export default function SecondarySidebar({ activeMenu, activeComponent, setActiv
 
   const sections = data[activeMenu] || []
 
- return (
+return (
     <div className="w-64 bg-background border-r h-full flex flex-col hide-scrollbar overflow-y-auto">
       <div className="p-4 space-group">
         
@@ -182,73 +180,33 @@ export default function SecondarySidebar({ activeMenu, activeComponent, setActiv
 
             {openSection === section.title && (
               <div className="sidebar-list mt-1 space-y-1">
-                {section.children.map((item: any) => (
-                  <div key={item.id}>
-                    {/* 🔹 Standard Sidebar Link */}
-                    <div
-                      onClick={() => setActiveComponent(item.id)}
-                      className={`sidebar-link ${activeComponent === item.id ? "active" : ""}`}
-                    >
-                      <Typography variant="small">{item.name}</Typography>
-                    </div>
+           {section.children.map((item: any) => (
+  <div key={item.id}>
+    <div
+  onClick={() => setActiveComponent(item.id)}
+  className={`sidebar-link flex justify-between items-center transition-all duration-200 
+    ${activeComponent === item.id ? "active bg-primary/10" : "hover:bg-primary/5"}`}
+>
+  <Typography 
+    variant="small" 
+    className={`transition-colors duration-200 ${
+      activeComponent === item.id 
+        ? "text-black font-black" // 🔹 Hardcoded Black for max contrast
+        : "text-muted-foreground font-medium"
+    }`}
+  >
+    {item.name}
+  </Typography>
+    {activeComponent === item.id && <div className="w-1 h-1 animate-in fade-in" />}
+  </div>
 
-                    {/* 🔹 THEME EDITOR (SUB-COMPONENT) */}
-                    {/* This only shows when you click into the Colors section */}
-                    {item.id === "colors" && activeComponent === "colors" && (
-                      <div className="mt-2 ml-2 p-4 radius-xl bg-primary/[0.03] border border-primary/10 space-y-4 animate-fade-up ring-1 ring-primary/5">
-                        
-                        {/* 1. Brand Selection */}
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-2 opacity-60">
-                            <Zap className="w-3 h-3 text-primary" />
-                            <Typography variant="caption" className="text-[9px] font-black uppercase">Brand Core</Typography>
-                          </div>
-                          <div className="flex items-center gap-3 bg-background/50 p-1.5 radius-md border border-primary/5">
-                            <input 
-                              type="color" 
-                              value={theme.brand} 
-                              onChange={(e) => setTheme({...theme, brand: e.target.value})}
-                              className="w-6 h-6 radius-sm cursor-pointer border-none bg-transparent"
-                            />
-                            <Typography variant="code" className="text-[10px] font-bold">{theme.brand.toUpperCase()}</Typography>
-                          </div>
-                        </div>
-
-                        {/* 2. Accent Selection */}
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-2 opacity-60">
-                            <Palette className="w-3 h-3 text-accent" />
-                            <Typography variant="caption" className="text-[9px] font-black uppercase">Accent System</Typography>
-                          </div>
-                          <div className="flex items-center gap-3 bg-background/50 p-1.5 radius-md border border-accent/5">
-                            <input 
-                              type="color" 
-                              value={theme.accent} 
-                              onChange={(e) => setTheme({...theme, accent: e.target.value})}
-                              className="w-6 h-6 radius-sm cursor-pointer border-none bg-transparent"
-                            />
-                            <Typography variant="code" className="text-[10px] font-bold text-accent">{theme.accent.toUpperCase()}</Typography>
-                          </div>
-                        </div>
-
-                        {/* 3. Surface Logic (Tinting) */}
-                        <div className="pt-2 border-t border-primary/10">
-                           <div className="flex justify-between items-center mb-2">
-                             <div className="flex items-center gap-2 opacity-60">
-                                <Layers className="w-3 h-3" />
-                                <Typography variant="caption" className="text-[9px] font-black uppercase">Neutral Tint</Typography>
-                             </div>
-                             <span className="text-[10px] font-mono text-primary font-bold">{theme.neutralSat}%</span>
-                           </div>
-                           <input 
-                             type="range" min="0" max="25" 
-                             value={theme.neutralSat} 
-                             onChange={(e) => setTheme({...theme, neutralSat: parseInt(e.target.value)})} 
-                             className="w-full h-1 bg-primary/20 radius-full appearance-none accent-primary cursor-pointer" 
-                           />
-                        </div>
-                      </div>
+  {/* 🔹 THEME EDITOR: Now wrapped in a distinct, padded container */}
+  {item.id === "colors" && activeComponent === "colors" && (
+    <div className="my-1 rounded bg-muted/30 shadow-sm animate-in slide-in-from-left-2">
+       <ThemeEditorPanel />
+  </div>
                     )}
+
                   </div>
                 ))}
               </div>
