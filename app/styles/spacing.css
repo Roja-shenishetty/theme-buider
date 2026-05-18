@@ -1,28 +1,37 @@
 /* ============================= */
-/* 🔹 Ultra-Compact Design Tokens */
+/* 🔹 Hyper-Dense Micro Design Tokens */
 /* ============================= */
 
 :root {
-  /* Tightened Base Units (Moving towards a 3px/4px hybrid) */
+/* Static Base Units (2px baseline hybrid) */
   --space-0: 0px;
-  --space-1: 3px;   /* Extra tight */
-  --space-2: 6px;   /* Extra tight */
-  --space-3: 10px;  /* Compacted */
-  --space-4: clamp(10px, 1.5vw, 14px); /* Tighter 1rem */
-  --space-5: clamp(12px, 2vw, 18px);
-  --space-6: clamp(14px, 2.5vw, 20px);
-  --space-8: clamp(18px, 3.5vw, 28px);
-  --space-10: clamp(20px, 4vw, 32px);
-  --space-12: clamp(24px, 5vw, 38px);
-  --space-16: clamp(32px, 6vw, 50px);
-  --space-20: clamp(40px, 8vw, 64px);
+  --space-1: 2px;   /* Micro-edge alignment */
+  --space-2: 4px;   /* Tight structural association */
+  --space-3: 8px;   /* Default inline component separation */
+  
+  /* 
+    Fluid Clamp Squashing (Calibrated for 375px -> 1440px Viewports)
+    Formula: clamp(MIN_MOBILE, calc(SLOPE_VW + BASE_PX), MAX_DESKTOP)
+  */
+  --space-4: clamp(8px, calc(0.38vw + 6.6px), 12px); 
+  --space-5: clamp(10px, calc(0.38vw + 8.6px), 14px);
+  --space-6: clamp(12px, calc(0.38vw + 10.6px), 16px);
+  --space-8: clamp(14px, calc(0.56vw + 11.9px), 20px);
+  --space-10: clamp(16px, calc(0.75vw + 13.2px), 24px);
+  --space-12: clamp(18px, calc(0.94vw + 14.5px), 28px);
+  --space-16: clamp(22px, calc(1.31vw + 17.1px), 36px);
+  --space-20: clamp(26px, calc(1.5vw + 20.4px), 42px);
 
-  /* Semantic Aliases - Maximum Information Density */
-  --space-page: clamp(0.75rem, 3vw, 1.5rem);   /* Very tight gutters */
-  --space-section: clamp(1.5rem, 5vh, 3rem);   /* Reduced vertical breathing room */
-  --space-group: var(--space-2);               /* 6px gaps for related items */
-  --gap-default: var(--space-3);               /* 10px standard gap */
-  --gap-wide: var(--space-5);                  /* Reduced from space-8 */
+  /* 
+    Aggressive Information Density - Structural Aliases 
+  */
+  --space-page: clamp(8px, calc(0.56vw + 5.9px), 14px);     
+  
+  /* Fixed vh to vw calculation to prevent layouts from crashing when mobile keyboards open */
+  --space-section: clamp(16px, calc(1.13vw + 11.8px), 28px); /* Tight vertical block pacing */
+  --space-group: var(--space-2);             /* Fixed 4px for elements within a group */
+  --gap-default: var(--space-3);             /* Fixed 8px component gap */
+  --gap-wide: var(--space-5);                /* High density variable layout gap */
 }
 
 /* ============================= */
@@ -80,7 +89,7 @@
 
 .page-container {
   width: 100%;
-  max-width: 1300px; /* Narrower max-width for focus */
+  max-width: 1300px; 
   margin-inline: auto;
   padding-inline: var(--space-page);
 }

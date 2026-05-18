@@ -2,25 +2,66 @@
 
 import { useState } from "react"
 import { useThemeEngine } from "@/hooks/useThemeEngine"
-import { ChevronDown, Save, Download, ShieldAlert } from "lucide-react"
+import { ChevronDown, Save, Download,Check } from "lucide-react"
 
 export function ThemeEditorPanel() {
   const { theme, setTheme } = useThemeEngine()
   const [openSection, setOpenSection] = useState<string | null>("brand")
+  const [isSaving, setIsSaving] = useState(false)
 
   const updateTheme = (key: string, val: string | number) => {
     setTheme({ ...theme, [key]: val })
+  }
+
+  // 🔹 SAVE PALETTE LOGIC
+  const handleSavePalette = () => {
+    try {
+      localStorage.setItem("saved-theme-palette", JSON.stringify(theme))
+      setIsSaving(true)
+      setTimeout(() => setIsSaving(false), 2000)
+    } catch (error) {
+      console.error("Failed to save theme to localStorage", error)
+    }
+  }
+
+  // 🔹 EXPORT CSS LOGIC
+  const handleExportCSS = () => {
+    // Helper to convert camelCase keys (e.g., brandDark) to kebab-case (e.g., brand-dark)
+    const toKebabCase = (str: string) => 
+      str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
+
+    // Generate CSS string
+    let cssString = ":root {\n"
+    for (const [key, value] of Object.entries(theme)) {
+      // Append % to neutralSat if it's the saturation token, otherwise keep string value
+      const cssValue = key === "neutralSat" ? `${value}%` : value
+      cssString += `  --${toKebabCase(key)}: ${cssValue};\n`
+    }
+    cssString += "}\n"
+
+    // Create a Blob and trigger download
+    const blob = new Blob([cssString], { type: "text/css" })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.href = url
+    link.download = "theme.css"
+    document.body.appendChild(link)
+    link.click()
+    
+    // Cleanup
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
   }
 
   const TokenRow = ({ label, themeKey }: { label: string; themeKey: string }) => (
     <label className="flex items-center gap-2 py-2 px-1 hover:bg-foreground/[0.04] transition-colors cursor-pointer group">
       <div 
         className="relative w-5 h-5 rounded-md shrink-0 transition-all duration-300 group-hover:scale-110 shadow-sm border border-black/5"
-        style={{ backgroundColor: theme[themeKey] }}
+        style={{ backgroundColor: theme[themeKey] as string }}
       >
         <input 
           type="color" 
-          value={theme[themeKey]} 
+          value={theme[themeKey] as string} 
           onChange={(e) => updateTheme(themeKey, e.target.value)}
           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
         />
@@ -30,7 +71,7 @@ export function ThemeEditorPanel() {
           {label}
         </span>
         <span className="text-[8px] font-mono opacity-0 group-hover:opacity-40 transition-opacity uppercase">
-          {theme[themeKey]}
+          {theme[themeKey] as string}
         </span>
       </div>
     </label>
@@ -63,7 +104,7 @@ export function ThemeEditorPanel() {
         <TokenRow label="Light" themeKey="brandLight" />
       </Section>
 
-      {/* 🔹 NEW: STATUS SYSTEM (Health Colors) */}
+      {/* 🔹 STATUS SYSTEM (Health Colors) */}
       <Section id="status" title="System Health">
         <TokenRow label="Success" themeKey="statusSuccess" />
         <TokenRow label="Warning" themeKey="statusWarning" />
@@ -93,7 +134,7 @@ export function ThemeEditorPanel() {
           <div className="px-2">
             <input 
               type="range" min="0" max="25" 
-              value={theme.neutralSat} 
+              value={theme.neutralSat as number} 
               onChange={(e) => updateTheme("neutralSat", parseInt(e.target.value))} 
               className="w-full h-1 bg-foreground/10 appearance-none cursor-pointer accent-primary block transition-all" 
             />
@@ -110,10 +151,26 @@ export function ThemeEditorPanel() {
 
       {/* 🔹 ACTION STACK */}
       <div className="mt-8 flex flex-col gap-2 px-1">
-        <button className="flex items-center justify-center gap-2 w-full py-3.5 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-[0.25em] rounded-md hover:brightness-110 active:scale-[0.98] transition-all shadow-md">
-          <Save size={14} /> Save Palette
+        <button 
+          onClick={handleSavePalette}
+          disabled={isSaving}
+          className={`flex items-center justify-center gap-2 w-full py-3.5 text-[10px] font-bold uppercase tracking-[0.25em] rounded-md transition-all shadow-md
+            ${isSaving 
+              ? "bg-statusSuccess text-white shadow-none scale-[0.98]" 
+              : "bg-primary text-primary-foreground hover:brightness-110 active:scale-[0.98]"
+            }`}
+        >
+          {isSaving ? (
+            <><Check size={14} className="animate-in zoom-in duration-300" /> Saved</>
+          ) : (
+            <><Save size={14} /> Save Palette</>
+          )}
         </button>
-        <button className="flex items-center justify-center gap-2 w-full py-3.5 bg-foreground/[0.05] text-foreground/60 text-[10px] font-bold uppercase tracking-[0.25em] rounded-md hover:bg-foreground/[0.1] transition-all">
+        
+        <button 
+          onClick={handleExportCSS}
+          className="flex items-center justify-center gap-2 w-full py-3.5 bg-foreground/[0.05] text-foreground/60 text-[10px] font-bold uppercase tracking-[0.25em] rounded-md hover:bg-foreground/[0.1] active:scale-[0.98] transition-all"
+        >
           <Download size={14} /> Export CSS
         </button>
       </div>

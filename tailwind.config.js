@@ -23,10 +23,27 @@ module.exports = {
   			'destructive-foreground': 'hsl(var(--destructive-foreground))'
   		},
   		spacing: {
-  			section: '1.5rem',
-  			page: '3rem',
-  			card: '1.5rem'
-  		},
+        0: 'var(--space-0)',
+        1: 'var(--space-1)',
+        2: 'var(--space-2)',
+        3: 'var(--space-3)',
+        4: 'var(--space-4)',
+        5: 'var(--space-5)',
+        6: 'var(--space-6)',
+        8: 'var(--space-8)',
+        10: 'var(--space-10)',
+        12: 'var(--space-12)',
+        16: 'var(--space-16)',
+        20: 'var(--space-20)',
+        
+        // Semantic Aliases
+        page: 'var(--space-page)',
+        section: 'var(--space-section)',
+        group: 'var(--space-group)',
+        default: 'var(--gap-default)',
+        wide: 'var(--gap-wide)',
+        card: 'var(--space-5)' // Mapped card to space-5 instead of static 1.5rem
+      },
   		borderRadius: {
   			sm: 'var(--radius-sm)',
   			md: 'var(--radius-md)',
