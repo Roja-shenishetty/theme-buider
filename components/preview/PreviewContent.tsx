@@ -29,6 +29,10 @@ import BreadcrumbPage from "../pages/BreadcrumbPage"
 import TabsPage from "../pages/TabsPage"
 import PaginationPage from "../pages/PaginationPage"
 import LinkPage from "../pages/LinkPage"
+import ModalPage from "../pages/ModalPage"
+import PopoverPage from "../pages/PopoverPage"
+import TooltipPage from "../pages/TooltipPage"
+import DrawerPage from "../pages/DrawerPage"
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -61,6 +65,10 @@ const componentMap: any = {
   tabs:TabsPage,
   pagination:PaginationPage,
   link:LinkPage,
+  modal:ModalPage,
+  popover:PopoverPage,
+  tooltip:TooltipPage,
+  drawer:DrawerPage,
 }
 export default function PreviewContent({ activeComponent }: any) {
   const Component = componentMap[activeComponent] || Introduction

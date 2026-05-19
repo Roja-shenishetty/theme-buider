@@ -2,7 +2,7 @@
 
 import React from "react"
 import { ThemePaletteSelector } from "@/components/system/ThemePaletteSelector"
-import { ColorShowcase } from "@/components/showcase/ThemeShowCase"
+import { ThemeShowcase } from "@/components/showcase/ThemeShowCase"
 import { Typography } from "@/components/ui/typography"
 
 export default function DesignSystemPage() {
@@ -43,7 +43,7 @@ export default function DesignSystemPage() {
             <div className="h-px flex-1 bg-border" />
           </div>
           <div className="rounded-[3rem] border border-border bg-card/30 p-1">
-            <ColorShowcase />
+            <ThemeShowcase />
           </div>
         </div>
 
