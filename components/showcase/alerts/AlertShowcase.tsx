@@ -147,7 +147,8 @@ export function AlertShowcase() {
               </div>
             </ComponentWrapper>
           </ShowcaseSection>
-
+          </div>
+          <div className="grid md:grid-cols-2 gap-wide mt-12">
           <ShowcaseSection title="Filled Protocol" description="High priority alerts.">
             <ComponentWrapper title="Filled_Protocol // High_Priority" code={codeFilledProtocol}>
               <div className="space-group">

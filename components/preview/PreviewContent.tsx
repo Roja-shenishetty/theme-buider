@@ -33,6 +33,8 @@ import ModalPage from "../pages/ModalPage"
 import PopoverPage from "../pages/PopoverPage"
 import TooltipPage from "../pages/TooltipPage"
 import DrawerPage from "../pages/DrawerPage"
+import ToastPage from "../pages/ToastPage"
+import SpinnerPage from "../pages/SpinnerPage"
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -69,6 +71,8 @@ const componentMap: any = {
   popover:PopoverPage,
   tooltip:TooltipPage,
   drawer:DrawerPage,
+  toast:ToastPage,
+  spinner:SpinnerPage,
 }
 export default function PreviewContent({ activeComponent }: any) {
   const Component = componentMap[activeComponent] || Introduction

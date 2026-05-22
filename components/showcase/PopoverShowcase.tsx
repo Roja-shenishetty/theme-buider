@@ -153,9 +153,6 @@ export function PopoverShowcase() {
         <div className="inline-flex items-center gap-2 px-3 py-1 radius-full bg-primary/10 text-primary text-caption font-bold uppercase tracking-widest">
           Contextual Overlays
         </div>
-        <Typography variant="body" className="text-body-muted max-w-2xl text-lg mt-2">
-          Transient, anchor-based popovers for rapid configuration and localized data inspection.
-        </Typography>
       </header>
 
       {/* 🔹 Standard Info Popover */}

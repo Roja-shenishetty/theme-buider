@@ -24,21 +24,24 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <section className="space-section animate-fade-up">
-      <div className="flex items-center gap-3 mb-3 border-l-2 border-primary pl-4">
+    <section className="space-section animate-fade-up relative">
+      {/* Blueprint Index Marker */}
+      <div className="absolute -top-3 right-0 text-[60px] font-black opacity-[0.02] pointer-events-none select-none">
+        {title[0]}
+      </div>
+      
+      <div className="flex items-center gap-3 mb-4 border-l-2 border-primary pl-4">
         <div className="space-y-0.5">
-          <Typography variant="h3" className="text-sm font-black uppercase tracking-widest">
-            {title}
-          </Typography>
+          <h3 className="text-xs font-black uppercase tracking-widest text-primary/80">{title}</h3>
           {description && (
-            <p className="text-[10px] text-muted-foreground font-mono uppercase">
+            <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-tighter opacity-70">
               {description}
             </p>
           )}
         </div>
       </div>
 
-      <div className="card bg-muted/5 border-primary/5 p-4 md:p-6 overflow-hidden">
+      <div className="relative radius-lg border border-primary/5 bg-background/50 backdrop-blur-sm p-4 hover:border-primary/20 transition-all duration-300">
         {children}
       </div>
     </section>
@@ -50,19 +53,25 @@ export function AccordionShowcase() {
     <div className="page-container space-page">
 
       {/* 🔹 HEADER: Terminal Style */}
-      <header className="pb-8 mb-4 border-b border-primary/10 animate-fade-up">
-        <div className="flex items-center gap-3 mb-4">
-          <Zap className="text-primary w-5 h-5" />
-         
-        </div>
-        <Typography variant="body" className="max-w-2xl text-xs md:text-sm opacity-60 leading-relaxed font-medium">
-          A high-density component for managing hierarchical data. Optimized for 
-          technical documentation and hardware telemetry dashboards.
+      <header className="pb-10 border-b border-primary/10 mb-8 animate-fade-up">
+        <div className="inline-flex items-center gap-2 px-3 py-1 radius-full bg-primary/10 text-primary mb-6">
+          <Zap className="w-3 h-3" />
+          <span className="text-[10px] font-bold uppercase tracking-widest">Accordion Protocol v2.4</span>
+</div>        
+        <Typography variant="h1" className="text-h3 font-bold mb-4 tracking-tight">
+          Hierarchical Telemetry
         </Typography>
+        
+        <div className="max-w-2xl bg-muted/30 p-4 radius-md border-l-4 border-primary">
+           <Typography variant="body" className="text-sm opacity-70 leading-relaxed font-medium">
+             A high-density component for managing deep-state data. Optimized for 
+             technical documentation, hardware telemetry, and nested property configurations.
+           </Typography>
+        </div>
       </header>
 
-      {/* 🔹 SHOWCASE GRID (Compact Flow) */}
-      <div className="grid md:grid-cols-2 gap-x-6 gap-y-2">
+      {/* 🔹 SHOWCASE GRID */}
+      <div>
         <Section title="Basic" description="No separator logic">
           <BasicAccordion />
         </Section>
@@ -78,9 +87,7 @@ export function AccordionShowcase() {
         <Section title="Controlled" description="State orchestration">
           <ControlledAccordion />
         </Section>
-      </div>
 
-      <div className="space-y-4 mt-8">
         <Section title="Custom Indicator" description="Visual signal types">
           <CustomIndicatorAccordion />
         </Section>
@@ -88,50 +95,39 @@ export function AccordionShowcase() {
         <Section title="Custom Styled" description="Blueprint aesthetics">
           <CustomStyledAccordion />
         </Section>
+      </div>
 
+      <div>
         <Section title="Disabled State" description="System access lock">
           <DisabledAccordion />
         </Section>
 
-        <Section
-          title="FAQ Engine"
-          description="Real-world documentation use case"
-        >
+        <Section title="FAQ Engine" description="Real-world doc usage">
           <FAQAccordion />
         </Section>
       </div>
 
-      {/* 🔹 SYSTEM FOOTER: Guidelines */}
-      <footer className="system-footer mt-16">
-        <div className="flex items-center gap-2 mb-6">
-          <Layout className="w-4 h-4 text-primary" />
-          <h4 className="system-footer-title">Encapsulation Rules</h4>
+      {/* 🔹 SYSTEM FOOTER */}
+      <footer className="system-footer mt-20">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+             <Layout className="w-4 h-4 text-primary" />
+          </div>
+          <h4 className="text-sm font-bold uppercase tracking-widest text-primary">Encapsulation Rules</h4>
         </div>
         
-        <div className="system-footer-grid">
-          <div className="space-y-2">
-            <div className="text-[10px] font-bold opacity-50 uppercase tracking-widest text-primary">01 Flow</div>
-            <span className="system-footer-item-heading">Height Stability</span>
-            <p className="system-footer-item-text">
-              Maintain <code>overflow-hidden</code> to prevent layout shifts during async expansion.
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <div className="text-[10px] font-bold opacity-50 uppercase tracking-widest text-primary">02 Style</div>
-            <span className="system-footer-item-heading">Radius Tokens</span>
-            <p className="system-footer-item-text">
-              Apply <code>radius-md</code> for items and <code>radius-xl</code> for the master showcase container.
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <div className="text-[10px] font-bold opacity-50 uppercase tracking-widest text-primary">03 Telemetry</div>
-            <span className="system-footer-item-heading">Hardware Sync</span>
-            <p className="system-footer-item-text">
-              For ESP32 readouts, force <code>tabular-nums</code> to keep sensor data vertically aligned.
-            </p>
-          </div>
+        <div className="grid md:grid-cols-3 gap-wide">
+          {[
+            { title: "Flow", heading: "Height Stability", desc: "Maintain overflow-hidden to prevent layout shifts during async expansion." },
+            { title: "Style", heading: "Radius Tokens", desc: "Apply radius-md for items and radius-xl for the master showcase container." },
+            { title: "Telemetry", heading: "Hardware Sync", desc: "For ESP32 readouts, force tabular-nums to keep sensor data vertically aligned." }
+          ].map((item, i) => (
+            <div key={i} className="space-y-2 p-6 radius-lg bg-black/5 dark:bg-white/5 border border-primary/5">
+              <div className="text-[10px] font-bold opacity-40 uppercase tracking-widest text-primary">{item.title}</div>
+              <span className="font-bold text-lg block">{item.heading}</span>
+              <p className="text-xs opacity-70 leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </footer>
     </div>
