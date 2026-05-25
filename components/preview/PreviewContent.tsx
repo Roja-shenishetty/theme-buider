@@ -35,6 +35,12 @@ import TooltipPage from "../pages/TooltipPage"
 import DrawerPage from "../pages/DrawerPage"
 import ToastPage from "../pages/ToastPage"
 import SpinnerPage from "../pages/SpinnerPage"
+import DisclosurePage from "../pages/DisclosurePage"
+import DisclosureGroupPage from "../pages/DisclosureGroupPage"
+import SeperatorPage from "../pages/SeperatorPage"
+import ScrollShadowPage from "../pages/ScrollShadowPage"
+import SurfacePage from "../pages/SurfacePage"
+import ToolBarPage from "../pages/ToolBarPage"
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -73,6 +79,12 @@ const componentMap: any = {
   drawer:DrawerPage,
   toast:ToastPage,
   spinner:SpinnerPage,
+  disclosure:DisclosurePage,
+  disclosuregroup:DisclosureGroupPage,
+  separator:SeperatorPage,
+  scrollshadow:ScrollShadowPage,
+  surface:SurfacePage,
+  toolbar:ToolBarPage,
 }
 export default function PreviewContent({ activeComponent }: any) {
   const Component = componentMap[activeComponent] || Introduction
