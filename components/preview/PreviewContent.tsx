@@ -41,6 +41,9 @@ import SeperatorPage from "../pages/SeperatorPage"
 import ScrollShadowPage from "../pages/ScrollShadowPage"
 import SurfacePage from "../pages/SurfacePage"
 import ToolBarPage from "../pages/ToolBarPage"
+import FormPage from "../pages/FormPage"
+import LabelPage from "../pages/LabelPage"
+import FieldsetPage from "../pages/FieldsetPage"
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -85,6 +88,9 @@ const componentMap: any = {
   scrollshadow:ScrollShadowPage,
   surface:SurfacePage,
   toolbar:ToolBarPage,
+  form:FormPage,
+  label:LabelPage,
+  fieldset:FieldsetPage,
 }
 export default function PreviewContent({ activeComponent }: any) {
   const Component = componentMap[activeComponent] || Introduction
