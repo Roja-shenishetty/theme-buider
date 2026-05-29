@@ -44,6 +44,9 @@ import ToolBarPage from "../pages/ToolBarPage"
 import FormPage from "../pages/FormPage"
 import LabelPage from "../pages/LabelPage"
 import FieldsetPage from "../pages/FieldsetPage"
+import FieldErrorPage from "../pages/FieldErrorPage"
+import ErrorMessagePage from "../pages/ErrorMessagePage"
+import DescriptionPage from "../pages/DescriptionPage"
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -91,6 +94,9 @@ const componentMap: any = {
   form:FormPage,
   label:LabelPage,
   fieldset:FieldsetPage,
+  fielderror:FieldErrorPage,
+  errormessage:ErrorMessagePage,
+  description:DescriptionPage,
 }
 export default function PreviewContent({ activeComponent }: any) {
   const Component = componentMap[activeComponent] || Introduction
