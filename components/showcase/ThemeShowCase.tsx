@@ -1,99 +1,80 @@
 "use client"
 
-import React, { useState } from "react" // 🔹 Added useState for modal control
+import React, { useState } from "react"
 import { useThemeEngine } from "@/hooks/useThemeEngine"
 import { Typography } from "@/components/ui/typography"
 import { Button } from "@/components/ui/button"
-import { ThemePaletteSelector } from "../system/ThemePaletteSelector" // 🔹 Ensure this is imported
+import { ThemePaletteSelector } from "../system/ThemePaletteSelector"
+import { CustomThemeBuilder } from "@/components/system/CustomThemeBuilder" // 🔹 Ensure this path is correct
 import { 
   Zap, 
   Cpu, 
   ArrowRight, 
   ShieldCheck, 
   Workflow,
-  Palette, // 🔹 Icon for the new button
-  X        // 🔹 Icon to close the modal
+  Palette, 
+  X,
+  Settings // Added for Builder Icon
 } from "lucide-react"
 
 export function ThemeShowcase() {
   const { theme } = useThemeEngine()
-  const [isModalOpen, setIsModalOpen] = useState(false) // 🔹 Local state for the modal
+  const [isPresetsOpen, setIsPresetsOpen] = useState(false)
+  const [isBuilderOpen, setIsBuilderOpen] = useState(false) // 🔹 Builder Modal State
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-background px-6 py-12 transition-colors duration-500">
       
-      {/* 🔹 THEME PRESETS MODAL */}
-      {isModalOpen && (
+      {/* 🔹 CUSTOM THEME BUILDER MODAL */}
+      {isBuilderOpen && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" onClick={() => setIsBuilderOpen(false)} />
+          <div className="relative w-full max-w-2xl bg-background border border-border p-8 rounded-[2rem] shadow-2xl animate-in zoom-in-95">
+             <div className="flex justify-between items-center mb-6">
+                <Typography variant="h3" className="font-black">Custom Theme Workshop</Typography>
+                <Button variant="ghost" size="icon" onClick={() => setIsBuilderOpen(false)}><X /></Button>
+             </div>
+             <CustomThemeBuilder />
+          </div>
+        </div>
+      )}
+      
+      {/* 🔹 PRESETS MODAL */}
+      {isPresetsOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-300">
-          {/* Backdrop blur */}
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-lg" 
-            onClick={() => setIsModalOpen(false)} 
-          />
-          
-          {/* Modal Card */}
-          <div className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-[3rem] border border-border bg-background p-8 shadow-2xl animate-in zoom-in-95 duration-300">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-lg" onClick={() => setIsPresetsOpen(false)} />
+          <div className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-[3rem] border border-border bg-background p-8 shadow-2xl animate-in zoom-in-95">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
                 <Palette className="text-primary" size={24} />
                 <Typography variant="h3" className="font-black tracking-tight">System Presets</Typography>
               </div>
-              <Button variant="ghost" size="icon" onClick={() => setIsModalOpen(false)} className="rounded-full">
-                <X size={20} />
-              </Button>
+              <Button variant="ghost" size="icon" onClick={() => setIsPresetsOpen(false)}><X size={20} /></Button>
             </div>
-
-            {/* 🔹 The Palette Selector component rendered inside the modal */}
             <ThemePaletteSelector />
-            
-            <div className="mt-12 flex justify-center border-t border-border pt-8">
-              <Button onClick={() => setIsModalOpen(false)} className="rounded-full px-12 py-6 font-bold">
-                Finish Customizing
-              </Button>
-            </div>
           </div>
         </div>
       )}
 
-      {/* 🔹 DYNAMIC AMBIENT BACKGROUND */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div 
-          className="absolute -left-[10%] -top-[10%] h-[700px] w-[700px] animate-pulse rounded-full blur-[120px] opacity-20 transition-colors duration-1000" 
-          style={{ backgroundColor: theme.brand }}
-        />
-        <div 
-          className="absolute bottom-[20%] -right-[10%] h-[500px] w-[500px] rounded-full blur-[100px] opacity-10 transition-colors duration-1000" 
-          style={{ backgroundColor: theme.accent }}
-        />
-      </div>
-
-      {/* 🔹 HERO SECTION */}
+      {/* 🔹 HERO SECTION - Trigger Buttons */}
       <header className="flex flex-col items-center text-center animate-fade-up">
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-          <Zap className="h-3 w-3 fill-primary" />
-          Themed Foundation
-        </div>
-        
+        {/* ... (Existing Zap Header) ... */}
         <Typography variant="h1" className="text-6xl font-black leading-[0.9] tracking-tighter md:text-8xl">
           Design <span className="font-serif italic text-primary">Redefined.</span>
         </Typography>
         
-        <Typography variant="body" className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          Experience the power of a fully dynamic design system. Every element on this page 
-          is currently reactive to your <span className="font-bold text-primary">{theme.brand}</span> configuration.
-        </Typography>
-
         <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <Button className="group rounded-xl bg-primary px-8 py-6 text-lg font-bold text-primary-foreground shadow-2xl shadow-primary/30 transition-all hover:scale-105 active:scale-95">
-            Explore System
-            <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+          <Button 
+            onClick={() => setIsBuilderOpen(true)} // 🔹 Opens Builder
+            className="group rounded-xl bg-primary px-8 py-6 text-lg font-bold shadow-2xl shadow-primary/30 transition-all hover:scale-105"
+          >
+            Create Theme <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
 
-          {/* 🔹 TRIGGER BUTTON FOR MODAL */}
           <Button 
             variant="outline" 
-            onClick={() => setIsModalOpen(true)}
-            className="rounded-xl border-primary/20 px-8 py-6 text-lg hover:bg-primary/5 transition-all"
+            onClick={() => setIsPresetsOpen(true)} // 🔹 Opens Presets
+            className="rounded-xl border-primary/20 px-8 py-6 text-lg"
           >
             <Palette className="mr-2 h-5 w-5 text-primary" />
             Browse Presets

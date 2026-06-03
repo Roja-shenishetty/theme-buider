@@ -4,6 +4,7 @@ import React from "react"
 import { ThemePaletteSelector } from "@/components/system/ThemePaletteSelector"
 import { ThemeShowcase } from "@/components/showcase/ThemeShowCase"
 import { Typography } from "@/components/ui/typography"
+import { CustomThemeBuilder } from "@/components/system/CustomThemeBuilder"
 
 export default function DesignSystemPage() {
   return (
@@ -16,24 +17,31 @@ export default function DesignSystemPage() {
             System <span className="text-primary italic font-serif">Visuals</span>
           </Typography>
           <Typography variant="body" className="text-xl text-muted-foreground leading-relaxed">
-            Choose a foundation palette below. The entire design system, components, 
-            and hardware readouts will synchronize to your choice instantly.
+            Build your foundation below. Changes synchronize instantly across hardware readouts and components.
           </Typography>
         </header>
 
-        {/* 🔹 Macro Controls: Palette Selector */}
-        <div className="space-y-8">
-          <div className="flex items-center gap-4">
-            <div className="h-px flex-1 bg-border" />
-            <Typography variant="label" className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30">
-              Select Preset
-            </Typography>
-            <div className="h-px flex-1 bg-border" />
+        {/* 🔹 Controls Grid */}
+        <div className="grid lg:grid-cols-3 gap-12">
+          {/* Left: The Builder (Where you define custom colors) */}
+          <div className="lg:col-span-1">
+             <CustomThemeBuilder />
           </div>
-          <ThemePaletteSelector />
+
+          {/* Right: The Presets (Quick selection) */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px flex-1 bg-border" />
+              <Typography variant="label" className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30">
+                Preset Selection
+              </Typography>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+            <ThemePaletteSelector />
+          </div>
         </div>
 
-        {/* 🔹 Live Preview: Color Showcase */}
+        {/* 🔹 Live Preview */}
         <div className="space-y-8">
           <div className="flex items-center gap-4">
             <div className="h-px flex-1 bg-border" />
@@ -46,7 +54,6 @@ export default function DesignSystemPage() {
             <ThemeShowcase />
           </div>
         </div>
-
       </div>
     </main>
   )

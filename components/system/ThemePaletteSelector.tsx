@@ -5,7 +5,28 @@ import { useThemeEngine } from "@/hooks/useThemeEngine"
 import { Typography } from "@/components/ui/typography"
 import { Check, Palette } from "lucide-react"
 
-const PRESETS = [
+// 1. Define strict TypeScript interfaces for better IntelliSense and safety
+export interface ThemeData {
+  brand: string;
+  brandDark: string;
+  brandLight: string;
+  accent: string;
+  bgPage: string;
+  bgSurface: string;
+  textHeading: string;
+  textBody: string;
+  statusSuccess: string;
+  statusWarning: string;
+  statusDanger: string;
+}
+
+export interface ThemePreset {
+  id: string;
+  name: string;
+  data: ThemeData;
+}
+
+const PRESETS: ThemePreset[] = [
   {
     id: "midnight",
     name: "Midnight Nebula",
@@ -18,9 +39,9 @@ const PRESETS = [
       bgSurface: "#1e293b",
       textHeading: "#ffffff",
       textBody: "#94a3b8",
-      statusSuccess: "#10b981", // Emerald
-      statusWarning: "#f59e0b", // Amber
-      statusDanger: "#ef4444",  // Rose-Red
+      statusSuccess: "#10b981",
+      statusWarning: "#f59e0b",
+      statusDanger: "#ef4444",
     }
   },
   {
@@ -35,9 +56,9 @@ const PRESETS = [
       bgSurface: "#111111",
       textHeading: "#ffffff",
       textBody: "#9ca3af",
-      statusSuccess: "#00ff41", // Matrix Green
-      statusWarning: "#fdf500", // Neon Yellow
-      statusDanger: "#ff0055",  // Electric Pink
+      statusSuccess: "#00ff41",
+      statusWarning: "#fdf500",
+      statusDanger: "#ff0055",
     }
   },
   {
@@ -212,43 +233,78 @@ const PRESETS = [
   }
 ];
 
-
 export function ThemePaletteSelector() {
   const { theme, setTheme } = useThemeEngine()
 
   return (
     <section className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar p-1">
         {PRESETS.map((preset) => {
           const isActive = theme.brand === preset.data.brand;
           
           return (
-            <div 
+            <button 
               key={preset.id}
-              onClick={() => setTheme((prev: any) => ({ ...prev, ...preset.data }))}
-              className={`group relative cursor-pointer p-6 rounded-[2rem] border-2 transition-all duration-500 
-                ${isActive ? "border-primary bg-primary/5 shadow-xl" : "border-border hover:border-primary/30 bg-card"}`}
+              type="button"
+              aria-pressed={isActive}
+              // 2. Safely type the prev state
+              onClick={() => setTheme((prev: ThemeData) => ({ ...prev, ...preset.data }))}
+              // 3. Changed to <button> for accessibility, added focus rings and hover transforms
+              className={`text-left group relative w-full p-5 rounded-[1.5rem] border-2 transition-all duration-300 
+                hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background
+                ${isActive 
+                  ? "border-primary bg-primary/5 shadow-md" 
+                  : "border-border hover:border-primary/40 bg-card hover:shadow-sm"
+                }`}
             >
               {isActive && (
-                <div className="absolute top-4 right-4 bg-primary p-1 rounded-full text-white animate-in zoom-in">
-                  <Check size={12} strokeWidth={4} />
+                <div className="absolute top-4 right-4 bg-primary p-1 rounded-full text-primary-foreground shadow-sm animate-in zoom-in duration-300">
+                  <Check size={14} strokeWidth={3} />
                 </div>
               )}
               
-              <Typography variant="h4" className="font-bold mb-4">{preset.name}</Typography>
+              <Typography variant="h4" className="font-semibold text-base mb-4 pr-6">
+                {preset.name}
+              </Typography>
               
-              {/* Swatch Preview */}
-              <div className="flex gap-2 mb-6">
-                <div className="h-10 flex-1 rounded-lg shadow-sm" style={{ backgroundColor: preset.data.brand }} />
-                <div className="h-10 flex-1 rounded-lg shadow-sm" style={{ backgroundColor: preset.data.accent }} />
-                <div className="h-10 flex-1 rounded-lg border border-black/5 shadow-sm" style={{ backgroundColor: preset.data.bgPage }} />
+              {/* 4. Mini App-Layout Preview (Much better UX context than plain swatches) */}
+              <div 
+                className="h-24 w-full rounded-xl border border-black/10 dark:border-white/10 mb-4 overflow-hidden flex flex-col shadow-inner"
+                style={{ backgroundColor: preset.data.bgPage }}
+                aria-hidden="true"
+              >
+                {/* Header mock */}
+                <div 
+                  className="h-5 w-full flex items-center px-2 border-b border-black/5 dark:border-white/5" 
+                  style={{ backgroundColor: preset.data.bgSurface }}
+                >
+                  <div className="w-12 h-1.5 rounded-full" style={{ backgroundColor: preset.data.textHeading, opacity: 0.8 }} />
+                </div>
+                
+                {/* Body mock */}
+                <div className="flex flex-1 p-2 gap-2">
+                  {/* Sidebar mock */}
+                  <div className="w-5 h-full rounded-md shadow-sm" style={{ backgroundColor: preset.data.brand }} />
+                  
+                  {/* Content area mock */}
+                  <div className="flex-1 flex flex-col gap-1.5 py-1">
+                    <div className="h-2 w-2/3 rounded-full" style={{ backgroundColor: preset.data.textHeading }} />
+                    <div className="h-1.5 w-full rounded-full" style={{ backgroundColor: preset.data.textBody, opacity: 0.7 }} />
+                    <div className="h-1.5 w-4/5 rounded-full" style={{ backgroundColor: preset.data.textBody, opacity: 0.7 }} />
+                    
+                    {/* Action button mock */}
+                    <div className="mt-auto h-4 w-10 rounded-md shadow-sm" style={{ backgroundColor: preset.data.accent }} />
+                  </div>
+                </div>
               </div>
 
-              <div className="flex justify-between items-center opacity-60 group-hover:opacity-100 transition-opacity">
-                <span className="text-[10px] font-mono font-bold tracking-widest uppercase">Apply Preset</span>
+              <div className="flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="text-[11px] font-mono font-semibold tracking-wider uppercase text-muted-foreground">
+                  Apply Theme
+                </span>
                 <Palette size={14} className="text-primary" />
               </div>
-            </div>
+            </button>
           )
         })}
       </div>
