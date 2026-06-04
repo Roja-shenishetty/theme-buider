@@ -47,6 +47,15 @@ import FieldsetPage from "../pages/FieldsetPage"
 import FieldErrorPage from "../pages/FieldErrorPage"
 import ErrorMessagePage from "../pages/ErrorMessagePage"
 import DescriptionPage from "../pages/DescriptionPage"
+import KbdPage from "../pages/KbdPage"
+import CloseButtonPage from "../pages/CloseButtonPage"
+import InputPage from "../pages/InputPage"
+import InputGroupPage from "../pages/InputGroupPage"
+import InputOtpPage from "../pages/InputOtpPage"
+import TextAreaPage from "../pages/TextAreaPage"
+import TextFieldPage from "../pages/TextFieldPage"
+import NumberFieldPage from "../pages/NumberFieldPage"
+import SearchFieldPage from "../pages/SearchFieldPage"
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -97,6 +106,15 @@ const componentMap: any = {
   fielderror:FieldErrorPage,
   errormessage:ErrorMessagePage,
   description:DescriptionPage,
+  kbd:KbdPage,
+  closebutton:CloseButtonPage,
+  input:InputPage,
+  inputgroup:InputGroupPage,
+  inputotp:InputOtpPage,
+  textarea:TextAreaPage,
+  textfield:TextFieldPage,
+  numberfield:NumberFieldPage,
+  searchfield:SearchFieldPage,
 }
 export default function PreviewContent({ activeComponent }: any) {
   const Component = componentMap[activeComponent] || Introduction
