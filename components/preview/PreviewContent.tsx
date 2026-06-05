@@ -56,6 +56,10 @@ import TextAreaPage from "../pages/TextAreaPage"
 import TextFieldPage from "../pages/TextFieldPage"
 import NumberFieldPage from "../pages/NumberFieldPage"
 import SearchFieldPage from "../pages/SearchFieldPage"
+import SelectPage from "../pages/SelectPage"
+import ComboboxPage from "../pages/ComboboxPage"
+import AutocompletePage from "../pages/AutocompletePage"
+import DateFieldPage from "../pages/DateFieldPage"
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -115,6 +119,10 @@ const componentMap: any = {
   textfield:TextFieldPage,
   numberfield:NumberFieldPage,
   searchfield:SearchFieldPage,
+  select:SelectPage,
+  combobox:ComboboxPage,
+  autocomplete:AutocompletePage,
+  datefield:DateFieldPage,
 }
 export default function PreviewContent({ activeComponent }: any) {
   const Component = componentMap[activeComponent] || Introduction
