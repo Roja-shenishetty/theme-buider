@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import ControlsPanel from "@/components/builder/sidebar/ControlsPanel"
 import { useApplyTheme } from "@/lib/useTheme"
 import PreviewLayout from "@/components/preview/PreviewLayout"
+import { Menu } from "lucide-react"
 
 export default function Page() {
   const [mounted, setMounted] = useState(false)
@@ -31,7 +32,6 @@ export default function Page() {
     },
   })
 
-  // hydration safe
   useEffect(() => {
     setMounted(true)
     const saved = localStorage.getItem("sidebar")
@@ -53,9 +53,7 @@ export default function Page() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setIsSidebarOpen(false)
-      }
+      if (window.innerWidth < 768) setIsSidebarOpen(false)
     }
     handleResize()
     window.addEventListener("resize", handleResize)
@@ -66,16 +64,22 @@ export default function Page() {
 
   if (!mounted) return null
 
+  const isComponentsActive = activeMenu === "components";
+
   return (
     <div className="flex h-screen overflow-hidden bg-background">
 
-      {/* ☰ Toggle (mobile) */}
+      {/* 🔹 Toggle (mobile) */}
       {!isSidebarOpen && (
         <button
           onClick={() => setIsSidebarOpen(true)}
-          className="fixed top-4 left-4 z-50 md:hidden h-10 w-10 flex items-center justify-center rounded-xl bg-primary text-white shadow-lg"
+          className="fixed top-5 left-5 z-50 md:hidden h-12 w-14 flex items-center justify-center rounded-full 
+                     bg-background/80 backdrop-blur-md border border-primary/20 text-foreground 
+                     shadow-[0_4px_12px_-2px_rgba(0,0,0,0.1)] hover:shadow-lg hover:border-primary/40 
+                     active:scale-95 transition-all duration-300 ease-out"
+          aria-label="Open Menu"
         >
-          ☰
+          <Menu className="w-6 h-6 text-primary transition-transform duration-300 group-hover:rotate-180" />
         </button>
       )}
 
@@ -83,36 +87,33 @@ export default function Page() {
       {isSidebarOpen && (
         <div
           onClick={() => setIsSidebarOpen(false)}
-          className="fixed inset-0 bg-black/30 z-30 md:hidden"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 md:hidden transition-opacity duration-300"
         />
       )}
 
-      {/* ✅ Sidebar */}
+      {/* ✅ Sidebar Wrapper */}
       <div
-  className={`
-    fixed md:relative z-40
-    w-64 h-full shrink-0
-    bg-background border-r
-    transform transition-transform duration-300
-    ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-  `}
->
-  <div className="h-full overflow-y-auto hide-scrollbar">
-    <ControlsPanel
-      activeMenu={activeMenu}
-      setActiveMenu={setActiveMenu}
-      activeComponent={activeComponent}
-      setActiveComponent={setActiveComponent}
-      isSidebarOpen={isSidebarOpen}
-      setIsSidebarOpen={setIsSidebarOpen}
-    />
-  </div>
-</div>
+        className={`
+          fixed md:relative z-40
+          h-full shrink-0
+          bg-background border-r
+          transform transition-all duration-300 ease-in-out
+          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+          ${isComponentsActive ? "w-[192px]" : "w-20"} 
+        `}
+      >
+        <div className="h-full overflow-y-auto hide-scrollbar">
+          <ControlsPanel
+            activeMenu={activeMenu}
+            setActiveMenu={setActiveMenu}
+            activeComponent={activeComponent}
+            setActiveComponent={setActiveComponent}
+          />
+        </div>
+      </div>
 
       {/* ✅ Main Content */}
       <div className="flex-1 flex flex-col">
-
-        {/* Scroll container (ONLY ONE) */}
         <div
           className="flex-1 overflow-y-auto hide-scrollbar"
           onClick={() => {
@@ -120,30 +121,17 @@ export default function Page() {
           }}
         >
           <div className="p-4 md:p-8 lg:p-10 w-full max-w-[1600px]">
-
-            {/* 📱 Mobile preview */}
             <div className="block md:hidden">
               <div className="max-w-sm mx-auto border rounded-2xl shadow-lg overflow-hidden">
-                <PreviewLayout
-                  type="mobile"
-                  activeComponent={activeComponent}
-                />
+                <PreviewLayout type="mobile" activeComponent={activeComponent} />
               </div>
             </div>
-
-            {/* 💻 Desktop preview */}
             <div className="hidden md:block">
-              <PreviewLayout
-                type="desktop"
-                activeComponent={activeComponent}
-              />
+              <PreviewLayout type="desktop" activeComponent={activeComponent} />
             </div>
-
           </div>
         </div>
-
       </div>
-
     </div>
   )
 }

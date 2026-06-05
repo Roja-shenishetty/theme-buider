@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Typography } from "@/components/ui/typography"
 import { ThemeEditorPanel } from "./../../system/ThemeEditorPanel"
+import { ChevronDown } from "lucide-react"
 
 type Props = {
   activeMenu: string
@@ -11,6 +12,7 @@ type Props = {
 }
 
 export default function SecondarySidebar({ activeMenu, activeComponent, setActiveComponent }: Props) {
+  // Default to keeping Foundations open
   const [openSection, setOpenSection] = useState<string | null>("Foundations")
 
    const data: any = {
@@ -161,13 +163,20 @@ export default function SecondarySidebar({ activeMenu, activeComponent, setActiv
     ],
   }
 
-  const sections = data[activeMenu] || []
+ const sections = data[activeMenu] || []
 
-return (
-    <div className="w-64 bg-background border-r h-full flex flex-col hide-scrollbar overflow-y-auto">
+  // 🚨 CRITICAL FIX: If there is no data for this menu, abort render.
+  // This completely removes the 64-width white background from the screen.
+  if (sections.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="w-48 bg-background border-r h-full flex flex-col hide-scrollbar overflow-y-auto">
       <div className="p-4 space-group">
         
         {sections.map((section: any) => (
+
           <div key={section.title} className="sidebar-menu">
             <div
               onClick={() => setOpenSection(openSection === section.title ? null : section.title)}
@@ -180,33 +189,32 @@ return (
 
             {openSection === section.title && (
               <div className="sidebar-list mt-1 space-y-1">
-           {section.children.map((item: any) => (
-  <div key={item.id}>
-    <div
-  onClick={() => setActiveComponent(item.id)}
-  className={`sidebar-link flex justify-between items-center transition-all duration-200 
-    ${activeComponent === item.id ? "active bg-primary/10" : "hover:bg-primary/5"}`}
->
-  <Typography 
-    variant="small" 
-    className={`transition-colors duration-200 ${
-      activeComponent === item.id 
-        ? "text-black font-black" // 🔹 Hardcoded Black for max contrast
-        : "text-muted-foreground font-medium"
-    }`}
-  >
-    {item.name}
-  </Typography>
-    {activeComponent === item.id && <div className="w-1 h-1 animate-in fade-in" />}
-  </div>
+                {section.children.map((item: any) => (
+                  <div key={item.id}>
+                    <div
+                      onClick={() => setActiveComponent(item.id)}
+                      className={`sidebar-link flex justify-between items-center transition-all duration-200 
+                        ${activeComponent === item.id ? "active bg-primary/10" : "hover:bg-primary/5"}`}
+                    >
+                      <Typography 
+                        variant="small" 
+                        className={`transition-colors duration-200 ${
+                          activeComponent === item.id 
+                            ? "text-black font-black" // 🔹 Hardcoded Black for max contrast
+                            : "text-muted-foreground font-medium"
+                        }`}
+                      >
+                        {item.name}
+                      </Typography>
+                      {activeComponent === item.id && <div className="w-1 h-1 animate-in fade-in" />}
+                    </div>
 
-  {/* 🔹 THEME EDITOR: Now wrapped in a distinct, padded container */}
-  {item.id === "theme" && activeComponent === "theme" && (
-    <div className="my-1 rounded bg-muted/30 shadow-sm animate-in slide-in-from-left-2">
-       <ThemeEditorPanel />
-  </div>
+                    {/* 🔹 THEME EDITOR: Now wrapped in a distinct, padded container */}
+                    {item.id === "theme" && activeComponent === "theme" && (
+                      <div className="my-1 rounded bg-muted/30 shadow-sm animate-in slide-in-from-left-2">
+                        <ThemeEditorPanel />
+                      </div>
                     )}
-
                   </div>
                 ))}
               </div>
