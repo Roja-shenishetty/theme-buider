@@ -60,6 +60,17 @@ import SelectPage from "../pages/SelectPage"
 import ComboboxPage from "../pages/ComboboxPage"
 import AutocompletePage from "../pages/AutocompletePage"
 import DateFieldPage from "../pages/DateFieldPage"
+import DateRangePickerPage from "../pages/DateRangePickerPage"
+import DatePickerPage from "../pages/DatePickerPage"
+import TimeFieldPage from "../pages/TimeFieldPage"
+import SliderPage from "../pages/SliderPage"
+import SwitchPage from "../pages/SwitchPage"
+import ColorPickerPage from "../pages/ColorPickerPage"
+import ColorFieldPage from "../pages/ColorFieldPage"
+import ColorAreaPage from "../pages/ColorAreaPage"
+import ColorSliderPage from "../pages/ColorSliderPage"
+import ColorSwatchPage from "../pages/ColorSwatchPage"
+import ColorSwatchPickerPage from "../pages/ColorSwatchPickerPage"
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -123,6 +134,17 @@ const componentMap: any = {
   combobox:ComboboxPage,
   autocomplete:AutocompletePage,
   datefield:DateFieldPage,
+  datepicker:DatePickerPage,
+  daterangepicker:DateRangePickerPage,
+  timefield:TimeFieldPage,
+  slider:SliderPage,
+  switch:SwitchPage,
+  colorpicker:ColorPickerPage,
+  colorfield:ColorFieldPage,
+  colorarea:ColorAreaPage,
+  colorslider:ColorSliderPage,
+  colorswatch:ColorSwatchPage,
+  colorswatchpicker:ColorSwatchPickerPage,
 }
 export default function PreviewContent({ activeComponent }: any) {
   const Component = componentMap[activeComponent] || Introduction
