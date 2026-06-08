@@ -71,6 +71,10 @@ import ColorAreaPage from "../pages/ColorAreaPage"
 import ColorSliderPage from "../pages/ColorSliderPage"
 import ColorSwatchPage from "../pages/ColorSwatchPage"
 import ColorSwatchPickerPage from "../pages/ColorSwatchPickerPage"
+import FoundationsPage from "../pages/FoundationsPage"
+import DevelopPage from "../pages/DevelopPage"
+import GettingStartedPage from "../pages/GettingStartedPage"
+import ArchitecturePage from "../pages/ArchitecturePage"
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -145,8 +149,13 @@ const componentMap: any = {
   colorslider:ColorSliderPage,
   colorswatch:ColorSwatchPage,
   colorswatchpicker:ColorSwatchPickerPage,
+  foundations:FoundationsPage,
+  develop:DevelopPage,
+  gettingstarted:GettingStartedPage,
+  architecture:ArchitecturePage,
 }
 export default function PreviewContent({ activeComponent }: any) {
+  // If activeComponent is not found in the map, it safely falls back to Introduction
   const Component = componentMap[activeComponent] || Introduction
   return <Component />
 }

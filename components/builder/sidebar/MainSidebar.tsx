@@ -1,14 +1,14 @@
 "use client"
 
-import { BookOpen, Rocket, Code, Palette, Boxes } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { BookOpen, Rocket, Code, Palette, Boxes,Scale } from "lucide-react"
 
 const menu = [
   { id: "intro", icon: BookOpen },
-  { id: "getting-started", icon: Rocket },
+  { id: "gettingstarted", icon: Rocket },
   { id: "develop", icon: Code },
   { id: "foundations", icon: Palette },
   { id: "components", icon: Boxes },
+  { id: "architecture", icon: Scale },
 ]
 
 type Props = {
@@ -34,13 +34,14 @@ export default function MainSidebar({
               key={item.id}
               onClick={() => {
                 setActiveMenu(item.id)
-                // Logic to set default component per menu
+                
+                // 🔹 FIX: Map directly to the keys available in PreviewContent
                 if (item.id === "components") {
                   setActiveComponent("button")
                 } else if (item.id === "foundations") {
-                  setActiveComponent("theme-editor")
+                  setActiveComponent("foundations") // Changed from "theme-editor"
                 } else {
-                  setActiveComponent("intro")
+                  setActiveComponent(item.id) // Dynamically routes "intro", "develop", etc.
                 }
               }}
               className={`sidebar-icon ${isActive ? "active" : ""}`}
