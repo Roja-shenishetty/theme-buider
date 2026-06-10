@@ -1,6 +1,6 @@
 "use client"
 
-import { BookOpen, Rocket, Code, Palette, Boxes,Scale } from "lucide-react"
+import { BookOpen, Rocket, Code, Palette, Boxes,Scale,TestTube } from "lucide-react"
 
 const menu = [
   { id: "intro", icon: BookOpen },
@@ -9,6 +9,7 @@ const menu = [
   { id: "foundations", icon: Palette },
   { id: "components", icon: Boxes },
   { id: "architecture", icon: Scale },
+  { id:"test", icon:TestTube }
 ]
 
 type Props = {

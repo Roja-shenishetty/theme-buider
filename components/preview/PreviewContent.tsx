@@ -75,6 +75,7 @@ import FoundationsPage from "../pages/FoundationsPage"
 import DevelopPage from "../pages/DevelopPage"
 import GettingStartedPage from "../pages/GettingStartedPage"
 import ArchitecturePage from "../pages/ArchitecturePage"
+import testPage from "../pages/testPage"
 
 const componentMap: any = {
   intro: IntroductionPage,
@@ -153,6 +154,7 @@ const componentMap: any = {
   develop:DevelopPage,
   gettingstarted:GettingStartedPage,
   architecture:ArchitecturePage,
+  test:testPage,
 }
 export default function PreviewContent({ activeComponent }: any) {
   // If activeComponent is not found in the map, it safely falls back to Introduction
